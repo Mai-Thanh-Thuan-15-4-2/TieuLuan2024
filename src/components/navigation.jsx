@@ -17,50 +17,40 @@ export const Navigation = (props) => {
             <span className="icon-bar"></span>{" "}
             <span className="icon-bar"></span>{" "}
           </button>
-          <a className="navbar-brand page-scroll" href="#page-top">
-            React Landing Page
-          </a>{" "}
+          <img src='img/logo.gif' alt="Logo" onClick={() => window.scrollTo(0, 0)} style={{height: '5em', width: 'auto', position: 'fixed', marginTop: '-1em', cursor: 'pointer'}}/>
         </div>
-
         <div
           className="collapse navbar-collapse"
           id="bs-example-navbar-collapse-1"
         >
           <ul className="nav navbar-nav navbar-right">
             <li>
-              <a href="#features" className="page-scroll">
-                Features
+              <a href="#page-top" className="page-scroll">
+                Trang chủ
               </a>
             </li>
             <li>
               <a href="#about" className="page-scroll">
-                About
+                Giới thiệu
               </a>
             </li>
             <li>
-              <a href="#services" className="page-scroll">
-                Services
+              <a href="#examonline" className="page-scroll">
+                Làm kiểm tra
               </a>
             </li>
             <li>
-              <a href="#portfolio" className="page-scroll">
-                Gallery
+              <a href="#documents" className="page-scroll">
+                Tài liệu
               </a>
             </li>
             <li>
               <a href="#testimonials" className="page-scroll">
-                Testimonials
+                Tiện ích
               </a>
             </li>
             <li>
-              <a href="#team" className="page-scroll">
-                Team
-              </a>
-            </li>
-            <li>
-              <a href="#contact" className="page-scroll">
-                Contact
-              </a>
+             <button className="btn-signin">Đăng nhập</button>
             </li>
           </ul>
         </div>

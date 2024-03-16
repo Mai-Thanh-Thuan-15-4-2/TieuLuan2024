@@ -1,21 +1,21 @@
 {
   "Header": {
-    "title": "We are a Landing Page",
-    "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sed commodo nibh ante facilisis bibendum."
+    "title": "Hệ thống tài liệu & kiểm tra trực tuyến",
+    "paragraph": "Nơi chia sẻ tài liệu, cùng nhau học tập, nâng cao tri thức hiệu quả và nhanh chóng, hãy cùng chúng tôi cải thiện việc học của các bạn."
   },
   "About": {
-    "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "paragraph": "Với mục đích nâng cao khả năng tự học của sinh viên, tạo một môi trường để học sinh và giáo viên có thể chia sẻ tài liệu và hỗ trợ việc giảng dạy trở nên nhanh chóng và hiệu quả hơn.",
     "Why": [
-      "Lorem ipsum dolor",
-      "Tempor incididunt",
-      "Lorem ipsum dolor",
-      "Incididunt ut labore"
+      "Học tập trực tuyến",
+      "Chia sẻ tài liệu",
+      "Làm kiểm tra trực tuyến",
+      "Tham khảo nhiều câu hỏi"
     ],
     "Why2": [
-      "Aliquip ex ea commodo",
-      "Lorem ipsum dolor",
-      "Exercitation ullamco",
-      "Lorem ipsum dolor"
+      "Bảo mật câu hỏi của giáo viên",
+      "Kiểm duyệt tài liệu kĩ càng",
+      "Tạo đề thi nhanh chóng",
+      "Thống kê tần suất của câu hỏi"
     ]
   },
   "Gallery": [
@@ -65,7 +65,7 @@
       "smallImage": "img/portfolio/09-small.jpg"
     }
   ],
-  "Services": [
+  "Documents": [
     {
       "icon": "fa fa-wordpress",
       "name": "Lorem ipsum dolor",
@@ -159,26 +159,2392 @@
     "twitter": "twitter.com",
     "youtube": "youtube.com"
   },
-  "Features": [
-    {
-      "icon": "fa fa-comments-o",
-      "title": "Lorem ipsum",
-      "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
-    },
-    {
-      "icon": "fa fa-bullhorn",
-      "title": "Lorem ipsum",
-      "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
-    },
-    {
-      "icon": "fa fa-group",
-      "title": "Lorem ipsum",
-      "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
-    },
-    {
-      "icon": "fa fa-magic",
-      "title": "Lorem ipsum",
-      "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
-    }
-  ]
+  "Exams": {
+    "basic": [
+      {
+        "id": "1001",
+        "img": "img/basicexam/word.png",
+        "title": "MS Word",
+        "text": "Ứng dụng xử lý văn bản phổ biến.",
+        "questions": [
+          {
+            "id": "q1",
+            "level": "1",
+            "text": "Microsoft Word thuộc phần mềm nào?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Microsoft Windows"
+              },
+              {
+                "id": "a2",
+                "text": "Adobe Photoshop"
+              },
+              {
+                "id": "a3",
+                "text": "Google Chrome"
+              },
+              {
+                "id": "a4",
+                "text": "Microsoft Office",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "q2",
+            "level": "1",
+            "text": " Để mở một tài liệu mới trong Word, bạn sử dụng tổ hợp phím nào?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Ctrl + N",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Ctrl + O"
+              },
+              {
+                "id": "a3",
+                "text": "Ctrl + S"
+              },
+              {
+                "id": "a4",
+                "text": "Ctrl + P"
+              }
+            ]
+          },
+          {
+            "id": "q3",
+            "level": "1",
+            "text": "Để lưu một tài liệu trong Word, bạn sử dụng tổ hợp phím nào?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Ctrl + N"
+              },
+              {
+                "id": "a2",
+                "text": "Ctrl + O"
+              },
+              {
+                "id": "a3",
+                "text": "Ctrl + S",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Ctrl + P"
+              }
+            ]
+          },
+          {
+            "id": "q4",
+            "level": "1",
+            "text": "Trong Word, công cụ “Bold” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Làm đậm chữ",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "In nghiêng chữ"
+              },
+              {
+                "id": "a3",
+                "text": "Gạch chân chữ"
+              },
+              {
+                "id": "a4",
+                "text": "Gạch ngang chữ"
+              }
+            ]
+          },
+          {
+            "id": "q5",
+            "level": "1",
+            "text": "Trong Word, công cụ “Italic” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Làm đậm chữ"
+              },
+              {
+                "id": "a2",
+                "text": "In nghiêng chữ",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Gạch chân chữ"
+              },
+              {
+                "id": "a4",
+                "text": "Gạch ngang chữ"
+              }
+            ]
+          },
+          {
+            "id": "q6",
+            "level": "1",
+            "text": "Trong Word, công cụ “Underline” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Làm đậm chữ"
+              },
+              {
+                "id": "a2",
+                "text": "In nghiêng chữ"
+              },
+              {
+                "id": "a3",
+                "text": "Gạch chân chữ",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Gạch ngang chữ"
+              }
+            ]
+          },
+          {
+            "id": "q7",
+            "level": "1",
+            "text": "Trong Word, công cụ “Strikethrough” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Làm đậm chữ"
+              },
+              {
+                "id": "a2",
+                "text": "In nghiêng chữ"
+              },
+              {
+                "id": "a3",
+                "text": "Gạch chân chữ"
+              },
+              {
+                "id": "a4",
+                "text": "Gạch ngang chữ",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "q8",
+            "level": "1",
+            "text": "Trong Word, công cụ “Subscript” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo chữ viết dưới dòng",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Tạo chữ viết trên dòng"
+              },
+              {
+                "id": "a3",
+                "text": "Tô sáng chữ"
+              },
+              {
+                "id": "a4",
+                "text": "Thay đổi màu chữ"
+              }
+            ]
+          },
+          {
+            "id": "q9",
+            "level": "1",
+            "text": "Trong Word, công cụ “Superscript” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo chữ viết dưới dòng"
+              },
+              {
+                "id": "a2",
+                "text": "Tạo chữ viết trên dòng",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Tô sáng chữ"
+              },
+              {
+                "id": "a4",
+                "text": "Thay đổi màu chữ"
+              }
+            ]
+          },
+          {
+            "id": "q10",
+            "level": "1",
+            "text": "Trong Word, công cụ “Highlight” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tô sáng chữ",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Thay đổi màu chữ"
+              },
+              {
+                "id": "a3",
+                "text": "Căn lề trái cho văn bản"
+              },
+              {
+                "id": "a4",
+                "text": "Căn giữa cho văn bản"
+              }
+            ]
+          },
+          {
+            "id": "q11",
+            "level": "1",
+            "text": "Trong Word, công cụ “Font Color” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tô sáng chữ"
+              },
+              {
+                "id": "a2",
+                "text": "Thay đổi màu chữ",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Căn lề trái cho văn bản"
+              },
+              {
+                "id": "a4",
+                "text": "Căn giữa cho văn bản"
+              }
+            ]
+          },
+          {
+            "id": "q12",
+            "level": "1",
+            "text": "Trong Word, công cụ “Align Text Left” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Căn lề trái cho văn bản",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Căn lề phải cho văn bản"
+              },
+              {
+                "id": "a3",
+                "text": "Căn lề đều cho văn bản"
+              },
+              {
+                "id": "a4",
+                "text": "Căn lề canh lề cho văn bản"
+              }
+            ]
+          },
+          {
+            "id": "q13",
+            "level": "1",
+            "text": "Trong Word, công cụ “Center” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Căn lề trái cho văn bản"
+              },
+              {
+                "id": "a2",
+                "text": "Căn lề phải cho văn bản"
+              },
+              {
+                "id": "a3",
+                "text": "Căn giữa cho văn bản",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Căn lề canh lề cho văn bản"
+              }
+            ]
+          },
+          {
+            "id": "q14",
+            "level": "1",
+            "text": "Trong Word, công cụ “Align Text Right” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Căn lề trái cho văn bản"
+              },
+              {
+                "id": "a2",
+                "text": "Căn lề phải cho văn bản",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Căn đều hai lề cho văn bản"
+              },
+              {
+                "id": "a4",
+                "text": "Căn lề canh lề cho văn bản"
+              }
+            ]
+          },
+          {
+            "id": "q15",
+            "level": "1",
+            "text": "Trong Word, công cụ “Justify” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Căn lề trái cho văn bản"
+              },
+              {
+                "id": "a2",
+                "text": "Căn lề phải cho văn bản"
+              },
+              {
+                "id": "a3",
+                "text": "Căn đều hai lề cho văn bản",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Căn lề canh lề cho văn bản"
+              }
+            ]
+          },
+          {
+            "id": "q16",
+            "level": "1",
+            "text": "Trong Word, công cụ “Bullets” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo danh sách có thứ tự"
+              },
+              {
+                "id": "a2",
+                "text": "Tạo danh sách không thứ tự",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Tạo khoảng cách đầu dòng"
+              },
+              {
+                "id": "a4",
+                "text": "Giảm khoảng cách đầu dòng"
+              }
+            ]
+          },
+          {
+            "id": "q17",
+            "level": "1",
+            "text": "Trong Word, công cụ “Numbering” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo danh sách không thứ tự"
+              },
+              {
+                "id": "a2",
+                "text": "Tạo danh sách có thứ tự",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Tạo khoảng cách đầu dòng"
+              },
+              {
+                "id": "a4",
+                "text": "Giảm khoảng cách đầu dòng"
+              }
+            ]
+          },
+          {
+            "id": "q18",
+            "level": "1",
+            "text": "Trong Word, công cụ “Indent” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo danh sách không thứ tự"
+              },
+              {
+                "id": "a2",
+                "text": "Tạo danh sách có thứ tự"
+              },
+              {
+                "id": "a3",
+                "text": "Tạo khoảng cách đầu dòng",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Giảm khoảng cách đầu dòng"
+              }
+            ]
+          },
+          {
+            "id": "q19",
+            "level": "1",
+            "text": "Trong Word, công cụ “Outdent” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo danh sách không thứ tự"
+              },
+              {
+                "id": "a2",
+                "text": "Tạo danh sách có thứ tự"
+              },
+              {
+                "id": "a3",
+                "text": "Tạo khoảng cách đầu dòng"
+              },
+              {
+                "id": "a4",
+                "text": "Giảm khoảng cách đầu dòng",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "q20",
+            "level": "1",
+            "text": "Trong Word, công cụ “Insert Table” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn hình ảnh vào tài liệu"
+              },
+              {
+                "id": "a2",
+                "text": "Chèn bảng vào tài liệu",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Chèn liên kết web vào tài liệu"
+              },
+              {
+                "id": "a4",
+                "text": "Chèn tiêu đề vào tài liệu"
+              }
+            ]
+          },
+          {
+            "id": "q21",
+            "level": "1",
+            "text": "Trong Word, công cụ “Insert Picture” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn bảng vào tài liệu"
+              },
+              {
+                "id": "a2",
+                "text": "Chèn hình ảnh vào tài liệu",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Chèn liên kết web vào tài liệu"
+              },
+              {
+                "id": "a4",
+                "text": "Chèn tiêu đề vào tài liệu"
+              }
+            ]
+          },
+          {
+            "id": "q22",
+            "level": "1",
+            "text": "Trong Word, công cụ “Insert Hyperlink” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn bảng vào tài liệu"
+              },
+              {
+                "id": "a2",
+                "text": "Chèn hình ảnh vào tài liệu"
+              },
+              {
+                "id": "a3",
+                "text": "Chèn liên kết web vào tài liệu",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Chèn tiêu đề vào tài liệu"
+              }
+            ]
+          },
+          {
+            "id": "q23",
+            "level": "1",
+            "text": "Trong Word, công cụ “Insert Header” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn chân trang vào tài liệu"
+              },
+              {
+                "id": "a2",
+                "text": "Chèn tiêu đề vào tài liệu",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Chèn số trang vào tài liệu"
+              },
+              {
+                "id": "a4",
+                "text": "Chèn hình ảnh vào tài liệu"
+              }
+            ]
+          },
+          {
+            "id": "q24",
+            "level": "1",
+            "text": "Trong Word, công cụ “Insert Footer” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn tiêu đề vào tài liệu"
+              },
+              {
+                "id": "a2",
+                "text": "Chèn chân trang vào tài liệu",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Chèn số trang vào tài liệu"
+              },
+              {
+                "id": "a4",
+                "text": "Chèn hình ảnh vào tài liệu"
+              }
+            ]
+          },
+          {
+            "id": "q25",
+            "level": "1",
+            "text": "Trong Word, công cụ “Insert Page Number” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn tiêu đề vào tài liệu"
+              },
+              {
+                "id": "a2",
+                "text": "Chèn chân trang vào tài liệu"
+              },
+              {
+                "id": "a3",
+                "text": "Chèn số trang vào tài liệu",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Chèn hình ảnh vào tài liệu"
+              }
+            ]
+          },
+          {
+            "id": "q26",
+            "level": "1",
+            "text": "Trong Word, công cụ “Spell Check” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Theo dõi các thay đổi trong tài liệu"
+              },
+              {
+                "id": "a2",
+                "text": "Kiểm tra chính tả trong tài liệu",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "In tài liệu"
+              },
+              {
+                "id": "a4",
+                "text": "Phóng to hoặc thu nhỏ tài liệu"
+              }
+            ]
+          },
+          {
+            "id": "q27",
+            "level": "1",
+            "text": "Trong Word, công cụ “Track Changes” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Kiểm tra chính tả trong tài liệu"
+              },
+              {
+                "id": "a2",
+                "text": "Theo dõi các thay đổi trong tài liệu",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "In tài liệu"
+              },
+              {
+                "id": "a4",
+                "text": "Phóng to hoặc thu nhỏ tài liệu"
+              }
+            ]
+          },
+          {
+            "id": "q28",
+            "level": "1",
+            "text": "Trong Word, công cụ “Print” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Kiểm tra chính tả trong tài liệu"
+              },
+              {
+                "id": "a2",
+                "text": "Theo dõi các thay đổi trong tài liệu"
+              },
+              {
+                "id": "a3",
+                "text": "In tài liệu",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Phóng to hoặc thu nhỏ tài liệu"
+              }
+            ]
+          },
+          {
+            "id": "q29",
+            "level": "1",
+            "text": "Trong Word, công cụ “Zoom” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Cung cấp hướng dẫn sử dụng Word"
+              },
+              {
+                "id": "a2",
+                "text": "Phóng to hoặc thu nhỏ tài liệu",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Kiểm tra chính tả trong tài liệu"
+              },
+              {
+                "id": "a4",
+                "text": "Theo dõi các thay đổi trong tài liệu"
+              }
+            ]
+          },
+          {
+            "id": "q30",
+            "level": "1",
+            "text": "Trong Word, công cụ “Help” có chức năng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Phóng to hoặc thu nhỏ tài liệu"
+              },
+              {
+                "id": "a2",
+                "text": "Kiểm tra chính tả trong tài liệu"
+              },
+              {
+                "id": "a3",
+                "text": "Cung cấp hướng dẫn sử dụng Word",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Theo dõi các thay đổi trong tài liệu"
+              }
+            ]
+          },
+          {
+            "id": "q31",
+            "level": "2",
+            "text": "Trong Word, công cụ “Cut” (Ctrl+X) và “Copy” (Ctrl+C) có sự khác biệt gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "“Cut” sẽ xóa văn bản đã chọn khỏi vị trí hiện tại và lưu vào clipboard, trong khi “Copy” sẽ giữ lại văn bản và sao chép nó vào clipboard.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "“Copy” sẽ xóa văn bản đã chọn khỏi vị trí hiện tại và lưu vào clipboard, trong khi “Cut” sẽ giữ lại văn bản và sao chép nó vào clipboard."
+              },
+              {
+                "id": "a3",
+                "text": "Cả hai công cụ đều có chức năng tương tự."
+              },
+              {
+                "id": "a4",
+                "text": "Không có sự khác biệt giữa “Cut” và “Copy”."
+              }
+            ]
+          },
+          {
+            "id": "q32",
+            "level": "2",
+            "text": "Khi nào bạn nên sử dụng công cụ “Paste Special” trong Word?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Khi bạn muốn dán nội dung từ clipboard nhưng muốn kiểm soát định dạng của nội dung được dán.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Khi bạn muốn dán nội dung từ clipboard mà không cần kiểm soát định dạng."
+              },
+              {
+                "id": "a3",
+                "text": "Khi bạn muốn sao chép nội dung từ clipboard."
+              },
+              {
+                "id": "a4",
+                "text": "Khi bạn muốn cắt nội dung từ clipboard."
+              }
+            ]
+          },
+          {
+            "id": "q33",
+            "level": "2",
+            "text": "Trong Word, công cụ “Find and Replace” (Ctrl+H) có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tìm kiếm và thay thế một từ hoặc cụm từ cụ thể trong toàn bộ tài liệu.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Tạo danh sách không thứ tự."
+              },
+              {
+                "id": "a3",
+                "text": "Tạo danh sách có thứ tự."
+              },
+              {
+                "id": "a4",
+                "text": "Tạo khoảng cách đầu dòng."
+              }
+            ]
+          },
+          {
+            "id": "q34",
+            "level": "2",
+            "text": "Trong Word, công cụ “Track Changes” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Theo dõi tất cả các thay đổi trong tài liệu, bao gồm thêm, xóa, di chuyển và định dạng văn bản.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Kiểm tra chính tả trong tài liệu."
+              },
+              {
+                "id": "a3",
+                "text": "In tài liệu."
+              },
+              {
+                "id": "a4",
+                "text": "Phóng to hoặc thu nhỏ tài liệu."
+              }
+            ]
+          },
+          {
+            "id": "q35",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Comment” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Thêm một ghi chú hoặc nhận xét vào một phần cụ thể của tài liệu.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Thêm một chú thích ở cuối trang liên quan đến một phần cụ thể của tài liệu."
+              },
+              {
+                "id": "a3",
+                "text": "Thêm một chú thích hoặc tiêu đề cho một hình ảnh, bảng hoặc đối tượng khác trong tài liệu."
+              },
+              {
+                "id": "a4",
+                "text": "Tạo một mục lục tự động dựa trên các tiêu đề trong tài liệu."
+              }
+            ]
+          },
+          {
+            "id": "q36",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Footnote” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Thêm một ghi chú hoặc nhận xét vào một phần cụ thể của tài liệu."
+              },
+              {
+                "id": "a2",
+                "text": "Thêm một chú thích ở cuối trang liên quan đến một phần cụ thể của tài liệu.",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Thêm một chú thích hoặc tiêu đề cho một hình ảnh, bảng hoặc đối tượng khác trong tài liệu."
+              },
+              {
+                "id": "a4",
+                "text": "Tạo một mục lục tự động dựa trên các tiêu đề trong tài liệu."
+              }
+            ]
+          },
+          {
+            "id": "q37",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Endnote” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Thêm một ghi chú hoặc nhận xét vào một phần cụ thể của tài liệu."
+              },
+              {
+                "id": "a2",
+                "text": "Thêm một chú thích ở cuối trang liên quan đến một phần cụ thể của tài liệu."
+              },
+              {
+                "id": "a3",
+                "text": "Thêm một chú thích hoặc tiêu đề cho một hình ảnh, bảng hoặc đối tượng khác trong tài liệu."
+              },
+              {
+                "id": "a4",
+                "text": "Thêm một chú thích ở cuối tài liệu liên quan đến một phần cụ thể của tài liệu.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "q38",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Caption” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Thêm một ghi chú hoặc nhận xét vào một phần cụ thể của tài liệu."
+              },
+              {
+                "id": "a2",
+                "text": "Thêm một chú thích ở cuối trang liên quan đến một phần cụ thể của tài liệu."
+              },
+              {
+                "id": "a3",
+                "text": "Thêm một chú thích hoặc tiêu đề cho một hình ảnh, bảng hoặc đối tượng khác trong tài liệu.",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Tạo một mục lục tự động dựa trên các tiêu đề trong tài liệu."
+              }
+            ]
+          },
+          {
+            "id": "q39",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Table of Contents” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Thêm một ghi chú hoặc nhận xét vào một phần cụ thể của tài liệu."
+              },
+              {
+                "id": "a2",
+                "text": "Thêm một chú thích ở cuối trang liên quan đến một phần cụ thể của tài liệu."
+              },
+              {
+                "id": "a3",
+                "text": "Tạo một mục lục tự động dựa trên các tiêu đề trong tài liệu.",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Thêm một chú thích hoặc tiêu đề cho một hình ảnh, bảng hoặc đối tượng khác trong tài liệu."
+              }
+            ]
+          },
+          {
+            "id": "q40",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Index” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Thêm một ghi chú hoặc nhận xét vào một phần cụ thể của tài liệu."
+              },
+              {
+                "id": "a2",
+                "text": "Thêm một chú thích ở cuối trang liên quan đến một phần cụ thể của tài liệu."
+              },
+              {
+                "id": "a3",
+                "text": "Tạo một chỉ mục tự động dựa trên các từ khóa đã đánh dấu trong tài liệu.",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Thêm một chú thích hoặc tiêu đề cho một hình ảnh, bảng hoặc đối tượng khác trong tài liệu."
+              }
+            ]
+          },
+          {
+            "id": "q41",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Bibliography” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một danh sách tham khảo tự động dựa trên các nguồn đã trích dẫn trong tài liệu.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Thêm một trang bìa có định dạng sẵn vào đầu tài liệu."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một ngắt trang, buộc văn bản tiếp theo xuất hiện ở đầu trang mới."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một hộp văn bản, cho phép bạn đặt văn bản ở bất kỳ đâu trong tài liệu."
+              }
+            ]
+          },
+          {
+            "id": "q42",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Cover Page” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một danh sách tham khảo tự động dựa trên các nguồn đã trích dẫn trong tài liệu."
+              },
+              {
+                "id": "a2",
+                "text": "Thêm một trang bìa có định dạng sẵn vào đầu tài liệu.",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một ngắt trang, buộc văn bản tiếp theo xuất hiện ở đầu trang mới."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một hộp văn bản, cho phép bạn đặt văn bản ở bất kỳ đâu trong tài liệu."
+              }
+            ]
+          },
+          {
+            "id": "q43",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Page Break” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một danh sách tham khảo tự động dựa trên các nguồn đã trích dẫn trong tài liệu."
+              },
+              {
+                "id": "a2",
+                "text": "Thêm một trang bìa có định dạng sẵn vào đầu tài liệu."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một ngắt trang, buộc văn bản tiếp theo xuất hiện ở đầu trang mới.",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một hộp văn bản, cho phép bạn đặt văn bản ở bất kỳ đâu trong tài liệu."
+              }
+            ]
+          },
+          {
+            "id": "q44",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Text Box” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một danh sách tham khảo tự động dựa trên các nguồn đã trích dẫn trong tài liệu."
+              },
+              {
+                "id": "a2",
+                "text": "Thêm một trang bìa có định dạng sẵn vào đầu tài liệu."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một ngắt trang, buộc văn bản tiếp theo xuất hiện ở đầu trang mới."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một hộp văn bản, cho phép bạn đặt văn bản ở bất kỳ đâu trong tài liệu.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "q45",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Quick Parts” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một danh sách tham khảo tự động dựa trên các nguồn đã trích dẫn trong tài liệu."
+              },
+              {
+                "id": "a2",
+                "text": "Thêm một trang bìa có định dạng sẵn vào đầu tài liệu."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một ngắt trang, buộc văn bản tiếp theo xuất hiện ở đầu trang mới."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một phần tử có định dạng sẵn, như một khối văn bản, một trường hoặc một tựa đề tự động.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "q46",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Symbol” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một ký hiệu hoặc ký tự đặc biệt không có trên bàn phím.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một phương trình toán học có định dạng sẵn."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một biểu đồ hoặc đồ thị để trực quan hóa dữ liệu."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một đồ họa SmartArt để trực quan hóa quy trình hoặc mối quan hệ."
+              }
+            ]
+          },
+          {
+            "id": "q47",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Equation” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một ký hiệu hoặc ký tự đặc biệt không có trên bàn phím."
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một phương trình toán học có định dạng sẵn.",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một biểu đồ hoặc đồ thị để trực quan hóa dữ liệu."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một đồ họa SmartArt để trực quan hóa quy trình hoặc mối quan hệ."
+              }
+            ]
+          },
+          {
+            "id": "q48",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Chart” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một ký hiệu hoặc ký tự đặc biệt không có trên bàn phím."
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một phương trình toán học có định dạng sẵn."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một biểu đồ hoặc đồ thị để trực quan hóa dữ liệu.",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một đồ họa SmartArt để trực quan hóa quy trình hoặc mối quan hệ."
+              }
+            ]
+          },
+          {
+            "id": "q49",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert SmartArt” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một ký hiệu hoặc ký tự đặc biệt không có trên bàn phím."
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một phương trình toán học có định dạng sẵn."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một biểu đồ hoặc đồ thị để trực quan hóa dữ liệu."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một đồ họa SmartArt để trực quan hóa quy trình hoặc mối quan hệ.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "q50",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Screenshot” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một ký hiệu hoặc ký tự đặc biệt không có trên bàn phím."
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một phương trình toán học có định dạng sẵn."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một biểu đồ hoặc đồ thị để trực quan hóa dữ liệu."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một ảnh chụp màn hình từ một cửa sổ khác mở trên máy tính của bạn.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "q51",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Hyperlink” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một liên kết web hoặc liên kết đến một tài liệu khác.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Đánh dấu một vị trí trong tài liệu để bạn có thể quay lại sau."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một tham chiếu đến một phần khác của tài liệu, như một tiêu đề, một chú thích hoặc một trang."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một dòng chữ ký để người khác có thể ký tên vào tài liệu."
+              }
+            ]
+          },
+          {
+            "id": "q52",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Bookmark” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một liên kết web hoặc liên kết đến một tài liệu khác."
+              },
+              {
+                "id": "a2",
+                "text": "Đánh dấu một vị trí trong tài liệu để bạn có thể quay lại sau.",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một tham chiếu đến một phần khác của tài liệu, như một tiêu đề, một chú thích hoặc một trang."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một dòng chữ ký để người khác có thể ký tên vào tài liệu."
+              }
+            ]
+          },
+          {
+            "id": "q53",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Cross-reference” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một liên kết web hoặc liên kết đến một tài liệu khác."
+              },
+              {
+                "id": "a2",
+                "text": "Đánh dấu một vị trí trong tài liệu để bạn có thể quay lại sau."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một tham chiếu đến một phần khác của tài liệu, như một tiêu đề, một chú thích hoặc một trang.",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một dòng chữ ký để người khác có thể ký tên vào tài liệu."
+              }
+            ]
+          },
+          {
+            "id": "q54",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Signature Line” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một liên kết web hoặc liên kết đến một tài liệu khác."
+              },
+              {
+                "id": "a2",
+                "text": "Đánh dấu một vị trí trong tài liệu để bạn có thể quay lại sau."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một tham chiếu đến một phần khác của tài liệu, như một tiêu đề, một chú thích hoặc một trang."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một dòng chữ ký để người khác có thể ký tên vào tài liệu.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "q55",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Date and Time” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một liên kết web hoặc liên kết đến một tài liệu khác."
+              },
+              {
+                "id": "a2",
+                "text": "Đánh dấu một vị trí trong tài liệu để bạn có thể quay lại sau."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một tham chiếu đến một phần khác của tài liệu, như một tiêu đề, một chú thích hoặc một trang."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn ngày và giờ hiện tại vào tài liệu.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "q56",
+            "level": "2",
+            "text": "Trong Word, công cụ “Insert Object” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một liên kết web hoặc liên kết đến một tài liệu khác."
+              },
+              {
+                "id": "a2",
+                "text": "Đánh dấu một vị trí trong tài liệu để bạn có thể quay lại sau."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một tham chiếu đến một phần khác của tài liệu, như một tiêu đề, một chú thích hoặc một trang."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một đối tượng, như một tệp PDF hoặc một hình ảnh, vào tài liệu.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "q57",
+            "level": 2,
+            "text": "Công cụ “Track Changes” trong Word dùng để làm gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Công cụ “Track Changes” giúp theo dõi tất cả các thay đổi được thực hiện trong tài liệu, bao gồm việc thêm, xóa, di chuyển và định dạng văn bản.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một trường văn bản mà người dùng có thể nhập thông tin vào."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một hộp kiểm mà người dùng có thể đánh dấu."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một danh sách thả xuống mà người dùng có thể chọn một tùy chọn."
+              }
+            ]
+          },
+          {
+            "id": "q58",
+            "level": 2,
+            "text": "Trong Word, công cụ “Insert Text Field” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một trường văn bản mà người dùng có thể nhập thông tin vào.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Công cụ “Track Changes” giúp theo dõi tất cả các thay đổi được thực hiện trong tài liệu, bao gồm việc thêm, xóa, di chuyển và định dạng văn bản."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một hộp kiểm mà người dùng có thể đánh dấu."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một danh sách thả xuống mà người dùng có thể chọn một tùy chọn."
+              }
+            ]
+          },
+          {
+            "id": "q59",
+            "level": 2,
+            "text": "Trong Word, công cụ “Insert Checkbox” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một trường văn bản mà người dùng có thể nhập thông tin vào."
+              },
+              {
+                "id": "a2",
+                "text": "Công cụ “Track Changes” giúp theo dõi tất cả các thay đổi được thực hiện trong tài liệu, bao gồm việc thêm, xóa, di chuyển và định dạng văn bản."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một hộp kiểm mà người dùng có thể đánh dấu.",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một danh sách thả xuống mà người dùng có thể chọn một tùy chọn."
+              }
+            ]
+          },
+          {
+            "id": "q60",
+            "level": 2,
+            "text": "Trong Word, công cụ “Insert Drop-Down List” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một trường văn bản mà người dùng có thể nhập thông tin vào."
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một hộp kiểm mà người dùng có thể đánh dấu."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một danh sách thả xuống mà người dùng có thể chọn một tùy chọn.",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Công cụ “Track Changes” giúp theo dõi tất cả các thay đổi được thực hiện trong tài liệu, bao gồm việc thêm, xóa, di chuyển và định dạng văn bản."
+              }
+            ]
+          },
+          {
+            "id": "q61",
+            "level": 2,
+            "text": "Trong Word, công cụ “Insert Combo Box” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một trường văn bản mà người dùng có thể nhập thông tin vào."
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một hộp kiểm mà người dùng có thể đánh dấu."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một hộp kết hợp mà người dùng có thể chọn một tùy chọn hoặc nhập một tùy chọn mới.",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Công cụ “Track Changes” giúp theo dõi tất cả các thay đổi được thực hiện trong tài liệu, bao gồm việc thêm, xóa, di chuyển và định dạng văn bản."
+              }
+            ]
+          },
+          {
+            "id": "q62",
+            "level": 2,
+            "text": "Trong Word, công cụ “Insert Date Picker” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một trường văn bản mà người dùng có thể nhập thông tin vào."
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một hộp kiểm mà người dùng có thể đánh dấu."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một bộ chọn ngày mà người dùng có thể chọn một ngày từ lịch.",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Công cụ “Track Changes” giúp theo dõi tất cả các thay đổi được thực hiện trong tài liệu, bao gồm việc thêm, xóa, di chuyển và định dạng văn bản."
+              }
+            ]
+          },
+          {
+            "id": "q63",
+            "level": 2,
+            "text": "Trong Word, công cụ “Insert Building Block Gallery” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một trường văn bản mà người dùng có thể nhập thông tin vào."
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một hộp kiểm mà người dùng có thể đánh dấu."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một khối xây dựng từ thư viện, như một tiêu đề, một chân trang hoặc một hình ảnh.",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Công cụ “Track Changes” giúp theo dõi tất cả các thay đổi được thực hiện trong tài liệu, bao gồm việc thêm, xóa, di chuyển và định dạng văn bản."
+              }
+            ]
+          },
+          {
+            "id": "q64",
+            "level": 2,
+            "text": "Trong Word, công cụ “Insert Group Box” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một trường văn bản mà người dùng có thể nhập thông tin vào."
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một hộp kiểm mà người dùng có thể đánh dấu."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một hộp nhóm để nhóm các điều khiển biểu mẫu lại với nhau.",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Công cụ “Track Changes” giúp theo dõi tất cả các thay đổi được thực hiện trong tài liệu, bao gồm việc thêm, xóa, di chuyển và định dạng văn bản."
+              }
+            ]
+          },
+          {
+            "id": "q65",
+            "level": 2,
+            "text": "Trong Word, công cụ “Insert Picture Content Control” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một trường văn bản mà người dùng có thể nhập thông tin vào."
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một hộp kiểm mà người dùng có thể đánh dấu."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một điều khiển nội dung hình ảnh mà người dùng có thể thay thế bằng một hình ảnh khác.",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Công cụ “Track Changes” giúp theo dõi tất cả các thay đổi được thực hiện trong tài liệu, bao gồm việc thêm, xóa, di chuyển và định dạng văn bản."
+              }
+            ]
+          },
+          {
+            "id": "q66",
+            "level": 2,
+            "text": "Trong Word, công cụ “Insert Rich Text Content Control” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một điều khiển nội dung văn bản phong phú mà người dùng có thể nhập văn bản và định dạng nó.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một điều khiển nội dung văn bản đơn giản mà người dùng có thể nhập văn bản mà không có định dạng."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một điều khiển nội dung hình ảnh mà người dùng có thể thay thế bằng một hình ảnh khác."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một điều khiển nội dung phần lặp lại mà người dùng có thể nhập nhiều lần."
+              }
+            ]
+          },
+          {
+            "id": "q67",
+            "level": 2,
+            "text": "Trong Word, công cụ “Insert Plain Text Content Control” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một điều khiển nội dung văn bản phong phú mà người dùng có thể nhập văn bản và định dạng nó."
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một điều khiển nội dung văn bản đơn giản mà người dùng có thể nhập văn bản mà không có định dạng.",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một điều khiển nội dung hình ảnh mà người dùng có thể thay thế bằng một hình ảnh khác."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một điều khiển nội dung phần lặp lại mà người dùng có thể nhập nhiều lần."
+              }
+            ]
+          },
+          {
+            "id": "q68",
+            "level": 2,
+            "text": "Trong Word, công cụ “Insert Repeating Section Content Control” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một điều khiển nội dung văn bản phong phú mà người dùng có thể nhập văn bản và định dạng nó."
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một điều khiển nội dung văn bản đơn giản mà người dùng có thể nhập văn bản mà không có định dạng."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một điều khiển nội dung hình ảnh mà người dùng có thể thay thế bằng một hình ảnh khác."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một điều khiển nội dung phần lặp lại mà người dùng có thể nhập nhiều lần.",
+                "correct": true
+              }
+            ]
+          },
+          {
+            "id": "q69",
+            "level": 2,
+            "text": "Trong Word, công cụ “Insert Legacy Tools” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một công cụ kế thừa từ các phiên bản Word trước đó, như một hộp kiểm hoặc một hộp văn bản.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Chèn một điều khiển nội dung văn bản phong phú mà người dùng có thể nhập văn bản và định dạng nó."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một điều khiển nội dung văn bản đơn giản mà người dùng có thể nhập văn bản mà không có định dạng."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một điều khiển nội dung hình ảnh mà người dùng có thể thay thế bằng một hình ảnh khác."
+              }
+            ]
+          },
+          {
+            "id": "q70",
+            "level": 2,
+            "text": "Trong Word, công cụ “Insert Hyperlink” có tác dụng gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Chèn một liên kết web hoặc liên kết đến một tài liệu khác.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Đánh dấu một vị trí trong tài liệu để bạn có thể quay lại sau."
+              },
+              {
+                "id": "a3",
+                "text": "Chèn một tham chiếu đến một phần khác của tài liệu, như một tiêu đề, một chú thích hoặc một trang."
+              },
+              {
+                "id": "a4",
+                "text": "Chèn một dòng chữ ký để người khác có thể ký tên vào tài liệu."
+              }
+            ]
+          },
+          {
+            "id": "q71",
+            "level": 3,
+            "text": "Hãy tạo một tài liệu mới trong Word và lưu nó với tên “Bài tập Word”.",
+            "answers": [
+              { "id": "a1", "text": "Mở Word, nhấn Ctrl+N để tạo tài liệu mới, sau đó nhấn Ctrl+S, nhập “Bài tập Word” và nhấn Enter để lưu.", "correct": true },
+              { "id": "a2", "text": "Chọn File -> New để tạo tài liệu mới, sau đó chọn Save As và nhập “Bài tập Word” vào ô tên tài liệu." },
+              { "id": "a3", "text": "Mở Word, nhấn Ctrl+S để tạo tài liệu mới, sau đó nhấn Ctrl+N, nhập “Bài tập Word” và nhấn Enter để lưu." },
+              { "id": "a4", "text": "Mở Word, nhấn Ctrl+N để tạo tài liệu mới, sau đó chọn Save As và nhập “Bài tập Word” vào ô tên tài liệu." }
+            ]
+          },
+          {
+            "id": "q72",
+            "level": 3,
+            "text": "Hãy viết một đoạn văn bản và định dạng nó với chữ đậm, chữ nghiêng và gạch chân.",
+            "answers": [
+              { "id": "a1", "text": "Gõ đoạn văn bản, sau đó chọn nó và nhấn Ctrl+B, Ctrl+I và Ctrl+U để định dạng.", "correct": true },
+              { "id": "a2", "text": "Gõ đoạn văn bản, sau đó nhấn Ctrl+B để làm đậm, Ctrl+I để in nghiêng và Ctrl+U để gạch chân." },
+              { "id": "a3", "text": "Gõ đoạn văn bản, sau đó nhấn Ctrl+I để làm đậm, Ctrl+B để in nghiêng và Ctrl+U để gạch chân." },
+              { "id": "a4", "text": "Gõ đoạn văn bản, sau đó nhấn Ctrl+U để làm đậm, Ctrl+B để in nghiêng và Ctrl+I để gạch chân." }
+            ]
+          },
+          {
+            "id": "q73",
+            "level": 3,
+            "text": "Hãy tạo một bảng với 3 hàng và 3 cột.",
+            "answers": [
+              { "id": "a1", "text": "Nhấn Insert -> Table và chọn 3x3.", "correct": true },
+              { "id": "a2", "text": "Nhấn Table -> Insert và chọn 3x3." },
+              { "id": "a3", "text": "Nhấn Layout -> Table và chọn 3x3." },
+              { "id": "a4", "text": "Nhấn Design -> Table và chọn 3x3." }
+            ]
+          },
+          {
+            "id": "q74",
+            "level": 3,
+            "text": "Hãy chèn một hình ảnh vào tài liệu.",
+            "answers": [
+              { "id": "a1", "text": "Nhấn Insert -> Picture và chọn hình ảnh từ máy tính của bạn.", "correct": true },
+              { "id": "a2", "text": "Nhấn Picture -> Insert và chọn hình ảnh từ máy tính của bạn." },
+              { "id": "a3", "text": "Nhấn Layout -> Picture và chọn hình ảnh từ máy tính của bạn." },
+              { "id": "a4", "text": "Nhấn Design -> Picture và chọn hình ảnh từ máy tính của bạn." }
+            ]
+          },
+          {
+            "id": "q75",
+            "level": 3,
+            "text": "Hãy tạo một mục lục cho tài liệu của bạn.",
+            "answers": [
+              { "id": "a1", "text": "Nhấn References -> Table of Contents và chọn một kiểu.", "correct": true },
+              { "id": "a2", "text": "Nhấn Layout -> Table of Contents và chọn một kiểu." },
+              { "id": "a3", "text": "Nhấn Insert -> Table of Contents và chọn một kiểu." },
+              { "id": "a4", "text": "Nhấn Design -> Table of Contents và chọn một kiểu." }
+            ]
+          },
+          {
+            "id": "q76",
+            "level": 3,
+            "text": "Hãy chèn một liên kết web vào tài liệu của bạn.",
+            "answers": [
+              {"id": "a1", "text": "Nhấn Insert -> Hyperlink, nhập URL và nhấn OK.", "correct": true},
+              {"id": "a2", "text": "Nhấn Insert -> Link, nhập URL và nhấn OK."},
+              {"id": "a3", "text": "Nhấn Edit -> Hyperlink, nhập URL và nhấn Save."},
+              {"id": "a4", "text": "Nhấn Format -> Hyperlink, nhập URL và nhấn Apply."}
+            ]
+          },
+          {
+            "id": "q77",
+            "level": 3,
+            "text": "Hãy thêm một header vào tài liệu của bạn.",
+            "answers": [
+              {"id": "a1", "text": "Nhấn Insert -> Header và chọn một kiểu.", "correct": true},
+              {"id": "a2", "text": "Nhấn Layout -> Header và chọn một kiểu."},
+              {"id": "a3", "text": "Nhấn Design -> Header và chọn một kiểu."},
+              {"id": "a4", "text": "Nhấn Format -> Header và chọn một kiểu."}
+            ]
+          },
+          {
+            "id": "q78",
+            "level": 3,
+            "text": "Hãy tạo một biểu mẫu với một trường nhập liệu.",
+            "answers": [
+              {"id": "a1", "text": "Nhấn Developer -> Controls -> Text Control.", "correct": true},
+              {"id": "a2", "text": "Nhấn Design -> Controls -> Text Field."},
+              {"id": "a3", "text": "Nhấn Insert -> Controls -> Text Field."},
+              {"id": "a4", "text": "Nhấn Layout -> Controls -> Text Control."}
+            ]
+          },
+          {
+            "id": "q79",
+            "level": 3,
+            "text": "Hãy viết một đoạn văn bản và sử dụng công cụ kiểm tra chính tả để tìm và sửa các lỗi.",
+            "answers": [
+              {"id": "a1", "text": "Gõ đoạn văn bản, sau đó nhấn Review -> Spelling & Grammar.", "correct": true},
+              {"id": "a2", "text": "Gõ đoạn văn bản, sau đó nhấn Edit -> Spelling Check."},
+              {"id": "a3", "text": "Gõ đoạn văn bản, sau đó nhấn Tools -> Spelling & Grammar."},
+              {"id": "a4", "text": "Gõ đoạn văn bản, sau đó nhấn Format -> Spelling Check."}
+            ]
+          },
+          {
+            "id": "q80",
+            "level": 3,
+            "text": "Hãy tạo một bản trình bày với tiêu đề và một số điểm chính.",
+            "answers": [
+              {"id": "a1", "text": "Nhấn Home -> New Slide, sau đó nhập tiêu đề và các điểm chính.", "correct": true},
+              {"id": "a2", "text": "Nhấn Insert -> New Slide, sau đó nhập tiêu đề và các điểm chính."},
+              {"id": "a3", "text": "Nhấn Design -> New Slide, sau đó nhập tiêu đề và các điểm chính."},
+              {"id": "a4", "text": "Nhấn Format -> New Slide, sau đó nhập tiêu đề và các điểm chính."}
+            ]
+          },
+          {
+            "id": "q81",
+            "level": 3,
+            "text": "Hãy tạo một danh sách không thứ tự với ít nhất 3 mục.",
+            "answers": [
+              {"id": "a1", "text": "Nhấn Home -> Bullets, sau đó nhập mỗi mục trên một dòng mới.", "correct": true},
+              {"id": "a2", "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới."},
+              {"id": "a3", "text": "Nhấn Home -> Multilevel List, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."},
+              {"id": "a4", "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."}
+            ]
+          },
+          {
+            "id": "q82",
+            "level": 3,
+            "text": "Hãy tạo một danh sách có thứ tự với ít nhất 3 mục.",
+            "answers": [
+              {"id": "a1", "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới.", "correct": true},
+              {"id": "a2", "text": "Nhấn Home -> Bullets, sau đó nhập mỗi mục trên một dòng mới."},
+              {"id": "a3", "text": "Nhấn Home -> Multilevel List, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."},
+              {"id": "a4", "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."}
+            ]
+          },
+          {
+            "id": "q83",
+            "level": 3,
+            "text": "Hãy tạo một danh sách nhiều cấp với ít nhất 2 cấp.",
+            "answers": [
+              {"id": "a1", "text": "Nhấn Home -> Multilevel List, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp.", "correct": true},
+              {"id": "a2", "text": "Nhấn Home -> Bullets, sau đó nhập mỗi mục trên một dòng mới."},
+              {"id": "a3", "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới."},
+              {"id": "a4", "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."}
+            ]
+          },
+          {
+            "id": "q84",
+            "level": 3,
+            "text": "Hãy tạo một chú thích cho một hình ảnh trong tài liệu của bạn.",
+            "answers": [
+              {"id": "a1", "text": "Chọn hình ảnh, sau đó nhấn References -> Insert Caption.", "correct": true},
+              {"id": "a2", "text": "Chọn hình ảnh, sau đó nhấn Insert -> Caption."},
+              {"id": "a3", "text": "Chọn hình ảnh, sau đó nhấn Edit -> Insert Caption."},
+              {"id": "a4", "text": "Chọn hình ảnh, sau đó nhấn Format -> Insert Caption."}
+            ]
+          },
+          {
+            "id": "q85",
+            "level": 3,
+            "text": "Hãy tạo một chú thích cho một bảng trong tài liệu của bạn.",
+            "answers": [
+              {"id": "a1", "text": "Chọn bảng, sau đó nhấn References -> Insert Caption.", "correct": true},
+              {"id": "a2", "text": "Chọn bảng, sau đó nhấn Insert -> Caption."},
+              {"id": "a3", "text": "Chọn bảng, sau đó nhấn Edit -> Insert Caption."},
+              {"id": "a4", "text": "Chọn bảng, sau đó nhấn Format -> Insert Caption."}
+            ]
+          },
+          {
+            "id": "q86",
+            "level": 3,
+            "text": "Hãy tạo một chú thích cho một đối tượng khác (không phải hình ảnh hoặc bảng) trong tài liệu của bạn.",
+            "answers": [
+              {"id": "a1", "text": "Chọn đối tượng, sau đó nhấn References -> Insert Caption.", "correct": true},
+              {"id": "a2", "text": "Chọn đối tượng, sau đó nhấn Insert -> Caption."},
+              {"id": "a3", "text": "Chọn đối tượng, sau đó nhấn Edit -> Insert Caption."},
+              {"id": "a4", "text": "Chọn đối tượng, sau đó nhấn Format -> Insert Caption."}
+            ]
+          },
+          {
+            "id": "q87",
+            "level": 3,
+            "text": "Hãy tạo một chú thích cho một đoạn văn bản trong tài liệu của bạn.",
+            "answers": [
+              {"id": "a1", "text": "Chọn đoạn văn bản, sau đó nhấn References -> Insert Caption.", "correct": true},
+              {"id": "a2", "text": "Chọn đoạn văn bản, sau đó nhấn Insert -> Caption."},
+              {"id": "a3", "text": "Chọn đoạn văn bản, sau đó nhấn Edit -> Insert Caption."},
+              {"id": "a4", "text": "Chọn đoạn văn bản, sau đó nhấn Format -> Insert Caption."}
+            ]
+          },
+          {
+            "id": "q88",
+            "level": 3,
+            "text": "Hãy tạo một chú thích cho một công thức toán học trong tài liệu của bạn.",
+            "answers": [
+              {"id": "a1", "text": "Chọn công thức, sau đó nhấn References -> Insert Caption.", "correct": true},
+              {"id": "a2", "text": "Chọn công thức, sau đó nhấn Insert -> Caption."},
+              {"id": "a3", "text": "Chọn công thức, sau đó nhấn Edit -> Insert Caption."},
+              {"id": "a4", "text": "Chọn công thức, sau đó nhấn Format -> Insert Caption."}
+            ]
+          },
+          {
+            "id": "q89",
+            "level": 3,
+            "text": "Hãy tạo một chú thích cho một biểu đồ trong tài liệu của bạn.",
+            "answers": [
+              {"id": "a1", "text": "Chọn biểu đồ, sau đó nhấn References -> Insert Caption.", "correct": true},
+              {"id": "a2", "text": "Chọn biểu đồ, sau đó nhấn Insert -> Caption."},
+              {"id": "a3", "text": "Chọn biểu đồ, sau đó nhấn Edit -> Insert Caption."},
+              {"id": "a4", "text": "Chọn biểu đồ, sau đó nhấn Format -> Insert Caption."}
+            ]
+          },
+          {
+            "id": "q90",
+            "level": 3,
+            "text": "Hãy tạo một chú thích cho một đồ thị trong tài liệu của bạn.",
+            "answers": [
+              {"id": "a1", "text": "Chọn đồ thị, sau đó nhấn References -> Insert Caption.", "correct": true},
+              {"id": "a2", "text": "Chọn đồ thị, sau đó nhấn Insert -> Caption."},
+              {"id": "a3", "text": "Chọn đồ thị, sau đó nhấn Edit -> Insert Caption."},
+              {"id": "a4", "text": "Chọn đồ thị, sau đó nhấn Format -> Insert Caption."}
+            ]
+          },
+          {
+            "id": "q91",
+            "level": 4,
+            "text": "Hãy tạo một tài liệu Word bao gồm một bảng nội dung, một số tiêu đề, và một mục lục tự động cập nhật theo tiêu đề.",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một tài liệu mới, thêm một số tiêu đề sử dụng các công cụ Heading trong thanh công cụ Home. Sau đó, chọn nơi bạn muốn chèn mục lục, nhấn References -> Table of Contents.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Mở một tài liệu hiện có, chọn nơi bạn muốn chèn mục lục, nhấn References -> Table of Contents."
+              },
+              {
+                "id": "a3",
+                "text": "Tạo một tài liệu mới, chèn một bảng nội dung bằng cách nhấn References -> Table of Contents."
+              },
+              {
+                "id": "a4",
+                "text": "Tạo một tài liệu mới, chèn một bảng nội dung và một số tiêu đề, sau đó nhấn References -> Table of Contents."
+              }
+            ]
+          },
+          {
+            "id": "q92",
+            "level": 4,
+            "text": "Hãy tạo một tài liệu Word với một trang bìa có chứa tiêu đề, tên của bạn và ngày. Sau đó, thêm một header và footer cho tất cả các trang tiếp theo.",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Cover Page để chèn trang bìa. Nhập tiêu đề, tên và ngày. Sau đó, nhấn Insert -> Header và Footer để thêm vào các trang tiếp theo.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Mở một tài liệu hiện có, thêm một trang bìa bằng cách nhấn Insert -> Cover Page. Nhập tiêu đề, tên và ngày. Sau đó, thêm header và footer cho các trang tiếp theo."
+              },
+              {
+                "id": "a3",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Header và Footer để thêm header và footer cho tất cả các trang."
+              },
+              {
+                "id": "a4",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Header và Footer để thêm header và footer cho trang đầu tiên, sau đó sao chép chúng cho các trang tiếp theo."
+              }
+            ]
+          },
+          {
+            "id": "q93",
+            "level": 4,
+            "text": "Hãy tạo một tài liệu Word với một danh sách không thứ tự trong một bảng.",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Table để chèn một bảng. Trong một ô của bảng, nhấn Home -> Bullets để tạo một danh sách không thứ tự.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Tạo một tài liệu mới, nhấn Home -> Bullets để tạo một danh sách không thứ tự, sau đó chèn danh sách vào một bảng."
+              },
+              {
+                "id": "a3",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Bullet trong một bảng để tạo một danh sách không thứ tự."
+              },
+              {
+                "id": "a4",
+                "text": "Tạo một tài liệu mới, nhấn Home -> Bullets để tạo một danh sách không thứ tự, sau đó chèn danh sách vào một ô của bảng."
+              }
+            ]
+          },
+          {
+            "id": "q94",
+            "level": 4,
+            "text": "Hãy tạo một tài liệu Word với một biểu đồ biểu diễn dữ liệu từ một bảng.",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Table để chèn một bảng và nhập dữ liệu. Sau đó, chọn dữ liệu và nhấn Insert -> Chart để tạo biểu đồ.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Chart để chèn biểu đồ trước, sau đó nhập dữ liệu từ một bảng."
+              },
+              {
+                "id": "a3",
+                "text": "Tạo một tài liệu mới, nhập dữ liệu từ một bảng trước, sau đó nhấn Insert -> Chart để tạo biểu đồ."
+              },
+              {
+                "id": "a4",
+                "text": "Tạo một tài liệu mới, nhập dữ liệu từ một bảng, sau đó chọn dữ liệu và nhấn Insert -> Chart để tạo biểu đồ."
+              }
+            ]
+          },
+          {
+            "id": "q95",
+            "level": 4,
+            "text": "Hãy tạo một tài liệu Word với một hình ảnh có chú thích và một tham chiếu đến chú thích đó trong văn bản.",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Picture để chèn một hình ảnh. Nhấn References -> Insert Caption để thêm chú thích. Trong văn bản, nhấn References -> Cross-reference để thêm tham chiếu đến chú thích.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Tạo một tài liệu mới, nhập văn bản và thêm chú thích. Nhấn Insert -> Picture để chèn một hình ảnh, sau đó thêm chú thích."
+              },
+              {
+                "id": "a3",
+                "text": "Tạo một tài liệu mới, nhập văn bản và thêm chú thích. Nhấn Insert -> Picture để chèn một hình ảnh, sau đó nhấn References -> Insert Caption."
+              },
+              {
+                "id": "a4",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Picture để chèn một hình ảnh. Nhấn References -> Insert Caption để thêm chú thích. Trong văn bản, nhập chú thích."
+              }
+            ]
+          },
+          {
+            "id": "q96",
+            "level": 4,
+            "text": "Hãy tạo một tài liệu Word với một biểu mẫu có thể điền được, bao gồm một trường nhập liệu, một hộp kiểm và một danh sách thả xuống.",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một tài liệu mới, nhấn Developer -> Controls để chèn một trường nhập liệu, một hộp kiểm và một danh sách thả xuống.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Content Control để chèn một trường nhập liệu, một hộp kiểm và một danh sách thả xuống."
+              },
+              {
+                "id": "a3",
+                "text": "Tạo một tài liệu mới, nhấn Developer -> Legacy Tools để chèn một trường nhập liệu, một hộp kiểm và một danh sách thả xuống."
+              },
+              {
+                "id": "a4",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Text Box để chèn một trường nhập liệu, một hộp kiểm và một danh sách thả xuống."
+              }
+            ]
+          },
+          {
+            "id": "q97",
+            "level": 4,
+            "text": "Hãy tạo một tài liệu Word với một phương trình toán học, một chú thích cho phương trình và một tham chiếu đến chú thích đó trong văn bản.",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Equation để chèn một phương trình. Nhấn References -> Insert Caption để thêm chú thích. Trong văn bản, nhấn References -> Cross-reference để thêm tham chiếu đến chú thích.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Tạo một tài liệu mới, nhập một phương trình toán học vào văn bản. Sau đó, nhấn References -> Insert Caption để thêm chú thích và tham chiếu."
+              },
+              {
+                "id": "a3",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Text Box để chèn một phương trình. Nhấn References -> Insert Caption để thêm chú thích. Trong văn bản, nhấn References -> Cross-reference để thêm tham chiếu đến chú thích."
+              },
+              {
+                "id": "a4",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Equation để chèn một phương trình. Nhấn Review -> Insert Caption để thêm chú thích. Trong văn bản, nhấn References -> Cross-reference để thêm tham chiếu đến chú thích."
+              }
+            ]
+          },
+          {
+            "id": "q98",
+            "level": 4,
+            "text": "Hãy tạo một tài liệu Word với một đồ thị SmartArt biểu diễn một quy trình hoặc mối quan hệ.",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> SmartArt để chèn một đồ thị SmartArt. Chọn một kiểu biểu diễn quy trình hoặc mối quan hệ.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Chart để chèn một biểu đồ. Chọn một kiểu biểu diễn quy trình hoặc mối quan hệ."
+              },
+              {
+                "id": "a3",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> SmartArt để chèn một đồ thị SmartArt. Chọn một kiểu biểu đồ thích hợp."
+              },
+              {
+                "id": "a4",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Picture để chèn một hình ảnh biểu diễn quy trình hoặc mối quan hệ."
+              }
+            ]
+          },
+          {
+            "id": "q99",
+            "level": 4,
+            "text": "Hãy tạo một tài liệu Word với một ảnh chụp màn hình từ một cửa sổ khác mở trên máy tính của bạn.",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Screenshot để chèn một ảnh chụp màn hình.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Picture để chèn một ảnh, sau đó nhập ảnh chụp màn hình."
+              },
+              {
+                "id": "a3",
+                "text": "Tạo một tài liệu mới, mở cửa sổ khác trên máy tính của bạn, sau đó chụp màn hình và nhấn Insert -> Picture để chèn ảnh."
+              },
+              {
+                "id": "a4",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Object để chèn một đối tượng từ cửa sổ khác trên máy tính của bạn."
+              }
+            ]
+          },
+          {
+            "id": "q100",
+            "level": 4,
+            "text": "Hãy tạo một tài liệu Word với một đối tượng, như một tệp PDF hoặc một hình ảnh, được nhúng vào tài liệu.",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Object để chèn một đối tượng từ máy tính của bạn.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Picture để chèn một hình ảnh từ máy tính của bạn."
+              },
+              {
+                "id": "a3",
+                "text": "Tạo một tài liệu mới, mở tệp PDF hoặc hình ảnh trên máy tính của bạn, sau đó nhấn Insert -> Object để chèn."
+              },
+              {
+                "id": "a4",
+                "text": "Tạo một tài liệu mới, nhấn Insert -> Link để chèn một liên kết đến tệp PDF hoặc hình ảnh."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1002",
+        "img": "img/basicexam/pwp.png",
+        "title": "MS Power point",
+        "text": "Ứng dụng xử lý nội dung trình bày."
+      },
+      {
+        "id": "1003",
+        "img": "img/basicexam/excel.png",
+        "title": "MS Excel",
+        "text": "Ứng dụng xử lý dữ liệu phổ biến."
+      },
+      {
+        "id": "1004",
+        "img": "img/basicexam/access.png",
+        "title": "MS Access",
+        "text": "Ứng dụng quản lý cơ sở dữ liệu."
+      }
+    ],
+    "main": [
+      {
+        "id": "214389",
+        "name": "Toán rời rạc",
+        "year": "2",
+        "credits": "3"
+      },
+      {
+        "id": "214321",
+        "name": "Lập trình cơ bản",
+        "year": "1",
+        "credits": "4"
+      },
+      {
+        "id": "214331",
+        "name": "Lập trình nâng cao",
+        "year": "2",
+        "credits": "4"
+      },
+      {
+        "id": "214231",
+        "name": "Cấu trúc máy tính",
+        "year": "1",
+        "credits": "2"
+      },
+      {
+        "id": "214242",
+        "name": "Nhập môn hệ điều hành",
+        "year": "1",
+        "credits": "3"
+      },
+      {
+        "id": "214241",
+        "name": "Mạng máy tính cơ bản",
+        "year": "2",
+        "credits": "3"
+      },
+      {
+        "id": "214361",
+        "name": "Giao tiếp người máy",
+        "year": "2",
+        "credits": "3"
+      },
+      {
+        "id": "214441",
+        "name": "Cấu trúc dữ liệu",
+        "year": "2",
+        "credits": "4"
+      },
+      {
+        "id": "214251",
+        "name": "Hệ điều hành nâng cao",
+        "year": "2",
+        "credits": "3"
+      },
+      {
+        "id": "214351",
+        "name": "Lý thuyế đồ thị",
+        "year": "2",
+        "credits": "4"
+      },
+      {
+        "id": "214352",
+        "name": "Thiết kế hướng đối tượng",
+        "year": "2",
+        "credits": "4"
+      },
+      {
+        "id": "214442",
+        "name": "Nhập môn cơ sở dữ liệu",
+        "year": "2",
+        "credits": "4"
+      },
+      {
+        "id": "214252",
+        "name": "Lập trình mạng",
+        "year": "3",
+        "credits": "4"
+      },
+      {
+        "id": "214462",
+        "name": "Lập trình web",
+        "year": "3",
+        "credits": "4"
+      },
+      {
+        "id": "214463",
+        "name": "Nhập môn trí tuệ nhân tạo",
+        "year": "3",
+        "credits": "4"
+      },
+      {
+        "id": "214274",
+        "name": "Lập trình trên thiết bị di động",
+        "year": "3",
+        "credits": "3"
+      },
+      {
+        "id": "214370",
+        "name": "Nhập môn công nghệ phần mềm",
+        "year": "3",
+        "credits": "4"
+      },
+      {
+        "id": "214461",
+        "name": "Phân tích và thiết kế hệ thống thông tin",
+        "year": "3",
+        "credits": "4"
+      },
+      {
+        "id": "214282",
+        "name": "Mạng máy tính nâng cao",
+        "year": "3",
+        "credits": "4"
+      },
+      {
+        "id": "214372",
+        "name": "Lập trình .NET",
+        "year": "3",
+        "credits": "4"
+      },
+      {
+        "id": "214386",
+        "name": "Lập trình PHP",
+        "year": "3",
+        "credits": "4"
+      },
+      {
+        "id": "214451",
+        "name": "Hệ quản trị cơ sở dữ liệu",
+        "year": "3",
+        "credits": "3"
+      },
+      {
+        "id": "214388",
+        "name": "Lập trình Front-End",
+        "year": "3",
+        "credits": "4"
+      },
+      {
+        "id": "214492",
+        "name": "Máy học",
+        "year": "3",
+        "credits": "4"
+      },
+      {
+        "id": "214493",
+        "name": "Thực tập lập trình web",
+        "year": "3",
+        "credits": "3"
+      },
+      {
+        "id": "214293",
+        "name": "Thực tập lập trình trên thiết bị di động",
+        "year": "4",
+        "credits": "3"
+      },
+      {
+        "id": "214379",
+        "name": "Đảm bảo chất lượng và kiểm thử phần mềm",
+        "year": "4",
+        "credits": "4"
+      },
+      {
+        "id": "214464",
+        "name": "An toàn và bảo mật hệ thống thông tin",
+        "year": "4",
+        "credits": "3"
+      },
+      {
+        "id": "214485",
+        "name": "Data Mining",
+        "year": "4",
+        "credits": "4"
+      },
+      {
+        "id": "214491",
+        "name": "Data Warehouse",
+        "year": "4",
+        "credits": "3"
+      },
+      {
+        "id": "214271",
+        "name": "Quản trị mạng",
+        "year": "4",
+        "credits": "3"
+      },
+      {
+        "id": "214483",
+        "name": "Thương mại điện tử",
+        "year": "4",
+        "credits": "3"
+      },
+      {
+        "id": "214286",
+        "name": "Chuyên đề Java",
+        "year": "4",
+        "credits": "4"
+      },
+      {
+        "id": "214374",
+        "name": "Chuyên đề Web",
+        "year": "4",
+        "credits": "4"
+      },
+      {
+        "id": "214291",
+        "name": "Xử lý ảnh và thị giác máy tính",
+        "year": "4",
+        "credits": "4"
+      },
+      {
+        "id": "214986",
+        "name": "Đồ án công nghệ phần mềm",
+        "year": "4",
+        "credits": "2"
+      }
+    ]
+  }
 }
