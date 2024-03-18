@@ -1,11 +1,11 @@
 import React from "react";
 
-export const Testimonials = (props) => {
+export const Extentions = (props) => {
   return (
-    <div id="testimonials">
+    <div id="extentions">
       <div className="container">
         <div className="section-title text-center">
-          <h2>What our clients say</h2>
+          <h2>Tiện ích</h2>
         </div>
         <div className="row">
           {props.data

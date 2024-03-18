@@ -18,53 +18,6 @@
       "Thống kê tần suất của câu hỏi"
     ]
   },
-  "Gallery": [
-    {
-      "title": "Project Title",
-      "largeImage": "img/portfolio/01-large.jpg",
-      "smallImage": "img/portfolio/01-small.jpg"
-    },
-    {
-      "title": "Project Title",
-      "largeImage": "img/portfolio/02-large.jpg",
-      "smallImage": "img/portfolio/02-small.jpg"
-    },
-    {
-      "title": "Project Title",
-      "largeImage": "img/portfolio/03-large.jpg",
-      "smallImage": "img/portfolio/03-small.jpg"
-    },
-    {
-      "title": "Project Title",
-      "largeImage": "img/portfolio/04-large.jpg",
-      "smallImage": "img/portfolio/04-small.jpg"
-    },
-    {
-      "title": "Project Title",
-      "largeImage": "img/portfolio/05-large.jpg",
-      "smallImage": "img/portfolio/05-small.jpg"
-    },
-    {
-      "title": "Project Title",
-      "largeImage": "img/portfolio/06-large.jpg",
-      "smallImage": "img/portfolio/06-small.jpg"
-    },
-    {
-      "title": "Project Title",
-      "largeImage": "img/portfolio/07-large.jpg",
-      "smallImage": "img/portfolio/07-small.jpg"
-    },
-    {
-      "title": "Project Title",
-      "largeImage": "img/portfolio/08-large.jpg",
-      "smallImage": "img/portfolio/08-small.jpg"
-    },
-    {
-      "title": "Project Title",
-      "largeImage": "img/portfolio/09-large.jpg",
-      "smallImage": "img/portfolio/09-small.jpg"
-    }
-  ],
   "Documents": [
     {
       "icon": "fa fa-wordpress",
@@ -151,9 +104,32 @@
       "job": "Project Manager"
     }
   ],
+  "Accounts": [
+    {
+      "id": "1",
+      "username": "Mai",
+      "password": "123",
+      "role": 1,
+      "status": 1
+    },
+    {
+      "id": "2",
+      "username": "Thanh",
+      "password": "123",
+      "role": 2,
+      "status": 1
+    },
+    {
+      "id": "3",
+      "username": "Thuan",
+      "password": "123",
+      "role": 3,
+      "status": 1
+    }
+  ],
   "Contact": {
-    "address": "4321 California St, San Francisco, CA 12345 ",
-    "phone": "+1 123 456 1234",
+    "address": "Linh Trung, Thu Duc, Ho Chi Minh City",
+    "phone": "+84 123 456 789",
     "email": "info@company.com",
     "facebook": "fb.com",
     "twitter": "twitter.com",
@@ -1852,10 +1828,23 @@
             "level": 3,
             "text": "Hãy tạo một tài liệu mới trong Word và lưu nó với tên “Bài tập Word”.",
             "answers": [
-              { "id": "a1", "text": "Mở Word, nhấn Ctrl+N để tạo tài liệu mới, sau đó nhấn Ctrl+S, nhập “Bài tập Word” và nhấn Enter để lưu.", "correct": true },
-              { "id": "a2", "text": "Chọn File -> New để tạo tài liệu mới, sau đó chọn Save As và nhập “Bài tập Word” vào ô tên tài liệu." },
-              { "id": "a3", "text": "Mở Word, nhấn Ctrl+S để tạo tài liệu mới, sau đó nhấn Ctrl+N, nhập “Bài tập Word” và nhấn Enter để lưu." },
-              { "id": "a4", "text": "Mở Word, nhấn Ctrl+N để tạo tài liệu mới, sau đó chọn Save As và nhập “Bài tập Word” vào ô tên tài liệu." }
+              {
+                "id": "a1",
+                "text": "Mở Word, nhấn Ctrl+N để tạo tài liệu mới, sau đó nhấn Ctrl+S, nhập “Bài tập Word” và nhấn Enter để lưu.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Chọn File -> New để tạo tài liệu mới, sau đó chọn Save As và nhập “Bài tập Word” vào ô tên tài liệu."
+              },
+              {
+                "id": "a3",
+                "text": "Mở Word, nhấn Ctrl+S để tạo tài liệu mới, sau đó nhấn Ctrl+N, nhập “Bài tập Word” và nhấn Enter để lưu."
+              },
+              {
+                "id": "a4",
+                "text": "Mở Word, nhấn Ctrl+N để tạo tài liệu mới, sau đó chọn Save As và nhập “Bài tập Word” vào ô tên tài liệu."
+              }
             ]
           },
           {
@@ -1863,10 +1852,23 @@
             "level": 3,
             "text": "Hãy viết một đoạn văn bản và định dạng nó với chữ đậm, chữ nghiêng và gạch chân.",
             "answers": [
-              { "id": "a1", "text": "Gõ đoạn văn bản, sau đó chọn nó và nhấn Ctrl+B, Ctrl+I và Ctrl+U để định dạng.", "correct": true },
-              { "id": "a2", "text": "Gõ đoạn văn bản, sau đó nhấn Ctrl+B để làm đậm, Ctrl+I để in nghiêng và Ctrl+U để gạch chân." },
-              { "id": "a3", "text": "Gõ đoạn văn bản, sau đó nhấn Ctrl+I để làm đậm, Ctrl+B để in nghiêng và Ctrl+U để gạch chân." },
-              { "id": "a4", "text": "Gõ đoạn văn bản, sau đó nhấn Ctrl+U để làm đậm, Ctrl+B để in nghiêng và Ctrl+I để gạch chân." }
+              {
+                "id": "a1",
+                "text": "Gõ đoạn văn bản, sau đó chọn nó và nhấn Ctrl+B, Ctrl+I và Ctrl+U để định dạng.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Gõ đoạn văn bản, sau đó nhấn Ctrl+B để làm đậm, Ctrl+I để in nghiêng và Ctrl+U để gạch chân."
+              },
+              {
+                "id": "a3",
+                "text": "Gõ đoạn văn bản, sau đó nhấn Ctrl+I để làm đậm, Ctrl+B để in nghiêng và Ctrl+U để gạch chân."
+              },
+              {
+                "id": "a4",
+                "text": "Gõ đoạn văn bản, sau đó nhấn Ctrl+U để làm đậm, Ctrl+B để in nghiêng và Ctrl+I để gạch chân."
+              }
             ]
           },
           {
@@ -1874,10 +1876,23 @@
             "level": 3,
             "text": "Hãy tạo một bảng với 3 hàng và 3 cột.",
             "answers": [
-              { "id": "a1", "text": "Nhấn Insert -> Table và chọn 3x3.", "correct": true },
-              { "id": "a2", "text": "Nhấn Table -> Insert và chọn 3x3." },
-              { "id": "a3", "text": "Nhấn Layout -> Table và chọn 3x3." },
-              { "id": "a4", "text": "Nhấn Design -> Table và chọn 3x3." }
+              {
+                "id": "a1",
+                "text": "Nhấn Insert -> Table và chọn 3x3.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Nhấn Table -> Insert và chọn 3x3."
+              },
+              {
+                "id": "a3",
+                "text": "Nhấn Layout -> Table và chọn 3x3."
+              },
+              {
+                "id": "a4",
+                "text": "Nhấn Design -> Table và chọn 3x3."
+              }
             ]
           },
           {
@@ -1885,10 +1900,23 @@
             "level": 3,
             "text": "Hãy chèn một hình ảnh vào tài liệu.",
             "answers": [
-              { "id": "a1", "text": "Nhấn Insert -> Picture và chọn hình ảnh từ máy tính của bạn.", "correct": true },
-              { "id": "a2", "text": "Nhấn Picture -> Insert và chọn hình ảnh từ máy tính của bạn." },
-              { "id": "a3", "text": "Nhấn Layout -> Picture và chọn hình ảnh từ máy tính của bạn." },
-              { "id": "a4", "text": "Nhấn Design -> Picture và chọn hình ảnh từ máy tính của bạn." }
+              {
+                "id": "a1",
+                "text": "Nhấn Insert -> Picture và chọn hình ảnh từ máy tính của bạn.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Nhấn Picture -> Insert và chọn hình ảnh từ máy tính của bạn."
+              },
+              {
+                "id": "a3",
+                "text": "Nhấn Layout -> Picture và chọn hình ảnh từ máy tính của bạn."
+              },
+              {
+                "id": "a4",
+                "text": "Nhấn Design -> Picture và chọn hình ảnh từ máy tính của bạn."
+              }
             ]
           },
           {
@@ -1896,10 +1924,23 @@
             "level": 3,
             "text": "Hãy tạo một mục lục cho tài liệu của bạn.",
             "answers": [
-              { "id": "a1", "text": "Nhấn References -> Table of Contents và chọn một kiểu.", "correct": true },
-              { "id": "a2", "text": "Nhấn Layout -> Table of Contents và chọn một kiểu." },
-              { "id": "a3", "text": "Nhấn Insert -> Table of Contents và chọn một kiểu." },
-              { "id": "a4", "text": "Nhấn Design -> Table of Contents và chọn một kiểu." }
+              {
+                "id": "a1",
+                "text": "Nhấn References -> Table of Contents và chọn một kiểu.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Nhấn Layout -> Table of Contents và chọn một kiểu."
+              },
+              {
+                "id": "a3",
+                "text": "Nhấn Insert -> Table of Contents và chọn một kiểu."
+              },
+              {
+                "id": "a4",
+                "text": "Nhấn Design -> Table of Contents và chọn một kiểu."
+              }
             ]
           },
           {
@@ -1907,10 +1948,23 @@
             "level": 3,
             "text": "Hãy chèn một liên kết web vào tài liệu của bạn.",
             "answers": [
-              {"id": "a1", "text": "Nhấn Insert -> Hyperlink, nhập URL và nhấn OK.", "correct": true},
-              {"id": "a2", "text": "Nhấn Insert -> Link, nhập URL và nhấn OK."},
-              {"id": "a3", "text": "Nhấn Edit -> Hyperlink, nhập URL và nhấn Save."},
-              {"id": "a4", "text": "Nhấn Format -> Hyperlink, nhập URL và nhấn Apply."}
+              {
+                "id": "a1",
+                "text": "Nhấn Insert -> Hyperlink, nhập URL và nhấn OK.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Nhấn Insert -> Link, nhập URL và nhấn OK."
+              },
+              {
+                "id": "a3",
+                "text": "Nhấn Edit -> Hyperlink, nhập URL và nhấn Save."
+              },
+              {
+                "id": "a4",
+                "text": "Nhấn Format -> Hyperlink, nhập URL và nhấn Apply."
+              }
             ]
           },
           {
@@ -1918,10 +1972,23 @@
             "level": 3,
             "text": "Hãy thêm một header vào tài liệu của bạn.",
             "answers": [
-              {"id": "a1", "text": "Nhấn Insert -> Header và chọn một kiểu.", "correct": true},
-              {"id": "a2", "text": "Nhấn Layout -> Header và chọn một kiểu."},
-              {"id": "a3", "text": "Nhấn Design -> Header và chọn một kiểu."},
-              {"id": "a4", "text": "Nhấn Format -> Header và chọn một kiểu."}
+              {
+                "id": "a1",
+                "text": "Nhấn Insert -> Header và chọn một kiểu.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Nhấn Layout -> Header và chọn một kiểu."
+              },
+              {
+                "id": "a3",
+                "text": "Nhấn Design -> Header và chọn một kiểu."
+              },
+              {
+                "id": "a4",
+                "text": "Nhấn Format -> Header và chọn một kiểu."
+              }
             ]
           },
           {
@@ -1929,10 +1996,23 @@
             "level": 3,
             "text": "Hãy tạo một biểu mẫu với một trường nhập liệu.",
             "answers": [
-              {"id": "a1", "text": "Nhấn Developer -> Controls -> Text Control.", "correct": true},
-              {"id": "a2", "text": "Nhấn Design -> Controls -> Text Field."},
-              {"id": "a3", "text": "Nhấn Insert -> Controls -> Text Field."},
-              {"id": "a4", "text": "Nhấn Layout -> Controls -> Text Control."}
+              {
+                "id": "a1",
+                "text": "Nhấn Developer -> Controls -> Text Control.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Nhấn Design -> Controls -> Text Field."
+              },
+              {
+                "id": "a3",
+                "text": "Nhấn Insert -> Controls -> Text Field."
+              },
+              {
+                "id": "a4",
+                "text": "Nhấn Layout -> Controls -> Text Control."
+              }
             ]
           },
           {
@@ -1940,10 +2020,23 @@
             "level": 3,
             "text": "Hãy viết một đoạn văn bản và sử dụng công cụ kiểm tra chính tả để tìm và sửa các lỗi.",
             "answers": [
-              {"id": "a1", "text": "Gõ đoạn văn bản, sau đó nhấn Review -> Spelling & Grammar.", "correct": true},
-              {"id": "a2", "text": "Gõ đoạn văn bản, sau đó nhấn Edit -> Spelling Check."},
-              {"id": "a3", "text": "Gõ đoạn văn bản, sau đó nhấn Tools -> Spelling & Grammar."},
-              {"id": "a4", "text": "Gõ đoạn văn bản, sau đó nhấn Format -> Spelling Check."}
+              {
+                "id": "a1",
+                "text": "Gõ đoạn văn bản, sau đó nhấn Review -> Spelling & Grammar.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Gõ đoạn văn bản, sau đó nhấn Edit -> Spelling Check."
+              },
+              {
+                "id": "a3",
+                "text": "Gõ đoạn văn bản, sau đó nhấn Tools -> Spelling & Grammar."
+              },
+              {
+                "id": "a4",
+                "text": "Gõ đoạn văn bản, sau đó nhấn Format -> Spelling Check."
+              }
             ]
           },
           {
@@ -1951,10 +2044,23 @@
             "level": 3,
             "text": "Hãy tạo một bản trình bày với tiêu đề và một số điểm chính.",
             "answers": [
-              {"id": "a1", "text": "Nhấn Home -> New Slide, sau đó nhập tiêu đề và các điểm chính.", "correct": true},
-              {"id": "a2", "text": "Nhấn Insert -> New Slide, sau đó nhập tiêu đề và các điểm chính."},
-              {"id": "a3", "text": "Nhấn Design -> New Slide, sau đó nhập tiêu đề và các điểm chính."},
-              {"id": "a4", "text": "Nhấn Format -> New Slide, sau đó nhập tiêu đề và các điểm chính."}
+              {
+                "id": "a1",
+                "text": "Nhấn Home -> New Slide, sau đó nhập tiêu đề và các điểm chính.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Nhấn Insert -> New Slide, sau đó nhập tiêu đề và các điểm chính."
+              },
+              {
+                "id": "a3",
+                "text": "Nhấn Design -> New Slide, sau đó nhập tiêu đề và các điểm chính."
+              },
+              {
+                "id": "a4",
+                "text": "Nhấn Format -> New Slide, sau đó nhập tiêu đề và các điểm chính."
+              }
             ]
           },
           {
@@ -1962,10 +2068,23 @@
             "level": 3,
             "text": "Hãy tạo một danh sách không thứ tự với ít nhất 3 mục.",
             "answers": [
-              {"id": "a1", "text": "Nhấn Home -> Bullets, sau đó nhập mỗi mục trên một dòng mới.", "correct": true},
-              {"id": "a2", "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới."},
-              {"id": "a3", "text": "Nhấn Home -> Multilevel List, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."},
-              {"id": "a4", "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."}
+              {
+                "id": "a1",
+                "text": "Nhấn Home -> Bullets, sau đó nhập mỗi mục trên một dòng mới.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới."
+              },
+              {
+                "id": "a3",
+                "text": "Nhấn Home -> Multilevel List, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."
+              },
+              {
+                "id": "a4",
+                "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."
+              }
             ]
           },
           {
@@ -1973,10 +2092,23 @@
             "level": 3,
             "text": "Hãy tạo một danh sách có thứ tự với ít nhất 3 mục.",
             "answers": [
-              {"id": "a1", "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới.", "correct": true},
-              {"id": "a2", "text": "Nhấn Home -> Bullets, sau đó nhập mỗi mục trên một dòng mới."},
-              {"id": "a3", "text": "Nhấn Home -> Multilevel List, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."},
-              {"id": "a4", "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."}
+              {
+                "id": "a1",
+                "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Nhấn Home -> Bullets, sau đó nhập mỗi mục trên một dòng mới."
+              },
+              {
+                "id": "a3",
+                "text": "Nhấn Home -> Multilevel List, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."
+              },
+              {
+                "id": "a4",
+                "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."
+              }
             ]
           },
           {
@@ -1984,10 +2116,23 @@
             "level": 3,
             "text": "Hãy tạo một danh sách nhiều cấp với ít nhất 2 cấp.",
             "answers": [
-              {"id": "a1", "text": "Nhấn Home -> Multilevel List, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp.", "correct": true},
-              {"id": "a2", "text": "Nhấn Home -> Bullets, sau đó nhập mỗi mục trên một dòng mới."},
-              {"id": "a3", "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới."},
-              {"id": "a4", "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."}
+              {
+                "id": "a1",
+                "text": "Nhấn Home -> Multilevel List, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Nhấn Home -> Bullets, sau đó nhập mỗi mục trên một dòng mới."
+              },
+              {
+                "id": "a3",
+                "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới."
+              },
+              {
+                "id": "a4",
+                "text": "Nhấn Home -> Numbering, sau đó nhập mỗi mục trên một dòng mới và sử dụng Tab để tạo cấp."
+              }
             ]
           },
           {
@@ -1995,10 +2140,23 @@
             "level": 3,
             "text": "Hãy tạo một chú thích cho một hình ảnh trong tài liệu của bạn.",
             "answers": [
-              {"id": "a1", "text": "Chọn hình ảnh, sau đó nhấn References -> Insert Caption.", "correct": true},
-              {"id": "a2", "text": "Chọn hình ảnh, sau đó nhấn Insert -> Caption."},
-              {"id": "a3", "text": "Chọn hình ảnh, sau đó nhấn Edit -> Insert Caption."},
-              {"id": "a4", "text": "Chọn hình ảnh, sau đó nhấn Format -> Insert Caption."}
+              {
+                "id": "a1",
+                "text": "Chọn hình ảnh, sau đó nhấn References -> Insert Caption.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Chọn hình ảnh, sau đó nhấn Insert -> Caption."
+              },
+              {
+                "id": "a3",
+                "text": "Chọn hình ảnh, sau đó nhấn Edit -> Insert Caption."
+              },
+              {
+                "id": "a4",
+                "text": "Chọn hình ảnh, sau đó nhấn Format -> Insert Caption."
+              }
             ]
           },
           {
@@ -2006,10 +2164,23 @@
             "level": 3,
             "text": "Hãy tạo một chú thích cho một bảng trong tài liệu của bạn.",
             "answers": [
-              {"id": "a1", "text": "Chọn bảng, sau đó nhấn References -> Insert Caption.", "correct": true},
-              {"id": "a2", "text": "Chọn bảng, sau đó nhấn Insert -> Caption."},
-              {"id": "a3", "text": "Chọn bảng, sau đó nhấn Edit -> Insert Caption."},
-              {"id": "a4", "text": "Chọn bảng, sau đó nhấn Format -> Insert Caption."}
+              {
+                "id": "a1",
+                "text": "Chọn bảng, sau đó nhấn References -> Insert Caption.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Chọn bảng, sau đó nhấn Insert -> Caption."
+              },
+              {
+                "id": "a3",
+                "text": "Chọn bảng, sau đó nhấn Edit -> Insert Caption."
+              },
+              {
+                "id": "a4",
+                "text": "Chọn bảng, sau đó nhấn Format -> Insert Caption."
+              }
             ]
           },
           {
@@ -2017,10 +2188,23 @@
             "level": 3,
             "text": "Hãy tạo một chú thích cho một đối tượng khác (không phải hình ảnh hoặc bảng) trong tài liệu của bạn.",
             "answers": [
-              {"id": "a1", "text": "Chọn đối tượng, sau đó nhấn References -> Insert Caption.", "correct": true},
-              {"id": "a2", "text": "Chọn đối tượng, sau đó nhấn Insert -> Caption."},
-              {"id": "a3", "text": "Chọn đối tượng, sau đó nhấn Edit -> Insert Caption."},
-              {"id": "a4", "text": "Chọn đối tượng, sau đó nhấn Format -> Insert Caption."}
+              {
+                "id": "a1",
+                "text": "Chọn đối tượng, sau đó nhấn References -> Insert Caption.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Chọn đối tượng, sau đó nhấn Insert -> Caption."
+              },
+              {
+                "id": "a3",
+                "text": "Chọn đối tượng, sau đó nhấn Edit -> Insert Caption."
+              },
+              {
+                "id": "a4",
+                "text": "Chọn đối tượng, sau đó nhấn Format -> Insert Caption."
+              }
             ]
           },
           {
@@ -2028,10 +2212,23 @@
             "level": 3,
             "text": "Hãy tạo một chú thích cho một đoạn văn bản trong tài liệu của bạn.",
             "answers": [
-              {"id": "a1", "text": "Chọn đoạn văn bản, sau đó nhấn References -> Insert Caption.", "correct": true},
-              {"id": "a2", "text": "Chọn đoạn văn bản, sau đó nhấn Insert -> Caption."},
-              {"id": "a3", "text": "Chọn đoạn văn bản, sau đó nhấn Edit -> Insert Caption."},
-              {"id": "a4", "text": "Chọn đoạn văn bản, sau đó nhấn Format -> Insert Caption."}
+              {
+                "id": "a1",
+                "text": "Chọn đoạn văn bản, sau đó nhấn References -> Insert Caption.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Chọn đoạn văn bản, sau đó nhấn Insert -> Caption."
+              },
+              {
+                "id": "a3",
+                "text": "Chọn đoạn văn bản, sau đó nhấn Edit -> Insert Caption."
+              },
+              {
+                "id": "a4",
+                "text": "Chọn đoạn văn bản, sau đó nhấn Format -> Insert Caption."
+              }
             ]
           },
           {
@@ -2039,10 +2236,23 @@
             "level": 3,
             "text": "Hãy tạo một chú thích cho một công thức toán học trong tài liệu của bạn.",
             "answers": [
-              {"id": "a1", "text": "Chọn công thức, sau đó nhấn References -> Insert Caption.", "correct": true},
-              {"id": "a2", "text": "Chọn công thức, sau đó nhấn Insert -> Caption."},
-              {"id": "a3", "text": "Chọn công thức, sau đó nhấn Edit -> Insert Caption."},
-              {"id": "a4", "text": "Chọn công thức, sau đó nhấn Format -> Insert Caption."}
+              {
+                "id": "a1",
+                "text": "Chọn công thức, sau đó nhấn References -> Insert Caption.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Chọn công thức, sau đó nhấn Insert -> Caption."
+              },
+              {
+                "id": "a3",
+                "text": "Chọn công thức, sau đó nhấn Edit -> Insert Caption."
+              },
+              {
+                "id": "a4",
+                "text": "Chọn công thức, sau đó nhấn Format -> Insert Caption."
+              }
             ]
           },
           {
@@ -2050,10 +2260,23 @@
             "level": 3,
             "text": "Hãy tạo một chú thích cho một biểu đồ trong tài liệu của bạn.",
             "answers": [
-              {"id": "a1", "text": "Chọn biểu đồ, sau đó nhấn References -> Insert Caption.", "correct": true},
-              {"id": "a2", "text": "Chọn biểu đồ, sau đó nhấn Insert -> Caption."},
-              {"id": "a3", "text": "Chọn biểu đồ, sau đó nhấn Edit -> Insert Caption."},
-              {"id": "a4", "text": "Chọn biểu đồ, sau đó nhấn Format -> Insert Caption."}
+              {
+                "id": "a1",
+                "text": "Chọn biểu đồ, sau đó nhấn References -> Insert Caption.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Chọn biểu đồ, sau đó nhấn Insert -> Caption."
+              },
+              {
+                "id": "a3",
+                "text": "Chọn biểu đồ, sau đó nhấn Edit -> Insert Caption."
+              },
+              {
+                "id": "a4",
+                "text": "Chọn biểu đồ, sau đó nhấn Format -> Insert Caption."
+              }
             ]
           },
           {
@@ -2061,10 +2284,23 @@
             "level": 3,
             "text": "Hãy tạo một chú thích cho một đồ thị trong tài liệu của bạn.",
             "answers": [
-              {"id": "a1", "text": "Chọn đồ thị, sau đó nhấn References -> Insert Caption.", "correct": true},
-              {"id": "a2", "text": "Chọn đồ thị, sau đó nhấn Insert -> Caption."},
-              {"id": "a3", "text": "Chọn đồ thị, sau đó nhấn Edit -> Insert Caption."},
-              {"id": "a4", "text": "Chọn đồ thị, sau đó nhấn Format -> Insert Caption."}
+              {
+                "id": "a1",
+                "text": "Chọn đồ thị, sau đó nhấn References -> Insert Caption.",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Chọn đồ thị, sau đó nhấn Insert -> Caption."
+              },
+              {
+                "id": "a3",
+                "text": "Chọn đồ thị, sau đó nhấn Edit -> Insert Caption."
+              },
+              {
+                "id": "a4",
+                "text": "Chọn đồ thị, sau đó nhấn Format -> Insert Caption."
+              }
             ]
           },
           {

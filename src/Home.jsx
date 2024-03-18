@@ -4,8 +4,7 @@ import { Header } from "./components/header";
 import { Exam } from "./components/examonline";
 import { About } from "./components/about";
 import { Documents } from "./components/documents";
-import { Gallery } from "./components/gallery";
-import { Testimonials } from "./components/testimonials";
+import { Extentions } from "./components/extentions";
 import { Team } from "./components/Team";
 import { Contact } from "./components/contact";
 import JsonData from "./data/data.json";
@@ -25,13 +24,12 @@ const Home = () => {
 
   return (
     <div>
-      <Navigation />
+      <Navigation data={pageData.Accounts}/>
       <Header data={pageData.Header}/>
       <About data={pageData.About}/>
       <Exam data={pageData.Exams} />
       <Documents data={pageData.Documents} />
-      <Gallery data={pageData.Gallery} />
-      <Testimonials data={pageData.Testimonials} />
+      <Extentions data={pageData.Testimonials} />
       <Team data={pageData.Team} />
       <Contact data={pageData.Contact} />
     </div>

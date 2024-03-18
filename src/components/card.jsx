@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const colors = ['#880000', '#666666', '#FF3300', '#3399FF', '#33FF00', '#FF3366', '#993300', '#3300FF', '#007700', '#FF9900'];
 
-const CustomCard = styled(Card)(({ theme, detailsOpened }) => ({
+const CustomCard = styled(Card)(({ theme }) => ({
     backgroundImage: `url(${process.env.PUBLIC_URL + '/img/card-bg.jpg'})`,
     color: '#FFFFFF',
     width: '90%',
@@ -20,7 +20,6 @@ const CustomCard = styled(Card)(({ theme, detailsOpened }) => ({
     cursor: 'pointer',
     marginLeft: '20px',
     transition: 'transform 0.3s ease-in-out',
-    zIndex: detailsOpened ? '1' : '0',
     '&:hover': {
         transform: 'scale(1.05)',
         zIndex: '1',
@@ -123,7 +122,7 @@ export const CardItem = ({ id, fullname, name, year, credits }) => {
 
     return (
         <div style={{ position: 'relative' }}>
-            <CustomCard detailsOpened={detailsOpened}>
+            <CustomCard>
                 <IconArticle>
                     <ArticleIcon style={{ fontSize: '25px', opacity: '0.4' }} />
                 </IconArticle>
