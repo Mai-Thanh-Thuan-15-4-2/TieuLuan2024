@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Link } from 'react-router-dom';
 
 
 export const Navigation = (props) => {
@@ -15,6 +16,7 @@ export const Navigation = (props) => {
   const [isTeacher, setIsTeacher] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [loggedInUserId, setLoggedInUserId] = useState(null);
 
   const handleLogin = () => {
     if (!username || !password) {
@@ -27,6 +29,7 @@ export const Navigation = (props) => {
     );
 
     if (account) {
+      setLoggedInUserId(account.id);
       if (account.status === 0) {
         setMessError("Tài khoản của bạn đã bị khóa do vi phạm một số nguyên tắc của chúng tôi!!");
         setShowError(true);
@@ -113,7 +116,7 @@ export const Navigation = (props) => {
               </a>
             </li>
             <li>
-              <a href="#extentions" className="page-scroll">
+              <a href="#extensions" className="page-scroll">
                 Tiện ích
               </a>
             </li>
@@ -131,7 +134,9 @@ export const Navigation = (props) => {
                    <p className="option">Cá nhân</p>
                    <p className="option">Điều khoản</p>
                    {isTeacher && (
+                  <Link to={`/teacher/${loggedInUserId}`}>
                    <p className="option">Quản lý câu hỏi</p>
+                   </Link>
                    )}
                    {isAdmin && (
                    <p  className="option">Vào trang quản lý</p>

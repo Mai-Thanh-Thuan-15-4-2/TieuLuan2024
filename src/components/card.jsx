@@ -67,7 +67,7 @@ const ButtonWrapper = styled('div')(({ theme }) => ({
 const CustomButton = styled('button')({
     backgroundColor: 'rgb(0.10,0.00,0.30)',
     color: '#99DDFF',
-    border: '2px solid' + colors[Math.floor(Math.random() * colors.length)],
+    border: '2px solid #0056b3',
     padding: '5px 10px',
     borderRadius: '5px',
     cursor: 'pointer',
@@ -103,7 +103,7 @@ const DetailCard = styled(Card)(({ theme }) => ({
 const BoldLabel = styled('span')({
     fontWeight: 'bold',
 });
-export const CardItem = ({ id, fullname, name, year, credits }) => {
+export const CardItem = ({ id, name, year, credits, link }) => {
     const [detailsOpened, setDetailsOpened] = useState(false);
 
     useEffect(() => {
@@ -119,7 +119,9 @@ export const CardItem = ({ id, fullname, name, year, credits }) => {
     const handleInfoClick = () => {
         setDetailsOpened(!detailsOpened);
     };
-
+    const truncate = (str) => {
+        return str.length > 15 ? str.substring(0, 15) + "..." : str;
+      };
     return (
         <div style={{ position: 'relative' }}>
             <CustomCard>
@@ -130,20 +132,20 @@ export const CardItem = ({ id, fullname, name, year, credits }) => {
                     <InfoIcon />
                 </IconInfo>
                 <ButtonWrapper>
-                    <Link to={`/detail/${id}`}>
-                        <CustomButton>Bắt đầu</CustomButton>
+                    <Link to={link}>
+                        <CustomButton>Tùy chọn</CustomButton>
                     </Link>
                 </ButtonWrapper>
                 <CardContent>
                     <TextWrapper>
-                        <Typography variant="h5">{name}</Typography>
+                        <Typography variant="h5">{truncate(name)}</Typography>
                     </TextWrapper>
                 </CardContent>
             </CustomCard>
             {detailsOpened && (
                 <DetailCard>
                     <Typography><BoldLabel>ID:</BoldLabel> {id}</Typography>
-                    <Typography><BoldLabel>Tên:</BoldLabel>{fullname}</Typography>
+                    <Typography><BoldLabel>Tên:</BoldLabel>{name}</Typography>
                     <Typography><BoldLabel>Số tín chỉ:</BoldLabel> {credits}</Typography>
                     <Typography><BoldLabel>Năm học:</BoldLabel> {year}</Typography>
                 </DetailCard>

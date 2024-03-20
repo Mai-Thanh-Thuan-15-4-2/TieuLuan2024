@@ -228,6 +228,7 @@
   border-bottom: 5px solid #99CCCC;
   border-radius: 0 0 10px 10px;
 }
+
 .button_done {
   justify-content: space-between;
   display: flex;
@@ -246,7 +247,7 @@
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
@@ -286,28 +287,184 @@
   background-color: #298e46;
   box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
 }
-.title_complete{
-   text-align: center;
-   font-size: 2.5rem;
-   padding-top: 20px;
-   color: #1f30b2;
+
+.title_complete {
+  text-align: center;
+  font-size: 2.5rem;
+  padding-top: 20px;
+  color: #1f30b2;
 }
-.container_complete{
-   background-color: none;
-   border: #1f30b2 solid 2px;
-   border-radius: 5px;
-   height: 200px;
-   text-align: center;
-   margin: 10px;
+
+.container_complete {
+  background-color: none;
+  border: #1f30b2 solid 2px;
+  border-radius: 5px;
+  height: 200px;
+  text-align: center;
+  margin: 10px;
 }
-.content_complete{
+
+.content_complete {
   padding: 20px;
   font-size: 20px;
 }
-.label_complete{
+
+.label_complete {
   font-weight: bold;
 }
-.detail_complete{
+
+.detail_complete {
   font-weight: bold;
   color: #0fe436;
 }
+
+/* question manager */
+.sidebar_manage {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #759cf048;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  top: 16.5%;
+  right: 0;
+}
+
+.sidebar_visible {
+  display: block;
+}
+
+.sidebar_hidden {
+  display: none;
+}
+
+.sidebar_manage a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+  margin: 10px;
+}
+
+.sidebar_manage a.active {
+  background-color: #03d8f0d2;
+  border-radius: 25px;
+  margin: 10px;
+  color: white;
+}
+
+.sidebar_manage a:hover:not(.active) {
+  background-color: #acefe4d8;
+  border-radius: 25px;
+  color: white;
+  margin: 10px;
+}
+
+div.content_manage {
+  margin-right: 200px;
+  padding: 1px 10px;
+  height: 100%;
+  margin-top: 10%;
+  margin-bottom: 10px;
+}
+
+.content_manage h2 {
+  text-align: center;
+  font-size: 25px;
+}
+
+div.content_manage_full {
+  padding: 1px 10px;
+  height: 100%;
+  margin-top: 10%;
+}
+
+.content_manage_full h2 {
+  text-align: center;
+  font-size: 25px;
+}
+
+.title_wrapper h2 {
+  position: relative;
+}
+
+.title_wrapper h2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 45%;
+  width: 10%;
+  height: 4px;
+  background: linear-gradient(to right, #0056b3, #00a1d7);
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar_manage {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-top: 22%;
+  }
+
+  .sidebar_manage a {
+    float: left;
+  }
+
+  div.content_manage {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  div.content_manage_full {
+    margin-left: 0;
+    margin-top: 24%;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar_manage a {
+    text-align: center;
+    float: none;
+  }
+}
+.add_subject{
+  width: 100%;
+} 
+.btn_add{
+  float: right;
+  position: relative;
+  background-color: #488eda;
+  border: none;
+  color: #FFFFFF;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+.btn_add:after {
+  content: "";
+  background: #f1f1f1;
+  display: block;
+  position: absolute;
+  border-radius: 10px;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+.btn_add:hover {
+  scale: 1.05;
+}
+.btn_add:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+} 

@@ -1,8 +1,8 @@
 import React from "react";
 
-export const Extentions = (props) => {
+export const Extensions = (props) => {
   return (
-    <div id="extentions">
+    <div id="extensions">
       <div className="container">
         <div className="section-title text-center">
           <h2>Tiện ích</h2>

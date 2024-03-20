@@ -118,9 +118,6 @@ export const Exam = (props) => {
       sortedData = filteredData;
   }
 
-  const truncate = (str) => {
-    return str.length > 15 ? str.substring(0, 15) + "..." : str;
-  };
   return (
     <div id="examonline" className="text-center">
       <div className="container">
@@ -141,7 +138,7 @@ export const Exam = (props) => {
                 <Grid container spacing={2} alignItems="center">
                   {props.data ? props.data.basic.map((item, index) => (
                     <Grid item xs={12} sm={6} md={3} key={index}>
-                      <Link to={`/detail/${item.id}`}>
+                      <Link to={`/examoption/${item.id}`}>
                       <CustomCard>
                         <CardContent>
                           <Typography variant="h5" component="h2">
@@ -218,7 +215,7 @@ export const Exam = (props) => {
                   <Grid container spacing={2}>
                     {sortedData ? sortedData.map((item, index) => (
                       <Grid item xs={12} sm={6} md={3} key={index}>
-                        <CardItem name={truncate(item.name)} fullname={item.name} id={item.id} year={item.year} credits={item.credits}></CardItem>
+                        <CardItem name={item.name} id={item.id} year={item.year} link={`/examoption/${item.id}`} credits={item.credits}></CardItem>
                       </Grid>
                     )) : "loading"}
                   </Grid>

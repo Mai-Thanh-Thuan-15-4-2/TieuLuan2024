@@ -4,8 +4,7 @@ import { Header } from "./components/header";
 import { Exam } from "./components/examonline";
 import { About } from "./components/about";
 import { Documents } from "./components/documents";
-import { Extentions } from "./components/extentions";
-import { Team } from "./components/Team";
+import { Extensions } from "./components/extensions";
 import { Contact } from "./components/contact";
 import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
@@ -29,8 +28,7 @@ const Home = () => {
       <About data={pageData.About}/>
       <Exam data={pageData.Exams} />
       <Documents data={pageData.Documents} />
-      <Extentions data={pageData.Testimonials} />
-      <Team data={pageData.Team} />
+      <Extensions data={pageData.Testimonials} />
       <Contact data={pageData.Contact} />
     </div>
   );
