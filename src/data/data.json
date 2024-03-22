@@ -85,14 +85,14 @@
   "Accounts": [
     {
       "id": "1001",
-      "username": "Mai",
+      "username": "Thanh",
       "password": "123",
       "role": 1,
       "status": 1
     },
     {
       "id": "1002",
-      "username": "Thanh",
+      "username": "Mai",
       "password": "123",
       "role": 2,
       "status": 1,
@@ -100,7 +100,56 @@
         {
           "id": "214231",
           "listquestions": [
-            {}
+            "CTMT1",
+            "CTMT2",
+            "CTMT3",
+            "CTMT4",
+            "CTMT5",
+            "CTMT6",
+            "CTMT7",
+            "CTMT8",
+            "CTMT9",
+            "CTMT10",
+            "CTMT11",
+            "CTMT12",
+            "CTMT13",
+            "CTMT14",
+            "CTMT15",
+            "CTMT16",
+            "CTMT17",
+            "CTMT18",
+            "CTMT19",
+            "CTMT20",
+            "CTMT21",
+            "CTMT22",
+            "CTMT23",
+            "CTMT24",
+            "CTMT25",
+            "CTMT26",
+            "CTMT27",
+            "CTMT28",
+            "CTMT29",
+            "CTMT30",
+            "CTMT31",
+            "CTMT32",
+            "CTMT33",
+            "CTMT34",
+            "CTMT35",
+            "CTMT36",
+            "CTMT37",
+            "CTMT38",
+            "CTMT39",
+            "CTMT40",
+            "CTMT41",
+            "CTMT42",
+            "CTMT43",
+            "CTMT44",
+            "CTMT45",
+            "CTMT46",
+            "CTMT47",
+            "CTMT48",
+            "CTMT49",
+            "CTMT50"
           ]
         },
         {
@@ -2583,6 +2632,32 @@
         "name": "Cấu trúc máy tính",
         "year": "1",
         "credits": "2",
+        "listcategory": [
+          {
+            "id": "CTMT_cate1",
+            "content": "Giới thiệu về cấu trúc máy tính"
+          },
+          {
+            "id": "CTMT_cate2",
+            "content": "Hệ thống máy tính"
+          },
+          {
+            "id": "CTMT_cate3",
+            "content": "Biểu diễn dữ liệu và số học máy tính"
+          },
+          {
+            "id": "CTMT_cate4",
+            "content": "Bộ xử lý trung tâm"
+          },
+          {
+            "id": "CTMT_cate5",
+            "content": "Bộ nhớ máy tính"
+            },
+            {
+              "id": "CTMT_cate6",
+              "content": "Hệ thống vào ra"
+            }
+        ],
         "questions": [
           {
             "id": "CTMT1",
@@ -2593,7 +2668,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Máy tính được cấu thành từ những thành phần nào chính?",
             "answers": [
               {
@@ -2624,7 +2699,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "CPU (Central Processing Unit) có chức năng gì trong máy tính?",
             "answers": [
               {
@@ -2655,7 +2730,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "RAM (Random Access Memory) dùng để làm gì trong máy tính?",
             "answers": [
               {
@@ -2686,7 +2761,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Hệ điều hành trong máy tính có vai trò gì?",
             "answers": [
               {
@@ -2717,7 +2792,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Đơn vị lưu trữ nhỏ nhất trong máy tính là gì?",
             "answers": [
               {
@@ -2748,7 +2823,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "GPU (Graphics Processing Unit) trong máy tính dùng để làm gì?",
             "answers": [
               {
@@ -2779,7 +2854,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Tại sao CPU được coi là 'bộ não' của máy tính?",
             "answers": [
               {
@@ -2810,7 +2885,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Làm thế nào mà RAM giúp tăng tốc độ xử lý của máy tính?",
             "answers": [
               {
@@ -2841,7 +2916,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Tại sao việc có một hệ điều hành tốt là quan trọng đối với máy tính?",
             "answers": [
               {
@@ -2872,7 +2947,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Làm thế nào mà GPU giúp cải thiện hiệu suất đồ họa của máy tính?",
             "answers": [
               {
@@ -2903,7 +2978,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Tại sao việc lựa chọn đúng loại bộ nhớ lưu trữ (HDD, SSD) là quan trọng đối với hiệu suất máy tính?",
             "answers": [
               {
@@ -2934,7 +3009,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Làm thế nào mà một máy tính có thể chạy nhiều chương trình cùng một lúc?",
             "answers": [
               {
@@ -2965,7 +3040,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Tại sao việc bảo dưỡng và làm mát hệ thống là quan trọng đối với hiệu suất máy tính?",
             "answers": [
               {
@@ -2996,7 +3071,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Làm thế nào mà việc cung cấp nhiều RAM hơn cho máy tính có thể giúp cải thiện hiệu suất?",
             "answers": [
               {
@@ -3027,7 +3102,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Nếu bạn muốn tăng tốc độ xử lý của máy tính, bạn nên nâng cấp thành phần nào sau đây?",
             "answers": [
               {
@@ -3058,7 +3133,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Trong một hệ thống máy tính, RAM có vai trò gì?",
             "answers": [
               {
@@ -3089,7 +3164,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Hệ điều hành trong máy tính có nhiệm vụ gì?",
             "answers": [
               {
@@ -3120,7 +3195,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "GPU (Graphics Processing Unit) trong máy tính dùng để làm gì?",
             "answers": [
               {
@@ -3151,7 +3226,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Giả sử bạn đang xây dựng một máy tính để chạy các ứng dụng đồ họa nặng như trò chơi video và phần mềm thiết kế 3D. Bạn nên tập trung nâng cấp thành phần nào sau đây để đạt được hiệu suất tốt nhất?",
             "answers": [
               {
@@ -3182,7 +3257,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Giới thiệu về cấu trúc máy tính",
+            "category": "CTMT_cate1",
             "text": "Trong một hệ thống máy tính, giả sử bạn có một CPU rất mạnh nhưng chỉ có một lượng RAM rất nhỏ. Điều gì có thể xảy ra khi bạn cố gắng chạy một chương trình lớn hoặc nhiều chương trình cùng một lúc?",
             "answers": [
               {
@@ -3213,7 +3288,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong một hệ thống máy tính, Hệ điều hành (Operating System) làm gì?",
             "answers": [
               {
@@ -3244,7 +3319,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong máy tính, đơn vị lưu trữ nhỏ nhất là gì?",
             "answers": [
               {
@@ -3275,7 +3350,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "CPU là viết tắt của từ gì trong máy tính?",
             "answers": [
               {
@@ -3306,7 +3381,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Một đơn vị lưu trữ dữ liệu tương đương với bao nhiêu bit?",
             "answers": [
               {
@@ -3337,7 +3412,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong một hệ thống máy tính, đơn vị đo tốc độ xử lý của CPU được đo bằng gì?",
             "answers": [
               {
@@ -3368,7 +3443,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Địa chỉ IP được sử dụng để làm gì trong mạng máy tính?",
             "answers": [
               {
@@ -3399,7 +3474,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong máy tính, bộ nhớ chính (RAM) được sử dụng để làm gì?",
             "answers": [
               {
@@ -3430,7 +3505,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong máy tính, ổ cứng (HDD) được sử dụng để làm gì?",
             "answers": [
               {
@@ -3461,7 +3536,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong một hệ thống máy tính, đường dẫn file là gì?",
             "answers": [
               {
@@ -3492,7 +3567,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong một hệ thống máy tính, giao diện người dùng (GUI) là gì?",
             "answers": [
               {
@@ -3523,7 +3598,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong một hệ thống máy tính, phần mềm diệt virus được sử dụng để làm gì?",
             "answers": [
               {
@@ -3554,7 +3629,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong máy tính, một ổ đĩa SSD khác biệt với ổ đĩa HDD ở điểm nào sau đây?",
             "answers": [
               {
@@ -3585,7 +3660,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong một hệ thống máy tính, tên miền được sử dụng để làm gì?",
             "answers": [
               {
@@ -3616,7 +3691,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong một hệ thống máy tính, tường lửa (firewall) được sử dụng để làm gì?",
             "answers": [
               {
@@ -3647,7 +3722,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong một hệ thống máy tính, phần mềm diệt malware được sử dụng để làm gì?",
             "answers": [
               {
@@ -3678,7 +3753,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong một hệ thống máy tính, khái niệm 'phần mềm diệt malware' ám chỉ điều gì?",
             "answers": [
               {
@@ -3709,7 +3784,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong một hệ thống máy tính, phần mềm diệt malware có tác dụng như thế nào đối với bảo mật?",
             "answers": [
               {
@@ -3740,7 +3815,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong một hệ thống máy tính, phần mềm diệt malware được cập nhật thường xuyên để làm gì?",
             "answers": [
               {
@@ -3771,7 +3846,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong một hệ thống máy tính, tường lửa có thể ngăn chặn những gì?",
             "answers": [
               {
@@ -3802,7 +3877,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate2",
             "text": "Trong một hệ thống máy tính, cổng USB có thể sử dụng để thực hiện những hoạt động nào?",
             "answers": [
               {
@@ -3833,7 +3908,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong máy tính, bit là viết tắt của từ gì?",
             "answers": [
               {
@@ -3864,7 +3939,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong hệ thống số nhị phân, số 1010 biểu diễn số mấy trong hệ thập phân?",
             "answers": [
               {
@@ -3895,7 +3970,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong máy tính, đơn vị nào được sử dụng để đo lượng dữ liệu?",
             "answers": [
               {
@@ -3926,7 +4001,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong máy tính, đơn vị nào được sử dụng để đo kích thước của bộ nhớ?",
             "answers": [
               {
@@ -3957,7 +4032,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong máy tính, đơn vị nào được sử dụng để biểu diễn một ký tự?",
             "answers": [
               {
@@ -3988,7 +4063,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong máy tính, đơn vị nào được sử dụng để biểu diễn một số nguyên?",
             "answers": [
               {
@@ -4019,7 +4094,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong máy tính, đơn vị nào được sử dụng để lưu trữ một số thực?",
             "answers": [
               {
@@ -4050,7 +4125,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong máy tính, một Byte bao gồm bao nhiêu Bit?",
             "answers": [
               {
@@ -4081,7 +4156,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong máy tính, đơn vị nào được sử dụng để đo dung lượng ổ cứng?",
             "answers": [
               {
@@ -4112,7 +4187,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong máy tính, một Kilobyte bằng bao nhiêu Byte?",
             "answers": [
               {
@@ -4143,7 +4218,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong máy tính, đơn vị nào được sử dụng để đo tốc độ xử lý?",
             "answers": [
               {
@@ -4174,7 +4249,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong máy tính, một Megabyte bằng bao nhiêu Kilobyte?",
             "answers": [
               {
@@ -4205,7 +4280,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong máy tính, đơn vị nào được sử dụng để đo tốc độ truyền dữ liệu?",
             "answers": [
               {
@@ -4236,7 +4311,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong máy tính, đơn vị nào được sử dụng để đo dung lượng bộ nhớ RAM?",
             "answers": [
               {
@@ -4267,7 +4342,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong lập trình máy tính, phép tính AND (AND operation) thường được sử dụng để làm gì?",
             "answers": [
               {
@@ -4298,7 +4373,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong lập trình máy tính, biểu thức logic 'x > y' làm gì?",
             "answers": [
               {
@@ -4329,7 +4404,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong lập trình máy tính, biểu thức logic 'x == y' làm gì?",
             "answers": [
               {
@@ -4360,7 +4435,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong lập trình máy tính, phép toán XOR (exclusive OR) thường được sử dụng để làm gì?",
             "answers": [
               {
@@ -4391,7 +4466,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong lập trình máy tính, biểu thức 'x += 5' tương đương với biểu thức nào sau đây?",
             "answers": [
               {
@@ -4422,7 +4497,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Biểu diễn dữ liệu và số học máy tính",
+            "category": "CTMT_cate3",
             "text": "Trong lập trình máy tính, biểu thức 'y *= 2' tương đương với biểu thức nào sau đây?",
             "answers": [
               {
@@ -4453,7 +4528,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Bộ xử lý (CPU) có chức năng chính là gì?",
             "answers": [
               {
@@ -4484,7 +4559,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "CPU được coi là 'bộ não' của máy tính vì lý do gì?",
             "answers": [
               {
@@ -4515,7 +4590,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Thành phần nào sau đây không phải là một phần của CPU?",
             "answers": [
               {
@@ -4546,7 +4621,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "RAM (Random Access Memory) được sử dụng để làm gì?",
             "answers": [
               {
@@ -4577,7 +4652,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Trong một hệ thống máy tính, CPU làm gì?",
             "answers": [
               {
@@ -4608,7 +4683,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Trong máy tính, các thiết bị nào sau đây thường được gắn trực tiếp vào CPU?",
             "answers": [
               {
@@ -4639,7 +4714,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Cache Memory trong CPU được sử dụng để làm gì?",
             "answers": [
               {
@@ -4670,7 +4745,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "ALU (Arithmetic Logic Unit) là một phần của CPU, nó thực hiện chức năng gì?",
             "answers": [
               {
@@ -4701,7 +4776,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Đơn vị Điều khiển (Control Unit) trong CPU có chức năng gì?",
             "answers": [
               {
@@ -4732,7 +4807,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Trong CPU, FPU (Floating Point Unit) thực hiện nhiệm vụ gì?",
             "answers": [
               {
@@ -4763,7 +4838,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Trong một CPU, nguyên tắc hoạt động của bộ nhớ đệm là gì?",
             "answers": [
               {
@@ -4794,7 +4869,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Trong CPU, nguyên tắc hoạt động của bộ xử lý (ALU) là gì?",
             "answers": [
               {
@@ -4825,7 +4900,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Trong CPU, nguyên tắc hoạt động của Đơn vị Điều khiển (Control Unit) là gì?",
             "answers": [
               {
@@ -4856,7 +4931,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Trong CPU, nguyên tắc hoạt động của FPU (Floating Point Unit) là gì?",
             "answers": [
               {
@@ -4887,7 +4962,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Giả sử bạn đang chạy một chương trình có yêu cầu cao về tính toán số học phức tạp. Bạn sẽ chọn CPU nào để đáp ứng nhu cầu này?",
             "answers": [
               {
@@ -4918,7 +4993,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Trong một hệ thống máy tính, khi nâng cấp CPU, điều gì có thể cần phải cân nhắc?",
             "answers": [
               {
@@ -4949,7 +5024,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Trong việc chọn CPU, điều gì quan trọng nhất cần xem xét?",
             "answers": [
               {
@@ -4980,7 +5055,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Trong CPU, điều gì ảnh hưởng đến hiệu suất xử lý nhiều nhất?",
             "answers": [
               {
@@ -5011,7 +5086,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Nêu và mô tả một ví dụ về việc vận dụng nguyên lý của bộ xử lý trung tâm (CPU) vào một hệ thống máy tính phức tạp?",
             "answers": [
               {
@@ -5042,7 +5117,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ xử lý trung tâm",
+            "category": "CTMT_cate4",
             "text": "Trình bày cách mà việc tối ưu hóa hiệu suất của bộ xử lý trung tâm (CPU) có thể ảnh hưởng đến toàn bộ hệ thống máy tính?",
             "answers": [
               {
@@ -5073,7 +5148,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "Bộ nhớ RAM trong máy tính được sử dụng để làm gì?",
             "answers": [
               {
@@ -5104,7 +5179,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "Bộ nhớ ROM trong máy tính có chức năng gì?",
             "answers": [
               {
@@ -5135,7 +5210,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "Bộ nhớ cache trong máy tính được sử dụng để làm gì?",
             "answers": [
               {
@@ -5166,7 +5241,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "Tại sao việc chọn loại bộ nhớ RAM phù hợp là quan trọng đối với hiệu suất máy tính?",
             "answers": [
               {
@@ -5197,7 +5272,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "CPU (Central Processing Unit) có thể lưu trữ dữ liệu không?",
             "answers": [
               {
@@ -5220,7 +5295,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "Đặc điểm nào sau đây không phải là tính chất của bộ nhớ RAM?",
             "answers": [
               {
@@ -5251,7 +5326,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "RAM và ROM đều là loại bộ nhớ trong máy tính. Điểm khác biệt chính giữa chúng là gì?",
             "answers": [
               {
@@ -5282,7 +5357,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "Trong một hệ thống máy tính, ý nghĩa của việc có dung lượng RAM lớn là gì?",
             "answers": [
               {
@@ -5313,7 +5388,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "Trong một hệ thống máy tính, đặc điểm chính của bộ nhớ Cache là gì?",
             "answers": [
               {
@@ -5344,7 +5419,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "Trong một hệ thống máy tính, ổ cứng SSD có ưu điểm chính là gì so với ổ cứng HDD?",
             "answers": [
               {
@@ -5375,7 +5450,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "Trong hệ thống máy tính, điểm khác biệt chính giữa RAM và Cache là gì?",
             "answers": [
               {
@@ -5406,7 +5481,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "Trong một hệ thống máy tính, ý nghĩa của bộ nhớ ổ cứng SSD so với HDD là gì?",
             "answers": [
               {
@@ -5437,7 +5512,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "Trong một hệ thống máy tính, ý nghĩa của bộ nhớ ổ cứng HDD so với SSD là gì?",
             "answers": [
               {
@@ -5468,7 +5543,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Bộ nhớ máy tính",
+            "category": "CTMT_cate5",
             "text": "Trong một hệ thống máy tính, ổ cứng HDD thường được sử dụng để lưu trữ loại dữ liệu nào?",
             "answers": [
               {
@@ -5499,7 +5574,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate5",
             "text": "Tại sao việc sử dụng ổ cứng SSD thay vì HDD có thể cải thiện hiệu suất của máy tính?",
             "answers": [
               {
@@ -5530,7 +5605,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate5",
             "text": "Tại sao việc lựa chọn CPU có tốc độ xử lý cao là quan trọng đối với hiệu suất máy tính?",
             "answers": [
               {
@@ -5561,7 +5636,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate5",
             "text": "Làm thế nào một hệ điều hành tốt có thể cải thiện hiệu suất của máy tính?",
             "answers": [
               {
@@ -5592,7 +5667,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate5",
             "text": "Tại sao việc sử dụng card đồ họa mạnh mẽ là yếu tố quan trọng cho máy tính dùng cho công việc đồ họa và chơi game?",
             "answers": [
               {
@@ -5623,7 +5698,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate5",
             "text": "Trình bảo mật nào là quan trọng nhất để bảo vệ máy tính khỏi các mối đe dọa trực tuyến phức tạp?",
             "answers": [
               {
@@ -5654,7 +5729,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống máy tính",
+            "category": "CTMT_cate5",
             "text": "Làm thế nào để tăng cường tính bảo mật của một mạng máy tính trong một doanh nghiệp?",
             "answers": [
               {
@@ -5685,7 +5760,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong môi trường doanh nghiệp, mục đích chính của hệ thống vào ra (Access Control System) là gì?",
             "answers": [
               {
@@ -5716,7 +5791,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong hệ thống mạng, các biện pháp an ninh như mật khẩu, mã hóa và xác thực hai yếu tố được sử dụng cho mục đích gì?",
             "answers": [
               {
@@ -5747,7 +5822,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Một cách hiệu quả để quản lý quyền truy cập vào dữ liệu trong một doanh nghiệp là gì?",
             "answers": [
               {
@@ -5778,7 +5853,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong môi trường doanh nghiệp, việc thực hiện kiểm soát truy cập dữ liệu giúp đảm bảo điều gì?",
             "answers": [
               {
@@ -5809,7 +5884,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong môi trường doanh nghiệp, mục đích chính của việc triển khai hệ thống kiểm soát truy cập là gì?",
             "answers": [
               {
@@ -5840,7 +5915,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong môi trường doanh nghiệp, mục đích chính của việc triển khai hệ thống kiểm soát truy cập là gì?",
             "answers": [
               {
@@ -5871,7 +5946,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Khái niệm 'Single Sign-On' (SSO) trong mạng máy tính đề cập đến điều gì?",
             "answers": [
               {
@@ -5902,7 +5977,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong mạng máy tính, giao thức LDAP (Lightweight Directory Access Protocol) được sử dụng để làm gì?",
             "answers": [
               {
@@ -5933,7 +6008,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong môi trường doanh nghiệp, các nhóm người dùng được tạo ra để làm gì?",
             "answers": [
               {
@@ -5964,7 +6039,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong mạng máy tính, giao thức RADIUS (Remote Authentication Dial-In User Service) thường được sử dụng cho mục đích gì?",
             "answers": [
               {
@@ -5995,7 +6070,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong môi trường doanh nghiệp, VPN (Virtual Private Network) được sử dụng cho mục đích gì?",
             "answers": [
               {
@@ -6026,7 +6101,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong mạng máy tính, giao thức SSH (Secure Shell) được sử dụng để làm gì?",
             "answers": [
               {
@@ -6057,7 +6132,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong môi trường doanh nghiệp, giao thức SFTP (SSH File Transfer Protocol) được sử dụng cho mục đích gì?",
             "answers": [
               {
@@ -6088,7 +6163,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong môi trường mạng máy tính, giao thức FTPS (File Transfer Protocol Secure) được sử dụng để làm gì?",
             "answers": [
               {
@@ -6109,7 +6184,7 @@
                 "correct": true
               }
             ]
-          },          
+          },
           {
             "id": "CTMT115",
             "level": 3,
@@ -6119,7 +6194,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong môi trường doanh nghiệp, phương pháp bảo mật nào thường được sử dụng để giảm thiểu rủi ro từ các cuộc tấn công từ bên ngoài?",
             "answers": [
               {
@@ -6150,7 +6225,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong một mạng máy tính, giao thức nào được sử dụng để thiết lập kết nối an toàn giữa hai thiết bị trên mạng công cộng như Internet?",
             "answers": [
               {
@@ -6181,7 +6256,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong một mạng máy tính, giao thức nào được sử dụng để thiết lập kết nối an toàn giữa hai thiết bị trên mạng công cộng như Internet?",
             "answers": [
               {
@@ -6212,7 +6287,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong một mạng máy tính, phương pháp nào được sử dụng để phân phối tự động địa chỉ IP cho các thiết bị trong mạng?",
             "answers": [
               {
@@ -6243,7 +6318,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong môi trường mạng, cách tốt nhất để bảo vệ dữ liệu quan trọng trước các cuộc tấn công là gì?",
             "answers": [
               {
@@ -6274,7 +6349,7 @@
             "correct_answers": 1,
             "type": 1,
             "status": 1,
-            "category": "Hệ thống vào ra",
+            "category": "CTMT_cate6",
             "text": "Trong mạng máy tính, việc triển khai cơ chế kiểm soát truy cập nhằm mục đích gì?",
             "answers": [
               {

@@ -26,6 +26,14 @@ const ExamOptions = () => {
     const [examContentData, setExamContentData] = useState(null);
     const [showContent, setShowContent] = useState(true);
 
+    const sumTotalQuestionsSelected = (questionIds) => {
+        const selectedQuestions = examData.questions.filter((question) =>
+            questionIds.includes(question.category)
+        );
+        return selectedQuestions.length;
+    };
+
+    const totalQuestionsSelected = sumTotalQuestionsSelected(selectedTopics);
     const handleQuestionsCountChange = (value) => {
         if (value === "custom") {
             setQuestionsValue("custom");
@@ -42,22 +50,13 @@ const ExamOptions = () => {
             setTimesValue(value);
         }
     };
-    const getUniqueCategories = (questions) => {
-        const categories = new Set();
-        questions.forEach(question => {
-            if (question.category) {
-                categories.add(question.category);
-            }
-        });
-        return Array.from(categories);
-    };
 
-    const uniqueCategories = getUniqueCategories(examData.questions);
+    const categories = examData.listcategory;
     const handleCheckboxChange = (event) => {
         const { name, checked } = event.target;
         if (name === 'selectAll') {
             setSelectAll(checked);
-            setSelectedTopics(checked ? uniqueCategories : []);
+            setSelectedTopics(checked ? categories.map(category => category.id) : []);
         } else {
             if (checked) {
                 setSelectedTopics([...selectedTopics, name]);
@@ -114,39 +113,52 @@ const ExamOptions = () => {
         if (selectedTopics.length > 0) {
             questions = questions.filter(question => selectedTopics.includes(question.category));
         }
-    
+
+        const totalQuestions = questions.length;
+
+        if (totalQuestions === selectedCount) {
+            const examQuestions = {
+                1: questions.filter(question => question.level === 1),
+                2: questions.filter(question => question.level === 2),
+                3: questions.filter(question => question.level === 3),
+                4: questions.filter(question => question.level === 4),
+            };
+
+            return examQuestions;
+        }
+
         let levelCounts = {
             1: Math.floor(selectedCount * 0.4),
             2: Math.floor(selectedCount * 0.3),
             3: Math.floor(selectedCount * 0.2),
             4: Math.floor(selectedCount * 0.1),
         };
-    
+
         const totalSelected = Object.values(levelCounts).reduce((a, b) => a + b);
         if (totalSelected < selectedCount) {
             levelCounts[4] += selectedCount - totalSelected;
         }
-    
+
         const examQuestions = {
             1: [],
             2: [],
             3: [],
             4: [],
         };
-    
+
         const levelQuestions = {
             1: [],
             2: [],
             3: [],
             4: [],
         };
-    
+
         questions.forEach(question => {
             if (question.level) {
                 levelQuestions[question.level].push(question);
             }
         });
-    
+
         Object.keys(levelCounts).forEach(level => {
             for (let i = 0; i < levelCounts[level]; i++) {
                 if (levelQuestions[level].length > 0) {
@@ -156,17 +168,19 @@ const ExamOptions = () => {
                 }
             }
         });
-    
+
         return examQuestions;
     };
-    
+
     const handleStartExam = () => {
-        if (uniqueCategories.length > 0 && selectedTopics.length === 0) {
+        if (categories.length > 0 && selectedTopics.length === 0) {
             setErrorTimesMessage('Hãy chọn chủ đề bạn muốn làm');
             setShowErrorTimesModal(true);
+        } else if (parseInt(questionsValue) > totalQuestionsSelected) {
+            setErrorQuestionsMessage('Chủ đề này không đủ số câu hỏi!');
+            setShowErrorQuestionsModal(true);
         } else {
             const selectedQuestionCount = parseInt(questionsValue === 'custom' ? questionsCustomValue : questionsValue, 10);
-
             const examQuestions = generateExamQuestions(examData.questions, selectedTopics, selectedQuestionCount);
             setExamContentData({ examQuestions, examTime: timesValue === 'custom' ? timesCustomValue : timesValue, totalQuestions: questionsValue === 'custom' ? questionsCustomValue : questionsValue });
             setShowContent(false);
@@ -186,21 +200,22 @@ const ExamOptions = () => {
                     <div style={styles.content}>
                         <div style={styles.sidebar}>
                             <h5 style={{ color: 'blue' }}>Tổng số câu hỏi: {examData.questions.length}</h5>
+                            <p style={{ color: 'blue' }}>Tổng số câu hỏi ở chủ đề đã chọn: {totalQuestionsSelected}</p>
                             <h3>Chủ đề:</h3>
                             <ul style={styles.topicList}>
-                                {uniqueCategories.length > 0 && (
+                                {categories.length > 0 && (
                                     <li style={styles.topicListItem}>
                                         <input type="checkbox" id="selectAll" name="selectAll" checked={selectAll} onChange={handleCheckboxChange} style={styles.checkbox} />
                                         <label htmlFor="selectAll" style={{ fontSize: '15px', color: 'blue' }}>Chọn tất cả</label>
                                     </li>
                                 )}
-                                {uniqueCategories.map((category, index) => (
+                                {categories.map((category, index) => (
                                     <li key={index} style={styles.topicListItem}>
-                                        <input type="checkbox" id={`topic${index}`} name={category} checked={selectedTopics.includes(category)} onChange={handleCheckboxChange} style={styles.checkbox} />
-                                        <label htmlFor={`topic${index}`} style={{ fontSize: '15px' }}>{category}</label>
+                                        <input type="checkbox" id={`topic${index}`} name={category.id} checked={selectedTopics.includes(category.id)} onChange={handleCheckboxChange} style={styles.checkbox} />
+                                        <label htmlFor={`topic${index}`} style={{ fontSize: '15px' }}>{category.content}</label>
                                     </li>
                                 ))}
-                                {uniqueCategories.length === 0 && (
+                                {categories.length === 0 && (
                                     <li style={styles.topicListItem}>
                                         <span style={{ fontSize: '15px', marginLeft: '50px' }}>Không có chủ đề</span>
                                     </li>
