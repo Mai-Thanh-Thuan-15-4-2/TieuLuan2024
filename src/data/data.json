@@ -2663,7 +2663,7 @@
             "id": "CTMT1",
             "level": 1,
             "viewers": 1,
-            "author": "1002",
+            "author": "1003",
             "create_at": "1/1/2024",
             "correct_answers": 1,
             "type": 1,
@@ -2693,7 +2693,7 @@
           {
             "id": "CTMT2",
             "level": 1,
-            "viewers": 1,
+            "viewers": 6,
             "author": "1002",
             "create_at": "1/1/2024",
             "correct_answers": 1,
@@ -2884,7 +2884,7 @@
             "created_at": "1/1/2024",
             "correct_answers": 1,
             "type": 1,
-            "status": 1,
+            "status": -1,
             "category": "CTMT_cate1",
             "text": "Làm thế nào mà RAM giúp tăng tốc độ xử lý của máy tính?",
             "answers": [

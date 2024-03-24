@@ -523,10 +523,10 @@ div.content_manage_full {
 
 .add_subject {
   width: 100%;
+  flex-direction: row;
 }
 
 .btn_add {
-  float: right;
   position: relative;
   background-color: #488eda;
   border: none;
@@ -538,6 +538,16 @@ div.content_manage_full {
   text-decoration: none;
   overflow: hidden;
   cursor: pointer;
+}
+
+.right {
+  float: right;
+  right: 20px;
+}
+
+.left {
+  float: left;
+  left: 20px;
 }
 
 .btn_add:after {
@@ -688,4 +698,9 @@ div.content_manage_full {
     display: block;
     text-align: center;
   }
+}
+
+.list_empty {
+  text-align: center;
+  margin-top: 10%
 }

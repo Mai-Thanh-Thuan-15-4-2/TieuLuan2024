@@ -11,7 +11,6 @@ import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
@@ -25,10 +24,6 @@ const CustomCard = styled(Card)(({ theme }) => ({
   '&:hover': {
     transform: 'scale(1.05)',
   },
-}));
-
-const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
-  fontSize: '1.2rem',
 }));
 
 export const Exam = (props) => {
@@ -59,7 +54,7 @@ export const Exam = (props) => {
     setSearchValue(searchValue);
     const searchData = searchFunction(data, searchValue);
     setFilterValue(0);
-    setFilteredData(searchData); 
+    setFilteredData(searchData);
   };
 
   // Hàm tìm kiếm chung
@@ -139,17 +134,17 @@ export const Exam = (props) => {
                   {props.data ? props.data.basic.map((item, index) => (
                     <Grid item xs={12} sm={6} md={3} key={index}>
                       <Link to={`/examoption/${item.id}`}>
-                      <CustomCard>
-                        <CardContent>
-                          <Typography variant="h5" component="h2">
-                            {item.title}
-                          </Typography>
-                          <Typography variant="body2" component="p" style={{ fontSize: '13px' }}>
-                            {item.text}
-                          </Typography>
-                        </CardContent>
-                        <CardMedia component="img" src={item.img} alt={item.title} style={{ maxWidth: '100%', maxHeight: '100%' }} />
-                      </CustomCard>
+                        <CustomCard>
+                          <CardContent>
+                            <Typography variant="h5" component="h2">
+                              {item.title}
+                            </Typography>
+                            <Typography variant="body2" component="p" style={{ fontSize: '13px' }}>
+                              {item.text}
+                            </Typography>
+                          </CardContent>
+                          <CardMedia component="img" src={item.img} alt={item.title} style={{ maxWidth: '100%', maxHeight: '100%' }} />
+                        </CustomCard>
                       </Link>
                     </Grid>
                   )) : "loading"}
@@ -161,13 +156,42 @@ export const Exam = (props) => {
                 <Grid container spacing={2} alignItems="center">
                   <Grid item xs={12} sm={4}>
                     <FormControl fullWidth>
-                      <StyledInputLabel id="filter-label">Lọc</StyledInputLabel>
                       <Select
-                        labelId="filter-label"
                         id="filter"
                         value={filterValue}
                         onChange={handleFilterChange}
+                        displayEmpty
+                        renderValue={(selected) => {
+                          if (!selected) {
+                            return <em>Lọc môn học</em>;
+                          }
+                          switch (selected) {
+                            case "0":
+                              return "Tất cả";
+                            case "1":
+                              return "Năm 1";
+                            case "2":
+                              return "Năm 2";
+                            case "3":
+                              return "Năm 3";
+                            case "4":
+                              return "Năm 4";
+                            case "5":
+                              return "1 Tín chỉ";
+                            case "6":
+                              return "2 Tín chỉ";
+                            case "7":
+                              return "3 Tín chỉ";
+                            case "8":
+                              return "4 Tín chỉ";
+                            default:
+                              return "";
+                          }
+                        }}
                       >
+                        <MenuItem value="" disabled>
+                          <em>Lọc môn học</em>
+                        </MenuItem>
                         <MenuItem value="0">Tất cả</MenuItem>
                         <MenuItem value="1">Năm 1</MenuItem>
                         <MenuItem value="2">Năm 2</MenuItem>
@@ -182,13 +206,32 @@ export const Exam = (props) => {
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <FormControl fullWidth>
-                      <StyledInputLabel id="sort-label">Sắp xếp</StyledInputLabel>
                       <Select
-                        labelId="sort-label"
                         id="sort"
+                        displayEmpty
+                        renderValue={(selected) => {
+                          if (!selected) {
+                            return <em>Sắp xếp môn học</em>;
+                          }
+                          switch (selected) {
+                            case "0":
+                              return "Mặc định";
+                            case "1":
+                              return "Theo tên";
+                            case "2":
+                              return "Theo năm học";
+                            case "3":
+                              return "Theo tín chỉ";
+                            default:
+                              return "";
+                          }
+                        }}
                         value={sortValue}
                         onChange={handleSortChange}
                       >
+                        <MenuItem value="" disabled>
+                          <em>Sắp xếp môn học</em>
+                        </MenuItem>
                         <MenuItem value="0">Mặc định</MenuItem>
                         <MenuItem value="1">Theo tên</MenuItem>
                         <MenuItem value="2">Theo năm học</MenuItem>
@@ -200,7 +243,7 @@ export const Exam = (props) => {
                     <TextField
                       fullWidth
                       id="search"
-                      label="Tìm kiếm"
+                      placeholder='Tìm kiếm'
                       value={searchValue}
                       onChange={handleSearchChange}
                       InputProps={{

@@ -22,13 +22,13 @@ const QuestionManagement = () => {
     };
     return (
         <div className={stylecss.container_manage}>
-            <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()}/>
+            <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()} link={`/`}/>
             <div className={`${sidebarVisible ? stylecss.content_manage : stylecss.content_manage_full}`}>
                 <div className={stylecss.title_wrapper}>
                     <h2>Danh sách môn học của bạn</h2>
                 </div>
                 <div className={stylecss.add_subject}>
-                    <button className={stylecss.btn_add}>Thêm môn học</button>
+                    <button className={`${stylecss.btn_add} ${stylecss.right}`}>Thêm môn học</button>
                 </div>
                 <Grid container spacing={2}>
                     {subjects.map(subject => (

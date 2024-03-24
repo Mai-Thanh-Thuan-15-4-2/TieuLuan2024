@@ -145,7 +145,7 @@ export const CardItem = ({ id, name, year, credits, link }) => {
             {detailsOpened && (
                 <DetailCard>
                     <Typography><BoldLabel>ID:</BoldLabel> {id}</Typography>
-                    <Typography><BoldLabel>Tên:</BoldLabel>{name}</Typography>
+                    <Typography><BoldLabel>Tên:</BoldLabel> {name}</Typography>
                     <Typography><BoldLabel>Số tín chỉ:</BoldLabel> {credits}</Typography>
                     <Typography><BoldLabel>Năm học:</BoldLabel> {year}</Typography>
                 </DetailCard>

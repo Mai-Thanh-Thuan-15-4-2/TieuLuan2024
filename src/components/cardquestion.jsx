@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import ArticleIcon from '@mui/icons-material/Article';
-import { Link } from 'react-router-dom';
 import Lock from '@mui/icons-material/Lock';
+import Restore from '@mui/icons-material/Restore';
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import Visibility from '@mui/icons-material/Visibility';
@@ -36,6 +36,12 @@ const IconInfo = styled('div')({
     top: '5px',
     right: '5px',
     fontSize: '25px',
+    zIndex: '2'
+});
+const IconDelete = styled('div')({
+    position: 'absolute',
+    alignItems: 'center',
+    right: '20px',
     zIndex: '2'
 });
 
@@ -97,7 +103,7 @@ const BlueText = styled('span')({
     color: "#1f30b2",
     fontWeight: 'bold'
 });
-export const QuestionCard = ({ id, question, answers, correct_answer, category, }) => {
+export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, category, author, isdelete }) => {
     const [detailsOpened, setDetailsOpened] = useState(false);
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -120,12 +126,30 @@ export const QuestionCard = ({ id, question, answers, correct_answer, category, 
     return (
         <div style={{ position: 'relative' }}>
             <CustomCard>
-                <IconInfo >
-                    <Visibility onClick={handleInfoClick} style={{ marginRight: '5px' }} />
-                    <LockOpen style={{ marginRight: '5px' }} />
-                    <Edit style={{ marginRight: '5px' }} />
-                    <Delete style={{ marginRight: '5px' }} />
-                </IconInfo>
+                {!isdelete ? (
+                    <IconInfo>
+                        <Visibility onClick={handleInfoClick} style={{ marginRight: '5px', color: '#3366FF' }} />
+                        <LockOpen style={{ marginRight: '5px' }} />
+                        {(id_acc === author) ? (
+                            <>
+                                <Edit style={{ marginRight: '5px', color: '#3366FF' }} />
+                                <Delete style={{ marginRight: '5px', color: 'red' }} />
+                            </>
+                        ) : (
+                            <>
+                                <Edit style={{ marginRight: '5px', color: 'lightgray' }} />
+                                <Delete style={{ marginRight: '5px', color: 'lightgray' }} />
+                            </>
+                        )}
+                    </IconInfo>
+                ) : (
+                    <>
+                        <IconDelete>
+                            <Restore style={{ marginRight: '5px', color: 'green', fontSize: '30px' }} />
+                            <Delete style={{ marginRight: '5px', color: 'red', fontSize: '30px' }} />
+                        </IconDelete>
+                    </>
+                )}
                 <CardContent>
                     <TextWrapper theme={theme}>
                         <Typography variant="p">
@@ -145,6 +169,7 @@ export const QuestionCard = ({ id, question, answers, correct_answer, category, 
                 <DetailCard>
                     <Typography><BoldLabel>ID: </BoldLabel> {id}</Typography>
                     <Typography><BoldLabel>Nội dung: </BoldLabel>{question}</Typography>
+                    <Typography><BoldLabel>Chủ đề: </BoldLabel>{category}</Typography>
                     <Typography><BoldLabel>Đáp án: </BoldLabel></Typography>
                     {answers.map((answer, index) => (
                         <Typography key={answer.id}>
@@ -152,7 +177,6 @@ export const QuestionCard = ({ id, question, answers, correct_answer, category, 
                         </Typography>
                     ))}
                     <Typography><BoldLabel>Đáp án đúng: </BoldLabel>{correct_answer}</Typography>
-                    <Typography><BoldLabel>Chủ đề: </BoldLabel>{category}</Typography>
                 </DetailCard>
             )}
         </div>

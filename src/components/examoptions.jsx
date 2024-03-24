@@ -173,10 +173,17 @@ const ExamOptions = () => {
     };
 
     const handleStartExam = () => {
-        if (categories.length > 0 && selectedTopics.length === 0) {
+        if (!categories) {
+            const selectedQuestionCount = parseInt(questionsValue === 'custom' ? questionsCustomValue : questionsValue, 10);
+            const examQuestions = generateExamQuestions(examData.questions, selectedTopics, selectedQuestionCount);
+            setExamContentData({ examQuestions, examTime: timesValue === 'custom' ? timesCustomValue : timesValue, totalQuestions: questionsValue === 'custom' ? questionsCustomValue : questionsValue });
+            setShowContent(false);
+            return;
+        }
+        if (categories.length === 0) {
             setErrorTimesMessage('Hãy chọn chủ đề bạn muốn làm');
             setShowErrorTimesModal(true);
-        } else if (parseInt(questionsValue) > totalQuestionsSelected) {
+        } else if (parseInt(questionsValue) > 0 && parseInt(questionsValue) > totalQuestionsSelected) {
             setErrorQuestionsMessage('Chủ đề này không đủ số câu hỏi!');
             setShowErrorQuestionsModal(true);
         } else {
@@ -186,6 +193,7 @@ const ExamOptions = () => {
             setShowContent(false);
         }
     };
+
     return (
         <div style={styles.container}>
             <header style={styles.header}>
@@ -200,28 +208,49 @@ const ExamOptions = () => {
                     <div style={styles.content}>
                         <div style={styles.sidebar}>
                             <h5 style={{ color: 'blue' }}>Tổng số câu hỏi: {examData.questions.length}</h5>
-                            <p style={{ color: 'blue' }}>Tổng số câu hỏi ở chủ đề đã chọn: {totalQuestionsSelected}</p>
+                            {categories && categories.length > 0 ? (
+                                <p style={{ color: 'blue' }}>Tổng số câu hỏi ở chủ đề đã chọn: {totalQuestionsSelected}</p>
+                            ) : null}
                             <h3>Chủ đề:</h3>
                             <ul style={styles.topicList}>
-                                {categories.length > 0 && (
+                                {categories && categories.length > 0 ? (
                                     <li style={styles.topicListItem}>
-                                        <input type="checkbox" id="selectAll" name="selectAll" checked={selectAll} onChange={handleCheckboxChange} style={styles.checkbox} />
-                                        <label htmlFor="selectAll" style={{ fontSize: '15px', color: 'blue' }}>Chọn tất cả</label>
+                                        <input
+                                            type="checkbox"
+                                            id="selectAll"
+                                            name="selectAll"
+                                            checked={selectAll}
+                                            onChange={handleCheckboxChange}
+                                            style={styles.checkbox}
+                                        />
+                                        <label htmlFor="selectAll" style={{ fontSize: '15px', color: 'blue' }}>
+                                            Chọn tất cả
+                                        </label>
                                     </li>
-                                )}
-                                {categories.map((category, index) => (
+                                ) : null}
+                                {categories && categories.map((category, index) => (
                                     <li key={index} style={styles.topicListItem}>
-                                        <input type="checkbox" id={`topic${index}`} name={category.id} checked={selectedTopics.includes(category.id)} onChange={handleCheckboxChange} style={styles.checkbox} />
-                                        <label htmlFor={`topic${index}`} style={{ fontSize: '15px' }}>{category.content}</label>
+                                        <input
+                                            type="checkbox"
+                                            id={`topic${index}`}
+                                            name={category.id}
+                                            checked={selectedTopics.includes(category.id)}
+                                            onChange={handleCheckboxChange}
+                                            style={styles.checkbox}
+                                        />
+                                        <label htmlFor={`topic${index}`} style={{ fontSize: '15px' }}>
+                                            {category.content}
+                                        </label>
                                     </li>
                                 ))}
-                                {categories.length === 0 && (
+                                {!categories || categories.length === 0 ? (
                                     <li style={styles.topicListItem}>
-                                        <span style={{ fontSize: '15px', marginLeft: '50px' }}>Không có chủ đề</span>
+                                        <span style={{ fontSize: '15px', marginLeft: '50px' }}>
+                                            Không có chủ đề
+                                        </span>
                                     </li>
-                                )}
+                                ) : null}
                             </ul>
-
                         </div>
                         <div style={styles.questionCountWrapper}>
                             <div style={styles.questionCount}>

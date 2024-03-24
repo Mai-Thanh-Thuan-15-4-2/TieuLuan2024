@@ -5,12 +5,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Link } from 'react-router-dom';
 import stylecss from '../styles-page/exam.module.css';
 
-const HeaderandSidebar = ({visible, toggle}) => {
+const HeaderandSidebar = ({visible, toggle, link}) => {
     return (
         <>
             <header className={stylecss.header}>
                 <div className={stylecss.background_image} />
-                <Link to='/'>
+                <Link to={link}>
                     <ArrowBackIcon className={stylecss.back_btn} style={{fontSize: '50px'}}/>
                 </Link>
                 <h1>Quản lý câu hỏi</h1>
