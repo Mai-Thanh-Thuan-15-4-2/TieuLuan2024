@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import stylecss from '../styles-page/exam.module.css';
+import stylecss from '../../styles-page/exam.module.css';
 import Flag from '@mui/icons-material/Flag';
 import FlagOutlined from '@mui/icons-material/FlagOutlined';
 import ExamCompleted from './examcompleted';
@@ -42,16 +42,15 @@ const ExamContent = ({ examQuestions, examTime, totalQuestions }) => {
     }, [markedQuestions, answeredQuestions]);
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            setTimeRemaining(prevTime => prevTime - 1000);
-        }, 1000);
-        if (timeRemaining <= 0) {
-            clearInterval(intervalId);
+        if (timeRemaining > 0) {
+            const intervalId = setInterval(() => {
+                setTimeRemaining(prevTime => prevTime - 1000);
+            }, 1000);
+            return () => clearInterval(intervalId);
+        } else {
             setShowExamCompleted(true);
         }
-
-        return () => clearInterval(intervalId);
-    }, [timeRemaining]);
+    }, [timeRemaining, setShowExamCompleted]);
 
     const handleTabChange = (questionIndex, buttonIndex) => {
         setCurrentQuestion(questionIndex);
@@ -113,6 +112,30 @@ const ExamContent = ({ examQuestions, examTime, totalQuestions }) => {
         setSelectedButtonIndex(currentQuestion === 0 ? questionsArray.length - 1 : currentQuestion - 1);
     };
     const questionsArray = Object.values(examQuestions).flat();
+    const [shuffledQuestions, setShuffledQuestions] = useState([]);
+
+    useEffect(() => {
+        const shuffleQuestions = () => {
+            return questionsArray.map(question => {
+                const shuffledQuestion = { ...question };
+                shuffledQuestion.answers = shuffleAnswersFunction(question.answers);
+                return shuffledQuestion;
+            });
+        };
+
+        setShuffledQuestions(shuffleQuestions());
+    }, []);
+    const shuffleAnswersFunction = (answers) => {
+        const shuffledAnswers = [...answers];
+        for (let i = shuffledAnswers.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledAnswers[i], shuffledAnswers[j]] = [shuffledAnswers[j], shuffledAnswers[i]];
+        }
+
+        return shuffledAnswers;
+    };
+
+
     Modal.setAppElement("#root");
     return (
         <div className={stylecss.container_exam}>
@@ -137,7 +160,7 @@ const ExamContent = ({ examQuestions, examTime, totalQuestions }) => {
                     </div>
 
                     <div className={stylecss.question_container}>
-                        {questionsArray.map((question, index) => (
+                        {shuffledQuestions.map((question, index) => (
                             <div key={question.id} className={`${stylecss.question}`} style={{ display: currentQuestion === index ? 'block' : 'none' }}>
                                 {markedQuestions[index] ? (
                                     <Flag className={stylecss.icon_flag} style={{ fontSize: '30px' }} onClick={handleClick} />
@@ -170,14 +193,14 @@ const ExamContent = ({ examQuestions, examTime, totalQuestions }) => {
                             style={customStyles}
                         >
                             <div className={stylecss.header_modal}>
-                            <h2 className={stylecss.title_modal}>Nộp bài</h2>
+                                <h2 className={stylecss.title_modal}>Nộp bài</h2>
                             </div>
                             <div className={stylecss.modal_content}>
-                            <p>Bạn chắc chắn muốn hoàn thành bài làm của mình?</p>
+                                <p>Bạn chắc chắn muốn hoàn thành bài làm của mình?</p>
                             </div>
                             <div className={stylecss.btn_modal}>
-                            <button className={stylecss.btn_modal_exit} onClick={closeModal}>Quay lại</button>
-                            <button className={stylecss.btn_modal_comfirm} onClick={handleComplete}>Nộp</button>
+                                <button className={stylecss.btn_modal_exit} onClick={closeModal}>Quay lại</button>
+                                <button className={stylecss.btn_modal_comfirm} onClick={handleComplete}>Nộp</button>
                             </div>
                         </Modal>
                     </div>
@@ -216,12 +239,12 @@ const ExamContent = ({ examQuestions, examTime, totalQuestions }) => {
 
 const customStyles = {
     content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)"
+        top: "50%",
+        left: "50%",
+        right: "auto",
+        bottom: "auto",
+        marginRight: "-50%",
+        transform: "translate(-50%, -50%)"
     }
-  };
+};
 export default ExamContent;

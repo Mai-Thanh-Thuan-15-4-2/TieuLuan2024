@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Navigation } from "./components/navigation";
-import { Header } from "./components/header";
-import { Exam } from "./components/examonline";
-import { About } from "./components/about";
-import { Documents } from "./components/documents";
-import { Extensions } from "./components/extensions";
-import { Contact } from "./components/contact";
+import { Navigation } from "./components/general/navigation";
+import { Header } from "./components/general/header";
+import { Exam } from "./components/general/examonline";
+import { About } from "./components/general/about";
+import { Documents } from "./components/general/documents";
+import { Extensions } from "./components/general/extensions";
+import { Contact } from "./components/general/contact";
 import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
 import "./App.css";

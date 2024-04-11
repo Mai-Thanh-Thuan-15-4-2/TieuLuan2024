@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 import { styled } from '@mui/system';
-import ArticleIcon from '@mui/icons-material/Article';
 import Lock from '@mui/icons-material/Lock';
 import Restore from '@mui/icons-material/Restore';
 import Delete from '@mui/icons-material/Delete';
@@ -121,22 +120,28 @@ export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, ca
         setDetailsOpened(!detailsOpened);
     };
     const truncate = (str, length) => {
-        return str.length > length ? str.substring(0, length) + "..." : str;
+        if (str && typeof str === 'string') {
+            return str.length > length ? str.substring(0, length) + "..." : str;
+        }
+        return "";
     };
+
     return (
         <div style={{ position: 'relative' }}>
             <CustomCard>
                 {!isdelete ? (
                     <IconInfo>
-                        <Visibility onClick={handleInfoClick} style={{ marginRight: '5px', color: '#3366FF' }} />
-                        <LockOpen style={{ marginRight: '5px' }} />
+                        <Visibility onClick={handleInfoClick} style={{ marginRight: '5px', color: 'darkslategrey' }} />
                         {(id_acc === author) ? (
                             <>
+                                <LockOpen style={{ marginRight: '5px', color: 'green' }} />
                                 <Edit style={{ marginRight: '5px', color: '#3366FF' }} />
                                 <Delete style={{ marginRight: '5px', color: 'red' }} />
+
                             </>
                         ) : (
                             <>
+                                <LockOpen style={{ marginRight: '5px', color: 'lightgray' }}/>
                                 <Edit style={{ marginRight: '5px', color: 'lightgray' }} />
                                 <Delete style={{ marginRight: '5px', color: 'lightgray' }} />
                             </>
@@ -168,14 +173,19 @@ export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, ca
             {detailsOpened && (
                 <DetailCard>
                     <Typography><BoldLabel>ID: </BoldLabel> {id}</Typography>
-                    <Typography><BoldLabel>Nội dung: </BoldLabel>{question}</Typography>
                     <Typography><BoldLabel>Chủ đề: </BoldLabel>{category}</Typography>
+                    <Typography><BoldLabel>Nội dung: </BoldLabel>{question}</Typography>
                     <Typography><BoldLabel>Đáp án: </BoldLabel></Typography>
-                    {answers.map((answer, index) => (
-                        <Typography key={answer.id}>
-                            {index + 1}. {answer.text}
-                        </Typography>
-                    ))}
+                    {answers && (
+                        <>
+                            <Typography><BoldLabel>Đáp án: </BoldLabel></Typography>
+                            {answers.map((answer, index) => (
+                                <Typography key={answer.id}>
+                                    {index + 1}. {answer.text}
+                                </Typography>
+                            ))}
+                        </>
+                    )}
                     <Typography><BoldLabel>Đáp án đúng: </BoldLabel>{correct_answer}</Typography>
                 </DetailCard>
             )}

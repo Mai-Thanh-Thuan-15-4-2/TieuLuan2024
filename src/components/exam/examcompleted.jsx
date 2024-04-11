@@ -1,5 +1,5 @@
 import React from 'react';
-import stylecss from '../styles-page/exam.module.css';
+import stylecss from '../../styles-page/exam.module.css';
 
 
 const ExamCompleted = ({  totalQuestions, score, numberOfCorrect}) => {

@@ -1,0 +1,79 @@
+  
+.editor-wrapper {
+  width: 98%;
+  background: #d8d5d5;
+  padding: 1rem;
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.editor-wrapper::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.editor-container {
+  max-height: 320px;
+  height: 320px;
+  padding: 1rem;
+  background: #fff;
+  overflow-y: auto;
+  margin: 0 auto;
+  position: relative;
+  padding: 1cm 1.5cm 2cm 1.5cm;
+}
+  .btn-toolbar{
+    margin-right: 8px;
+    font-size: 1rem;
+    padding: 10px;
+    border: none;
+    background: #d8d5d5;
+    cursor: pointer;
+  }
+  .toolbar-grid {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 1fr 1fr;
+  }
+
+  .superFancyBlockquote {
+    color: #999;
+    background: #fff;
+    font-family: "Hoefler Text", Georgia, serif;
+    font-style: italic;
+    border-left: 2px solid #999;
+    padding-left: 10px;
+  }
+  .bold-letter {
+    font-weight: bold;
+  }
+  .button_export{
+    margin-top: 10px;
+    float: right;
+    margin-right: 10px;
+  }
+  .codeBlock {
+    font-family: Arial, Helvetica, sans-serif, monospace;
+    font-size: inherit;
+    background: #ffeff0;
+    font-style: italic;
+    word-wrap: normal;
+    word-wrap: break-word;
+    box-decoration-break: slice;
+    padding: 0.3rem 2rem;
+    border-radius: 0.2rem;
+  }
+  .leftAlign {
+    text-align: left;
+  }
+  .rightAlign {
+    text-align: right;
+  }
+  .centerAlign {
+    text-align: center;
+  }
+  .justifyAlign {
+    text-align: justify;
+  }
+  

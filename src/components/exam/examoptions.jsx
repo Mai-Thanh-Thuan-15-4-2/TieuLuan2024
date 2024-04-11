@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import JsonData from '../data/data.json';
+import JsonData from '../../data/data.json';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
-import stylecss from '../styles-page/exam.module.css';
+import stylecss from '../../styles-page/exam.module.css';
 import { Snackbar, IconButton, Alert } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import ExamContent from './examcontent';
@@ -28,11 +28,10 @@ const ExamOptions = () => {
 
     const sumTotalQuestionsSelected = (questionIds) => {
         const selectedQuestions = examData.questions.filter((question) =>
-            questionIds.includes(question.category)
+            questionIds.includes(question.category) && question.level !== 5
         );
         return selectedQuestions.length;
     };
-
     const totalQuestionsSelected = sumTotalQuestionsSelected(selectedTopics);
     const handleQuestionsCountChange = (value) => {
         if (value === "custom") {
@@ -114,17 +113,14 @@ const ExamOptions = () => {
             questions = questions.filter(question => selectedTopics.includes(question.category));
         }
 
-        const totalQuestions = questions.length;
-
+        const totalQuestions = questions.filter(question => question.level !== 5).length;
         if (totalQuestions === selectedCount) {
-            const examQuestions = {
+            return {
                 1: questions.filter(question => question.level === 1),
                 2: questions.filter(question => question.level === 2),
                 3: questions.filter(question => question.level === 3),
                 4: questions.filter(question => question.level === 4),
             };
-
-            return examQuestions;
         }
 
         let levelCounts = {
@@ -154,7 +150,7 @@ const ExamOptions = () => {
         };
 
         questions.forEach(question => {
-            if (question.level) {
+            if (question.level && levelQuestions[question.level]) {
                 levelQuestions[question.level].push(question);
             }
         });
@@ -193,7 +189,7 @@ const ExamOptions = () => {
             setShowContent(false);
         }
     };
-
+    const numberOfQuestionsNotLevel5 = examData.questions.filter(question => question.level !== 5).length;
     return (
         <div style={styles.container}>
             <header style={styles.header}>
@@ -207,7 +203,7 @@ const ExamOptions = () => {
                 <>
                     <div style={styles.content}>
                         <div style={styles.sidebar}>
-                            <h5 style={{ color: 'blue' }}>Tổng số câu hỏi: {examData.questions.length}</h5>
+                            <h5 style={{ color: 'blue' }}>Tổng số câu hỏi: {numberOfQuestionsNotLevel5}</h5>
                             {categories && categories.length > 0 ? (
                                 <p style={{ color: 'blue' }}>Tổng số câu hỏi ở chủ đề đã chọn: {totalQuestionsSelected}</p>
                             ) : null}

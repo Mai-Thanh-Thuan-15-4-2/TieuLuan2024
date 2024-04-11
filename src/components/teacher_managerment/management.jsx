@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { CardItem } from './card'
-import stylecss from '../styles-page/exam.module.css';
+import { CardItem } from '../card/card'
+import stylecss from '../../styles-page/exam.module.css';
 import Grid from '@mui/material/Grid';
-import JsonData from '../data/data.json';
-import HeaderandSidebar from './headerandsidebar';
+import JsonData from '../../data/data.json';
+import HeaderandSidebar from '../menu/headerandsidebar';
 
-const QuestionManagement = () => {
+const Management = () => {
     const { id } = useParams();
     const account = JsonData.Accounts.find(account => account.id === id);
     const subjects = account ? account.listsub : [];
@@ -15,14 +15,13 @@ const QuestionManagement = () => {
     const getSubjectInfo = (subjectId) => {
         return mainSubjects.find(subject => subject.id === subjectId);
     };
-
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
     return (
         <div className={stylecss.container_manage}>
-            <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()} link={`/`}/>
+            <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()} link={`/`} link1={`/teacher/${id}`} link3={`/teacher/${id}/examlist`} active={1}/>
             <div className={`${sidebarVisible ? stylecss.content_manage : stylecss.content_manage_full}`}>
                 <div className={stylecss.title_wrapper}>
                     <h2>Danh sách môn học của bạn</h2>
@@ -49,4 +48,4 @@ const QuestionManagement = () => {
 };
 
 
-export default QuestionManagement;
+export default Management;

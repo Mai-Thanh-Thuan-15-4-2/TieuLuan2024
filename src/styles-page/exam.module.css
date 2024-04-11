@@ -704,3 +704,244 @@ div.content_manage_full {
   text-align: center;
   margin-top: 10%
 }
+
+/* Checbox */
+.checkbox_expand .switch {
+  display: none;
+}
+
+.checkbox_expand .switch+label {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #78768d;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox_expand .switch+label::before,
+.checkbox_expand .switch+label::after {
+  content: '';
+  display: block;
+}
+
+.checkbox_expand .switch+label::before {
+  background-color: #05012c;
+  border-radius: 500px;
+  height: 15px;
+  margin-right: 8px;
+  -webkit-transition: background-color 0.125s ease-out;
+  transition: background-color 0.125s ease-out;
+  width: 25px;
+}
+
+.checkbox_expand .switch+label::after {
+  background-color: #fff;
+  border-radius: 13px;
+  box-shadow: 0 3px 1px 0 rgba(37, 34, 71, 0.05), 0 2px 2px 0 rgba(37, 34, 71, 0.1), 0 3px 3px 0 rgba(37, 34, 71, 0.05);
+  height: 13px;
+  left: 1px;
+  position: absolute;
+  top: 1px;
+  -webkit-transition: -webkit-transform 0.125s ease-out;
+  transition: -webkit-transform 0.125s ease-out;
+  transition: transform 0.125s ease-out;
+  transition: transform 0.125s ease-out, -webkit-transform 0.125s ease-out;
+  width: 13px;
+}
+
+.checkbox_expand .switch+label .switch_x_text {
+  display: block;
+  margin-right: .3em;
+}
+
+.checkbox_expand .switch+label .switch_x_toggletext {
+  display: block;
+  font-weight: bold;
+  height: 15px;
+  overflow: hidden;
+  position: relative;
+  width: 25px;
+}
+
+.checkbox_expand .switch+label .switch_x_unchecked,
+.checkbox_expand .switch+label .switch_x_checked {
+  left: 0;
+  position: absolute;
+  top: 0;
+  -webkit-transition: opacity 0.125s ease-out, -webkit-transform 0.125s ease-out;
+  transition: opacity 0.125s ease-out, -webkit-transform 0.125s ease-out;
+  transition: transform 0.125s ease-out, opacity 0.125s ease-out;
+  transition: transform 0.125s ease-out, opacity 0.125s ease-out, -webkit-transform 0.125s ease-out;
+}
+
+.checkbox_expand .switch+label .switch_x_unchecked {
+  opacity: 1;
+  -webkit-transform: none;
+  transform: none;
+}
+
+.checkbox_expand .switch+label .switch_x_unchecked {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+}
+
+.checkbox_expand .switch+label .switch_x_hiddenlabel {
+  position: absolute;
+  visibility: hidden;
+}
+
+.checkbox_expand .switch:checked+label::before {
+  background-color: #00a6ff;
+}
+
+.checkbox_expand .switch:checked+label::after {
+  -webkit-transform: translate3d(10px, 0, 0);
+  transform: translate3d(10px, 0, 0);
+}
+
+.checkbox_expand .switch:checked+label .switch_x_unchecked {
+  opacity: 0;
+  -webkit-transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
+}
+
+.checkbox_expand .switch:checked+label .switch_x_unchecked {
+  opacity: 1;
+  -webkit-transform: none;
+  transform: none;
+}
+
+.inputField {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+}
+
+.dropdownSub {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.form_container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.label_form {
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight:  bold;
+  color: #00a6ff;
+
+}
+.custom_select{
+  margin-left: 10px;
+}
+.custom_select .Select-control {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.custom_select .Select-placeholder {
+  color: #999;
+}
+
+.custom_select .Select-value {
+  background-color: #f0f0f0;
+}
+
+.custom_select .Select-menu {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.custom_select .Select-option {
+  padding: 8px 12px;
+}
+
+.custom_select .Select-option:hover {
+  background-color: #f0f0f0;
+}
+.headerModal{
+  text-align: center;
+  font-weight: bold;
+  color: #00a6ff;
+}
+.modalContent{
+  text-align: center;
+}
+/* exam.module.css */
+
+.examCard {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  cursor: pointer;
+  border: lightgray solid 2px;
+  background-image: url('https://i.pinimg.com/564x/6f/2f/61/6f2f6184c310ef3081994081a4fe762b.jpg');
+}
+.examCard:hover {
+  scale: 1.05;
+}
+
+.examName {
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.examTitle {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -2px;
+}
+.iconInfo {
+  font-size: 15px;
+  margin-top: -10px;
+}
+
+.examTitle:hover .iconInfo {
+  opacity: 1; 
+}
+.examDetails {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.examSubject,
+.examQuestionCount {
+  margin: 5px 0;
+  color: #0b00d7;
+  font-weight: 500;
+}

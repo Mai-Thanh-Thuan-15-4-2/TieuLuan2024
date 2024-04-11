@@ -14,7 +14,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { CardItem } from './card'
+import { CardItem } from '../card/card'
 import { Link } from 'react-router-dom';
 
 const CustomCard = styled(Card)(({ theme }) => ({

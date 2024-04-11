@@ -149,8 +149,21 @@
             "CTMT47",
             "CTMT48",
             "CTMT49",
-            "CTMT50"
-          ]
+            "CTMT50",
+            "CTMT120",
+            "CTMT121",
+            "CTMT122",
+            "CTMT123",
+            "CTMT124",
+            "CTMT125",
+            "CTMT126",
+            "CTMT127",
+            "CTMT128",
+            "CTMT129",
+            "CTMT130",
+            "CTMT131",
+            "CTMT132"
+          ]        
         },
         {
           "id": "214241"
@@ -161,13 +174,386 @@
         {
           "id": "214251"
         }
+      ],
+      "listexams": [
+        {
+          "contentState":   {
+            "info": {
+                "id": "CTMT_EX01",
+                "status": 1,
+                "create_date": "2024-04-11T16:17:10.021Z",
+                "edit_date": "2024-04-11T16:17:13.184Z",
+                "subject": "214231"
+            },
+            "entityMap": {},
+            "blocks": [
+                {
+                    "key": "title_exam",
+                    "text": "Đề thi 1",
+                    "type": "unstyle",
+                    "depth": 0,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 1,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "question_CTMT4",
+                    "text": "1. Hệ điều hành trong máy tính có vai trò gì?",
+                    "type": "unstyled",
+                    "depth": 0,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 47,
+                            "style": "BOLD"
+                        },
+                        {
+                            "offset": 0,
+                            "length": 47,
+                            "style": "ITALIC"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "answer_exam00",
+                    "text": "A. Quản lý và điều phối các tài nguyên hệ thống",
+                    "type": "unstyled",
+                    "depth": 5,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 2,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "answer_exam01",
+                    "text": "B. Chỉ để lưu trữ dữ liệu",
+                    "type": "unstyled",
+                    "depth": 5,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 2,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "answer_exam02",
+                    "text": "C. Chỉ để xử lý các tác vụ và chương trình",
+                    "type": "unstyled",
+                    "depth": 5,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 2,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "answer_exam03",
+                    "text": "D. Chỉ để hiển thị hình ảnh",
+                    "type": "unstyled",
+                    "depth": 5,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 2,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "endBlock",
+                    "text": "HẾT",
+                    "type": "centerAlign",
+                    "depth": 0,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 6,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                }
+            ]
+        }
+        }, {
+          "contentState":   {
+            "info": {
+                "id": "CTMT_EX02",
+                "status": 1,
+                "create_date": "2024-04-11T16:17:10.021Z",
+                "edit_date": "2024-04-11T16:17:13.184Z",
+                "subject": "214231"
+            },
+            "entityMap": {},
+            "blocks": [
+                {
+                    "key": "title_exam",
+                    "text": "Đề thi 2",
+                    "type": "unstyle",
+                    "depth": 0,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 1,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "question_CTMT4",
+                    "text": "1. Hệ điều hành trong máy tính có vai trò gì?",
+                    "type": "unstyled",
+                    "depth": 0,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 47,
+                            "style": "BOLD"
+                        },
+                        {
+                            "offset": 0,
+                            "length": 47,
+                            "style": "ITALIC"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "answer_exam00",
+                    "text": "A. Quản lý và điều phối các tài nguyên hệ thống",
+                    "type": "unstyled",
+                    "depth": 5,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 2,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "answer_exam01",
+                    "text": "B. Chỉ để lưu trữ dữ liệu",
+                    "type": "unstyled",
+                    "depth": 5,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 2,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "answer_exam02",
+                    "text": "C. Chỉ để xử lý các tác vụ và chương trình",
+                    "type": "unstyled",
+                    "depth": 5,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 2,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "answer_exam03",
+                    "text": "D. Chỉ để hiển thị hình ảnh",
+                    "type": "unstyled",
+                    "depth": 5,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 2,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "endBlock",
+                    "text": "HẾT",
+                    "type": "centerAlign",
+                    "depth": 0,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 6,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                }
+            ]
+        }
+        },
+        {
+          "contentState":   {
+            "info": {
+                "id": "CTMT_EX03",
+                "status": 1,
+                "create_date": "2024-04-11T16:17:10.021Z",
+                "edit_date": "2024-04-11T16:17:13.184Z",
+                "subject": "214231"
+            },
+            "entityMap": {},
+            "blocks": [
+                {
+                    "key": "title_exam",
+                    "text": "Đề thi 3",
+                    "type": "unstyle",
+                    "depth": 0,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 1,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "question_CTMT4",
+                    "text": "1. Hệ điều hành trong máy tính có vai trò gì?",
+                    "type": "unstyled",
+                    "depth": 0,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 47,
+                            "style": "BOLD"
+                        },
+                        {
+                            "offset": 0,
+                            "length": 47,
+                            "style": "ITALIC"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "answer_exam00",
+                    "text": "A. Quản lý và điều phối các tài nguyên hệ thống",
+                    "type": "unstyled",
+                    "depth": 5,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 2,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "answer_exam01",
+                    "text": "B. Chỉ để lưu trữ dữ liệu",
+                    "type": "unstyled",
+                    "depth": 5,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 2,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "answer_exam02",
+                    "text": "C. Chỉ để xử lý các tác vụ và chương trình",
+                    "type": "unstyled",
+                    "depth": 5,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 2,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "answer_exam03",
+                    "text": "D. Chỉ để hiển thị hình ảnh",
+                    "type": "unstyled",
+                    "depth": 5,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 2,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                },
+                {
+                    "key": "endBlock",
+                    "text": "HẾT",
+                    "type": "centerAlign",
+                    "depth": 0,
+                    "inlineStyleRanges": [
+                        {
+                            "offset": 0,
+                            "length": 6,
+                            "style": "BOLD"
+                        }
+                    ],
+                    "entityRanges": [],
+                    "data": {}
+                }
+            ]
+        }
+        }
       ]
     },
     {
       "id": "1003",
       "username": "Thuan",
       "password": "123",
-      "role": 3,
+      "role": 2,
       "status": 1
     }
   ],
@@ -2652,11 +3038,11 @@
           {
             "id": "CTMT_cate5",
             "content": "Bộ nhớ máy tính"
-            },
-            {
-              "id": "CTMT_cate6",
-              "content": "Hệ thống vào ra"
-            }
+          },
+          {
+            "id": "CTMT_cate6",
+            "content": "Hệ thống vào ra"
+          }
         ],
         "questions": [
           {
@@ -6370,6 +6756,162 @@
                 "correct": true
               }
             ]
+          },
+          {
+            "id": "CTMT121",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "correct_answers": 1,
+            "type": 1,
+            "status": 1,
+            "category": "CTMT_cate1",
+            "text": "Hãy mô tả cấu trúc tổng quan của một máy tính và giải thích vai trò của các thành phần chính trong hệ thống.",
+            "answer": "Trong câu trả lời của bạn, hãy bao gồm các thành phần cơ bản của một máy tính như: bộ xử lý (CPU), bộ nhớ (RAM và ROM), bộ điều khiển (Control Unit), các thiết bị ngoại vi (ví dụ: bàn phím, chuột), và các đường truyền dữ liệu (ví dụ: bus)."
+          },
+          {
+            "id": "CTMT122",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "correct_answers": 1,
+            "type": 1,
+            "status": 1,
+            "category": "CTMT_cate1",
+            "text": "Nêu các khái niệm cơ bản trong cấu trúc máy tính và mô tả chúng.",
+            "answer": "Trong câu trả lời của bạn, hãy giải thích các khái niệm như: bộ nhớ RAM (Random Access Memory) và ROM (Read-Only Memory), bộ xử lý (CPU - Central Processing Unit), bộ điều khiển (Control Unit), đường truyền dữ liệu (bus), bộ nhớ cache, và các khái niệm khác liên quan đến cấu trúc và hoạt động của máy tính."
+          },
+          {
+            "id": "CTMT123",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "correct_answers": 1,
+            "type": 1,
+            "status": 1,
+            "category": "CTMT_cate2",
+            "text": "Hãy mô tả các thành phần cơ bản của một hệ thống máy tính và giải thích vai trò của mỗi thành phần trong quá trình hoạt động của hệ thống.",
+            "answer": "Trong câu trả lời của bạn, hãy trình bày các thành phần cơ bản như: bộ xử lý (CPU), bộ nhớ (RAM và ROM), bộ điều khiển (Control Unit), thiết bị đầu vào và đầu ra, và các đường truyền dữ liệu như bus. Mô tả chi tiết về cách mỗi thành phần hoạt động và vai trò của nó trong quá trình thực hiện các nhiệm vụ của máy tính."
+          },
+          {
+            "id": "CTMT124",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "correct_answers": 1,
+            "type": 1,
+            "status": 1,
+            "category": "CTMT_cate2",
+            "text": "Giải thích khái niệm về bộ xử lý trung tâm (CPU) trong một hệ thống máy tính và nêu rõ vai trò của nó trong việc thực hiện các phép tính và điều khiển hoạt động của hệ thống.",
+            "answer": "Trong câu trả lời của bạn, hãy mô tả chi tiết về bộ xử lý trung tâm (CPU), bao gồm cấu trúc và chức năng của nó. Giải thích cách CPU thực hiện các phép tính logic và toán học, và cách nó tương tác với các thành phần khác trong hệ thống máy tính để điều khiển và thực hiện các tác vụ được giao. Đồng thời, bạn cũng có thể đề cập đến các thông số kỹ thuật quan trọng của CPU như tốc độ xử lý và bộ nhớ cache."
+          },
+          {
+            "id": "CTMT125",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "correct_answers": 1,
+            "type": 1,
+            "status": 1,
+            "category": "CTMT_cate3",
+            "text": "Hãy giải thích các phương pháp biểu diễn dữ liệu trong máy tính và so sánh giữa hệ thống biểu diễn dấu cộng (unsigned) và hệ thống biểu diễn dấu bù (signed).",
+            "answer": "Trong câu trả lời của bạn, hãy trình bày các phương pháp biểu diễn dữ liệu như: biểu diễn dạng nhị phân, dạng thập phân, và dạng thập lục phân. Giải thích cách mỗi phương pháp hoạt động và ứng dụng trong máy tính. Sau đó, so sánh giữa hệ thống biểu diễn dấu cộng và dấu bù, bao gồm ưu điểm, nhược điểm và các trường hợp sử dụng phù hợp."
+          },
+          {
+            "id": "CTMT126",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "correct_answers": 1,
+            "type": 1,
+            "status": 1,
+            "category": "CTMT_cate3",
+            "text": "Mô tả các phép toán cơ bản trong số học máy tính và giải thích cách máy tính thực hiện các phép toán này trên dữ liệu nhị phân.",
+            "answer": "Trong câu trả lời của bạn, hãy trình bày các phép toán cơ bản như: cộng, trừ, nhân và chia. Giải thích cách máy tính thực hiện các phép toán này trên dữ liệu nhị phân bằng cách sử dụng các phương pháp như cộng dư, trừ dư, nhân theo phép cộng dài, và chia theo thuật toán chia dư. Đồng thời, bạn cũng có thể đề cập đến các kỹ thuật tối ưu và các thách thức khi thực hiện phép toán số học trong máy tính."
+          },
+          {
+            "id": "CTMT127",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "correct_answers": 1,
+            "type": 1,
+            "status": 1,
+            "category": "CTMT_cate4",
+            "text": "Mô tả cấu trúc và chức năng của bộ xử lý trung tâm (CPU) trong một hệ thống máy tính. Hãy giải thích cách CPU thực hiện các phép tính logic và toán học, và vai trò của nó trong việc điều khiển và thực hiện các tác vụ của hệ thống.",
+            "answer": "Trong câu trả lời của bạn, hãy trình bày cấu trúc cơ bản của CPU, bao gồm các thành phần như bộ điều khiển (Control Unit), bộ xử lý (Arithmetic Logic Unit - ALU), bộ nhớ cache, và bộ nhớ đệm. Giải thích cách CPU thực hiện các phép tính logic và toán học thông qua ALU, và cách nó tương tác với các thành phần khác trong hệ thống máy tính để điều khiển và thực hiện các tác vụ được giao."
+          },
+          {
+            "id": "CTMT128",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "correct_answers": 1,
+            "type": 1,
+            "status": 1,
+            "category": "CTMT_cate4",
+            "text": "Hãy mô tả các loại bộ xử lý trung tâm (CPU) phổ biến và so sánh giữa chúng về hiệu suất và ứng dụng.",
+            "answer": "Trong câu trả lời của bạn, hãy đề cập đến các loại CPU phổ biến như CPU đơn lõi, đa lõi, và CPU đa luồng (multithreading). Mô tả các đặc điểm kỹ thuật và ưu nhược điểm của mỗi loại CPU, cũng như ứng dụng của chúng trong các lĩnh vực khác nhau như máy tính cá nhân, máy chủ, điện thoại di động và thiết bị nhúng. Đồng thời, bạn cũng có thể đề cập đến các công nghệ mới và xu hướng phát triển của CPU trong tương lai."
+          },
+          {
+            "id": "CTMT129",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "correct_answers": 1,
+            "type": 1,
+            "status": 1,
+            "category": "CTMT_cate5",
+            "text": "Mô tả các loại bộ nhớ trong máy tính và giải thích vai trò của mỗi loại trong quá trình hoạt động của hệ thống.",
+            "answer": "Trong câu trả lời của bạn, hãy trình bày các loại bộ nhớ như RAM (Random Access Memory), ROM (Read-Only Memory), bộ nhớ cache và bộ nhớ đĩa (disk memory). Mô tả chi tiết về cách mỗi loại bộ nhớ hoạt động, tính chất của chúng và vai trò của từng loại trong quá trình lưu trữ và truy cập dữ liệu của hệ thống máy tính."
+          },
+          {
+            "id": "CTMT130",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "correct_answers": 1,
+            "type": 1,
+            "status": 1,
+            "category": "CTMT_cate5",
+            "text": "So sánh giữa bộ nhớ RAM và bộ nhớ ROM trong máy tính. Hãy trình bày các đặc điểm khác nhau và ứng dụng của hai loại bộ nhớ này.",
+            "answer": "Trong câu trả lời của bạn, hãy đề cập đến các đặc điểm cơ bản như khả năng ghi và đọc, tính bất biến của dữ liệu, tốc độ truy cập và khả năng tái sử dụng. So sánh ứng dụng của bộ nhớ RAM và bộ nhớ ROM trong các trường hợp sử dụng khác nhau như khởi động hệ thống, lưu trữ chương trình và dữ liệu tạm thời, và ứng dụng trong các thiết bị nhúng và máy tính cá nhân. Đồng thời, bạn cũng có thể đề cập đến các công nghệ mới và xu hướng phát triển của bộ nhớ trong tương lai."
+          },
+          {
+            "id": "CTMT131",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "correct_answers": 1,
+            "type": 1,
+            "status": 1,
+            "category": "CTMT_cate6",
+            "text": "Mô tả và giải thích vai trò của hệ thống vào ra (I/O) trong một hệ thống máy tính.",
+            "answer": "Trong câu trả lời của bạn, hãy trình bày cơ bản về hệ thống vào ra (I/O), bao gồm các thành phần như bộ điều khiển I/O, các thiết bị đầu vào như bàn phím và chuột, cũng như các thiết bị đầu ra như màn hình và máy in. Giải thích vai trò của hệ thống vào ra trong quá trình tương tác giữa người dùng và máy tính, cũng như trong việc truyền dữ liệu giữa máy tính và các thiết bị ngoại vi khác."
+          },
+          {
+            "id": "CTMT132",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "correct_answers": 1,
+            "type": 1,
+            "status": 1,
+            "category": "CTMT_cate6",
+            "text": "So sánh giữa các phương pháp truyền dữ liệu trong hệ thống vào ra, bao gồm truyền dẫn đồng bộ và không đồng bộ. Hãy trình bày ưu điểm, nhược điểm và các ứng dụng của mỗi phương pháp.",
+            "answer": "Trong câu trả lời của bạn, hãy mô tả các phương pháp truyền dẫn đồng bộ và không đồng bộ trong hệ thống vào ra. So sánh ưu điểm và nhược điểm của từng phương pháp, bao gồm tốc độ truyền dữ liệu, độ tin cậy, và khả năng xử lý đồng thời. Đồng thời, bạn cũng có thể đề cập đến các ứng dụng phổ biến của mỗi phương pháp trong các thiết bị và ứng dụng máy tính khác nhau."
           }
         ]
       },
@@ -6383,7 +6925,54 @@
         "id": "214241",
         "name": "Mạng máy tính cơ bản",
         "year": "2",
-        "credits": "3"
+        "credits": "3",
+        "listcategory": [
+          {
+            "id": "MMTCB_cate1",
+            "content": "Chủ đề 1"
+          },
+          {
+            "id": "MMTCB_cate2",
+            "content": "Chủ đề 3"
+          },
+          {
+            "id": "MMTCB_cate3",
+            "content": "Chủ đề 3"
+          }
+        ],
+        "questions": [
+          {
+            "id": "MMTCB1",
+            "level": 1,
+            "viewers": 1,
+            "author": "1003",
+            "create_at": "1/1/2024",
+            "correct_answers": 1,
+            "type": 1,
+            "status": 1,
+            "category": "MMTCB_cate1",
+            "text": "Máy tính được cấu thành từ những thành phần nào chính?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "CPU, RAM, và HDD",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "CPU, GPU, và SSD"
+              },
+              {
+                "id": "a3",
+                "text": "CPU, RAM, và SSD"
+              },
+              {
+                "id": "a4",
+                "text": "CPU, GPU, và HDD"
+              }
+            ]
+          }
+        ]
       },
       {
         "id": "214361",

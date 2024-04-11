@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import stylecss from '../styles-page/exam.module.css';
-import JsonData from '../data/data.json';
-import HeaderandSidebar from './headerandsidebar';
-import { QuestionCard } from './cardquestion';
+import stylecss from '../../styles-page/exam.module.css';
+import JsonData from '../../data/data.json';
+import HeaderandSidebar from '../menu/headerandsidebar';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -11,8 +10,10 @@ import Select from '@mui/material/Select';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Grid from '@mui/material/Grid';
+import { Link } from 'react-router-dom';
+import CardExam from '../card/cardexam';
 
-const SubjectManagement = () => {
+const ExamManagement = () => {
     const [detailsOpened, setDetailsOpened] = useState(false);
     useEffect(() => {
         let timeoutId;
@@ -23,79 +24,59 @@ const SubjectManagement = () => {
         }
         return () => clearTimeout(timeoutId);
     }, [detailsOpened]);
-    const { id, id_sub } = useParams();
+    const { id } = useParams();
     const account = JsonData.Accounts.find(account => account.id === id);
     const mainSubjects = JsonData.Exams.main;
-    const subject = mainSubjects.find(exam => exam.id === id_sub) || [];
-    const categories = subject.listcategory;
     const [filterValue, setFilterValue] = React.useState('');
     const [sortValue, setSortValue] = React.useState('');
-    const [listQuestionsAcc, setListQuestionsAcc] = React.useState('');
+    const [listData, setListData] = React.useState('');
     const [listQuestionsDeleted, setListQuestionsDeleted] = useState(false);
     const [listDeleted, setListDeleted] = useState(false);
     const [searchValue, setSearchValue] = React.useState('');
     let [filteredData, setFilteredData] = React.useState([]);
     useEffect(() => {
-        const result = getQuestionsByIds(account.listsub.map(sub => sub.listquestions).filter(list => list).flat());
-        setListQuestionsAcc(result);
+        const result = getListExams().filter(list => list).flat();
+        setListData(result);
     }, []);
-    const handleChangelistDeleted =() => {
+    const handleChangelistDeleted = () => {
         setListQuestionsDeleted(!listQuestionsDeleted);
         setListDeleted(!listDeleted);
-        setListQuestionsAcc(getQuestionsWithStatusMinusOne());
+        setListData(getListExamDeleted());
     }
-    const handleChangelistQuestion =() => {
+    const handleChangelistQuestion = () => {
         setListQuestionsDeleted(!listQuestionsDeleted);
         setListDeleted(!listDeleted);
-        const result = getQuestionsByIds(account.listsub.map(sub => sub.listquestions).filter(list => list).flat());
-        setListQuestionsAcc(result);
+        const result = getListExams().filter(list => list).flat();
+        setListData(result);
     }
-    const getQuestionsByIds = (ids) => {
+    const getListExamDeleted = () => {
         let result = [];
-        if (mainSubjects && mainSubjects.length > 0) {
-            mainSubjects.forEach(subject => {
-                if (subject.questions && subject.questions.length > 0) {
-                    subject.questions.forEach(question => {
-                        if (ids.includes(question.id) && question.status !== -1) {
-                            result.push(question);
-                        }
-                    });
-                }
-            });
-        }
-        return result;
-    };    
-    const getQuestionsWithStatusMinusOne = () => {
-        let result = [];
-        if (mainSubjects && mainSubjects.length > 0) {
-            mainSubjects.forEach(subject => {
-                if (subject.questions && subject.questions.length > 0) {
-                    subject.questions.forEach(question => {
-                        if (question.status === -1 && question.author === id) {
-                            result.push(question);
-                        }
-                    });
+        if (account && account.listexams) {
+            account.listexams.forEach(exam => {
+                if (exam.contentState.info && exam.contentState.info.status === 0) {
+                    result.push(exam);
                 }
             });
         }
         return result;
     };
-    
     const getSubjectInfo = (subjectId) => {
         return mainSubjects.find(subject => subject.id === subjectId);
     };
-
+    const getListExams = () => {
+        let result = [];
+        if (account && account.listexams) {
+            account.listexams.forEach(exam => {
+                if (exam.contentState.info && exam.contentState.info.status !== 0) {
+                    result.push(exam);
+                }
+            });
+        }
+        return result;
+    };
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
-    };
-    const getCorrectAnswer = (question) => {
-        const correctAnswer = question.answers.find((answer) => answer.correct);
-        return correctAnswer ? correctAnswer.text : '';
-    };
-    const getCategoryContent = (categoryId) => {
-        const category = getSubjectInfo(id_sub).listcategory.find((cat) => cat.id === categoryId);
-        return category ? category.content : '';
     };
 
     const handleFilterChange = (event) => {
@@ -110,7 +91,7 @@ const SubjectManagement = () => {
     const handleSearchChange = (event) => {
         const searchValue = event.target.value;
         setSearchValue(searchValue);
-        const searchData = searchFunction(listQuestionsAcc, searchValue);
+        const searchData = searchFunction(listData, searchValue);
         setFilterValue(0);
         setFilteredData(searchData);
     };
@@ -127,41 +108,36 @@ const SubjectManagement = () => {
     };
 
     // Lọc dữ liệu
-    filteredData = searchValue ? searchFunction(listQuestionsAcc, searchValue) : listQuestionsAcc;
+    filteredData = searchValue ? searchFunction(listData, searchValue) : listData;
     switch (filterValue) {
         case '101':
-            filteredData = listQuestionsAcc.filter(item => item.author === id);
+            filteredData = listData.filter(item => item.author === id);
             break;
         case '102':
-            filteredData = listQuestionsAcc.filter(item => isNaN(item.status) && item.status === '0');
+            filteredData = listData.filter(item => isNaN(item.status) && item.status === '0');
             break;
         case '103':
-            filteredData = listQuestionsAcc.filter(item => !isNaN(item.status) && parseInt(item.status) === 1);
+            filteredData = listData.filter(item => !isNaN(item.status) && parseInt(item.status) === 1);
             break;
         case '104':
-            filteredData = listQuestionsAcc.filter(item => isNaN(item.type) && item.type === '1');
+            filteredData = listData.filter(item => isNaN(item.type) && item.type === '1');
             break;
         case '105':
-            filteredData = listQuestionsAcc.filter(item => isNaN(item.type) && item.type === '2');
+            filteredData = listData.filter(item => isNaN(item.type) && item.type === '2');
             break;
         case '106':
-            filteredData = listQuestionsAcc.filter(item => !isNaN(item.level) && parseInt(item.level) === 1);
+            filteredData = listData.filter(item => !isNaN(item.level) && parseInt(item.level) === 1);
             break;
         case '107':
-            filteredData = listQuestionsAcc.filter(item => !isNaN(item.level) && parseInt(item.level) === 2);
+            filteredData = listData.filter(item => !isNaN(item.level) && parseInt(item.level) === 2);
             break;
         case '108':
-            filteredData = listQuestionsAcc.filter(item => !isNaN(item.level) && parseInt(item.level) === 3);
+            filteredData = listData.filter(item => !isNaN(item.level) && parseInt(item.level) === 3);
             break;
         case '109':
-            filteredData = listQuestionsAcc.filter(item => !isNaN(item.level) && parseInt(item.level) === 4);
+            filteredData = listData.filter(item => !isNaN(item.level) && parseInt(item.level) === 4);
             break;
         default:
-            const categoryIndex = parseInt(filterValue) - 1;
-            if (categoryIndex >= 0 && categoryIndex < categories.length) {
-                const categoryId = categories[categoryIndex].id;
-                filteredData = listQuestionsAcc.filter(item => item.category === categoryId);
-            }
             break;
     }
     function parseDate(dateString) {
@@ -187,6 +163,7 @@ const SubjectManagement = () => {
 
     // Sắp xếp dữ liệu
     let sortedData = filteredData;
+    console.log(sortedData);
     switch (sortValue) {
         case '1':
             sortedData = filteredData.sort((a, b) => a.level - b.level);
@@ -213,20 +190,37 @@ const SubjectManagement = () => {
             break;
         default:
             sortedData = filteredData;
+            break;
+    }
+    const countQuestionBlocks = (exam) => {
+        if (exam && exam.contentState && exam.contentState.blocks) {
+            return exam.contentState.blocks.filter(block => block.key.startsWith("question")).length;
+        } else {
+            return 0;
+        }
+    };
+    function formatDate(isoDate) {
+        const date = new Date(isoDate);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
     }
     return (
         <div id="subjects" className={stylecss.container_manage}>
-            <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()} link={`/teacher/${id}`} />
+            <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()} link={`/teacher/${id}`} link1={`/teacher/${id}`} link3={`/teacher/${id}/examlist`} active={3} />
             <div className={`${sidebarVisible ? stylecss.content_manage : stylecss.content_manage_full}`}>
                 <div className={stylecss.title_wrapper}>
-                    <h2>{getSubjectInfo(id_sub).name}</h2>
+                    <h2>Quản lý đề thi</h2>
                 </div>
                 <div className={stylecss.add_subject}>
-                    <button className={`${stylecss.btn_add} ${stylecss.left}`}>Thêm câu hỏi</button>
+                    <Link to={`/teacher/${id}/addexam`}>
+                        <button className={`${stylecss.btn_add} ${stylecss.left}`}>Tạo đề thi</button>
+                    </Link>
                     {!listQuestionsDeleted ? (
-                    <button onClick={handleChangelistDeleted}  className={`${stylecss.btn_add} ${stylecss.right}`}>Câu hỏi đã xóa({getQuestionsWithStatusMinusOne().length})</button>
+                        <button onClick={handleChangelistDeleted} className={`${stylecss.btn_add} ${stylecss.right}`}>Đề thi đã xóa({getListExamDeleted().length})</button>
                     ) : (
-                    <button onClick={handleChangelistQuestion}  className={`${stylecss.btn_add} ${stylecss.right}`}>Danh sách câu hỏi</button>
+                        <button onClick={handleChangelistQuestion} className={`${stylecss.btn_add} ${stylecss.right}`}>Danh sách đề thi</button>
                     )}
                 </div>
                 <Grid container spacing={2} alignItems="center">
@@ -239,7 +233,7 @@ const SubjectManagement = () => {
                                 displayEmpty
                                 renderValue={(selected) => {
                                     if (!selected) {
-                                        return <em>Lọc câu hỏi</em>;
+                                        return <em>Lọc đề thi</em>;
                                     }
                                     switch (selected) {
                                         case "0":
@@ -263,12 +257,7 @@ const SubjectManagement = () => {
                                         case "109":
                                             return "Mức độ: Vận dụng cao";
                                         default:
-                                            const index = parseInt(selected) - 1;
-                                            if (index >= 0 && index < categories.length) {
-                                                return categories[index].content;
-                                            } else {
-                                                return "";
-                                            }
+                                            return "";
                                     }
                                 }}
                             >
@@ -276,9 +265,6 @@ const SubjectManagement = () => {
                                     <em>Chọn một mục</em>
                                 </MenuItem>
                                 <MenuItem value="0">Tất cả</MenuItem>
-                                {categories.map((category, index) => (
-                                    <MenuItem key={category.id} value={index + 1}>Chủ đề {index + 1}: {category.content}</MenuItem>
-                                ))}
                                 <MenuItem value="101">Câu hỏi do bạn thêm</MenuItem>
                                 <MenuItem value="102">Đã ẩn</MenuItem>
                                 <MenuItem value="103">Không bị ẩn</MenuItem>
@@ -300,7 +286,7 @@ const SubjectManagement = () => {
                                 displayEmpty
                                 renderValue={(selected) => {
                                     if (!selected) {
-                                        return <em>Sắp xếp câu hỏi</em>;
+                                        return <em>Sắp xếp đề thi</em>;
                                     }
                                     switch (selected) {
                                         case "0":
@@ -349,27 +335,32 @@ const SubjectManagement = () => {
                         />
                     </Grid>
                 </Grid>
-                {sortedData && sortedData.length > 0 ? (
-                    sortedData.map(question => (
-                        <QuestionCard
-                            id_acc={id}
-                            key={question.id}
-                            id={question.id}
-                            question={question.text}
-                            answers={question.answers}
-                            category={getCategoryContent(question.category)}
-                            correct_answer={getCorrectAnswer(question)}
-                            author={question.author}
-                            isdelete={listDeleted}
-                        />
-                    ))
-                ) : (
-                    <p className={stylecss.list_empty}>Danh sách trống</p>
-                )}
+                <Grid container spacing={2}>
+                    {sortedData && sortedData.length > 0 ? (
+                        sortedData.map(exam => (
+                            <Grid item xs={12} sm={8} md={4} key={exam.contentState.info.id}>
+                            <CardExam
+                                id={exam.contentState.info.id}
+                                key={exam.contentState.info.id}
+                                name={exam.contentState.blocks[0].text}
+                                subject={getSubjectInfo(exam.contentState.info.subject).name}
+                                totalquestion={countQuestionBlocks(exam)}
+                                createdate={formatDate(exam.contentState.info.create_date)}
+                                editdate={formatDate(exam.contentState.info.edit_date)}
+                                link={`/teacher/${id}/examdetail/${exam.contentState.info.id}`}
+                            />
+                            </Grid>
+                        ))
+                    ) : (
+                         <Grid item xs={12} sm={12} md={12} key="list_empty">
+                        <p className={stylecss.list_empty}>Danh sách trống</p>
+                        </Grid>
+                    )}
+                </Grid>
             </div>
         </div>
     );
 };
 
 
-export default SubjectManagement;
+export default ExamManagement;
