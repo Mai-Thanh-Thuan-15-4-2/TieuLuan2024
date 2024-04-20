@@ -348,6 +348,7 @@ const ExamManagement = () => {
                                 createdate={formatDate(exam.contentState.info.create_date)}
                                 editdate={formatDate(exam.contentState.info.edit_date)}
                                 link={`/teacher/${id}/examdetail/${exam.contentState.info.id}`}
+                                isDelete={true}
                             />
                             </Grid>
                         ))

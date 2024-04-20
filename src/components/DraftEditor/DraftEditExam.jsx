@@ -31,7 +31,12 @@ const DraftEditor = ({ content }) => {
     }
     return false;
   };
-  
+  const getCursorPosition = () => {
+    const selectionState = editorState.getSelection();
+    const anchorOffset = selectionState.getAnchorOffset();
+    console.log("Vị trí của con trỏ:", anchorOffset);
+  };
+
   const styleMap = {
     CODE: {
       backgroundColor: "rgba(0, 0, 0, 0.05)",
@@ -172,7 +177,7 @@ const DraftEditor = ({ content }) => {
         />
       </div>
       <button className='button_export'>Lưu đề thi</button>
-      <button className='button_export' onClick={() => Export2Word('exportContent', 'ok')}>Xuất file .doc</button>
+      <button className='button_export' onClick={() => Export2Word('exportContent', getTitleFromContent(content))}>Xuất file .doc</button>
     </div>
   );
 };

@@ -136,13 +136,13 @@ const Toolbar = ({ editorState, setEditorState }) => {
     {
       label: "Undo",
       style: "UNDO",
-      icon:  <FontAwesomeIcon icon={faRotateLeft} />,
+      icon: <FontAwesomeIcon icon={faRotateLeft} />,
       method: "undo",
     },
     {
       label: "Redo",
       style: "REDO",
-      icon: <FontAwesomeIcon icon={faRotateRight}/>,
+      icon: <FontAwesomeIcon icon={faRotateRight} />,
       method: "redo",
     },
   ];

@@ -7,11 +7,13 @@ import SubjectManagement from "./components/teacher_managerment/subjectmanagemen
 import ExamManagement from "./components/teacher_managerment/exammanagerment";
 import AddExam from "./components/teacher_managerment/addexam";
 import ExamDetail from "./components/teacher_managerment/examdetail";
+import AddQuestion from "./components/teacher_managerment/addquestion";
 
 const App = () => {
   return (
     <Router>
       <Routes>
+      <Route path="/teacher/:id/manage/:id_sub/addquestion" element={<AddQuestion/>} />
       <Route path="/teacher/:id/examdetail/:id_exam" element={<ExamDetail/>} />
       <Route path="/teacher/:id/addexam" element={<AddExam/>} />
       <Route path="/teacher/:id/examlist" element={<ExamManagement />} />

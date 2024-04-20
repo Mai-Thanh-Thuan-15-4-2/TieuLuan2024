@@ -13,8 +13,8 @@ import { Snackbar, IconButton, Alert } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import { Link } from 'react-router-dom';
 import DraftEditor from '../DraftEditor/DraftEditor';
+import EnhancedTable from '../table/EnhancedTable'
 
 
 const AddExam = () => {
@@ -24,7 +24,7 @@ const AddExam = () => {
     const subjects = account ? account.listsub : [];
     const mainSubjects = JsonData.Exams.main;
     const [sidebarVisible, setSidebarVisible] = useState(true);
-    const [isSimpleMode, setIsSimpleMode] = useState(false);
+    const [selected, setSelected] = useState([]);
     const [selectAll, setSelectAll] = useState(false);
     const [selectedTopics, setSelectedTopics] = useState([]);
     const [selectedSubject, setSelectedSubject] = useState("");
@@ -33,7 +33,6 @@ const AddExam = () => {
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [showEditExam, setShowEditExam] = useState(false);
     const [listQuestionsExam, setListQuestionsExam] = useState([]);
@@ -50,18 +49,51 @@ const AddExam = () => {
     useEffect(() => {
         const result = getQuestionsByIds(account.listsub.map(sub => sub.listquestions).filter(list => list).flat());
         setListQuestionsAcc(result);
-    }, [selectedSubject]);
+    }, [account.listsub, selectedSubject]);
+
     useEffect(() => {
         setEssayValue(difficultyCounts.essay);
     }, [difficultyCounts.essay]);
+    const handleSelectAllClick = (event) => {
+        if (event.target.checked) {
+            const newSelected = rows.map((n) => n.id);
+            setSelected(newSelected);
+            return;
+        }
+        setSelected([]);
+    };
+    const handleClick = (event, id) => {
+        const selectedIndex = selected.indexOf(id);
+        let newSelected = [];
 
+        if (selectedIndex === -1) {
+            newSelected = newSelected.concat(selected, id);
+        } else if (selectedIndex === 0) {
+            newSelected = newSelected.concat(selected.slice(1));
+        } else if (selectedIndex === selected.length - 1) {
+            newSelected = newSelected.concat(selected.slice(0, -1));
+        } else if (selectedIndex > 0) {
+            newSelected = newSelected.concat(
+                selected.slice(0, selectedIndex),
+                selected.slice(selectedIndex + 1),
+            );
+        }
+        setSelected(newSelected);
+    };
+    function getCategoryByIdSub(idCategory) {
+        let selectedCategory = null;
+        const selectedMainSubject = mainSubjects.find(subject => subject.id === selectedSubject);
+        if (selectedMainSubject) {
+            const categories = selectedMainSubject.listcategory;
+            selectedCategory = categories.find(category => category.id === idCategory);
+        }
+        return selectedCategory;
+    }
     const handleDropDownChange = (selectedItems) => {
         if (selectedItems.length > totalQuestionsEssay) {
             selectedItems = selectedItems.slice(0, totalQuestionsEssay);
         }
-
         setSelectedOptions(selectedItems);
-
         if (useSelectCount) {
             setDifficultyCounts(prevCounts => ({
                 ...prevCounts,
@@ -75,6 +107,42 @@ const AddExam = () => {
         );
         return selectedQuestions.length;
     };
+    function mapLevelToDescription(level) {
+        switch (level) {
+            case 1:
+                return 'Hiểu';
+            case 2:
+                return 'Biết';
+            case 3:
+                return 'Vận dụng';
+            case 4:
+                return 'Vận dụng cao';
+            case 5:
+                return 'Vận dụng cao';
+            default:
+                return '';
+        }
+    }
+    const rows = listQuestionsAcc.map(question => {
+        return {
+            id: question.id,
+            question: question.text,
+            category: getCategoryByIdSub(question.category).content,
+            type: question.type === 1 ? 'Trắc nghiệm' : (question.type === 2 ? 'Tự luận' : 'True/False'),
+            createat: question.created_at,
+            level: mapLevelToDescription(question.level),
+            owner: 'User' + question.author
+        };
+    });
+    const headCells = [
+        { id: 'question', numeric: false, disablePadding: true, label: 'Câu hỏi' },
+        { id: 'category', numeric: true, disablePadding: false, label: 'Chủ đề' },
+        { id: 'type', numeric: true, disablePadding: false, label: 'Loại' },
+        { id: 'createat', numeric: true, disablePadding: false, label: 'Ngày thêm' },
+        { id: 'level', numeric: true, disablePadding: false, label: 'Mức độ' },
+        { id: 'owner', numeric: true, disablePadding: false, label: 'Người tạo' },
+    ];
+
     const handleUseChange = (event) => {
         setUseSelectCount(event.target.checked);
         setSelectedOptions([]);
@@ -204,9 +272,6 @@ const AddExam = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    const handleSimpleModeChange = (event) => {
-        setIsSimpleMode(event.target.checked);
-    };
     const categories = getSubjectInfo(selectedSubject)?.listcategory || [];
     const handleCheckboxChange = (event) => {
         const { name, checked } = event.target;
@@ -301,9 +366,22 @@ const AddExam = () => {
     };
     const [examName, setExamName] = useState('');
     const handleExamNameChange = (event) => {
-      setExamName(event.target.value);
+        setExamName(event.target.value);
     };
     const maxEssayValue = parseInt(totalQuestionsEssay);
+    const handleCreateExamHandicraft = () => {
+        if (examName === '') {
+            setShowErrorModal(true);
+            setErrorMessage('Vui lòng đặt tên cho đề thi.');
+            return;
+        }
+        setListQuestionsExam(getQuestionsByIds(selected));
+        setOpen(true);
+        setCreateDate(new Date());
+    };
+    const handleStartButtonClick = () => {
+        handleCreateExamHandicraft();
+    };
     return (
         <div className={stylecss.container_manage}>
             <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()} link={`/teacher/${id}/examlist`} link1={`/teacher/${id}`} link3={`/teacher/${id}/examlist`} active={3} />
@@ -317,33 +395,13 @@ const AddExam = () => {
                         {value === 0 && (
                             <Box sx={{ p: 2 }}>
                                 <Grid container spacing={2} alignItems="center">
-                                    <div className={stylecss.title_wrapper} style={{ marginTop: '20px', marginLeft: '30px' }}>
-                                        <div className={stylecss.checkbox_expand}>
-                                            <input
-                                                className={stylecss.switch}
-                                                type="checkbox"
-                                                id="switch"
-                                                name="switch"
-                                                value="private"
-                                                checked={isSimpleMode}
-                                                onChange={handleSimpleModeChange}
-                                            />
-                                            <label htmlFor="switch">
-                                                <span className={stylecss.switch_x_text}>Chế độ đơn giản: </span>
-                                                <span className={stylecss.switch_x_toggletext}>
-                                                    <span className={stylecss.switch_x_unchecked}><span className={stylecss.switch_x_hiddenlabel}>Unchecked: </span>off</span>
-                                                    <span className={stylecss.switch_x_checked}><span className={stylecss.switch_x_hiddenlabel}>Checked: </span>on</span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </div>
                                     <Grid container spacing={2} alignItems='center'>
                                         <Grid item xs={12} marginTop='20px'>
                                             <Grid container spacing={2} alignItems='center'>
                                                 <Grid item xs={12} sm={6} md={6}>
                                                     <div className={stylecss.form_container}>
                                                         <label className={stylecss.label_form}>Tên bài kiểm tra:</label>
-                                                        <input type="text" className={stylecss.inputField} placeholder='Vd: Đề thi 1' required  value={examName} onChange={handleExamNameChange}/>
+                                                        <input type="text" className={stylecss.inputField} placeholder='Vd: Đề thi 1' required value={examName} onChange={handleExamNameChange} />
                                                     </div>
                                                 </Grid>
                                                 <Grid item xs={12} sm={6} md={6}>
@@ -543,7 +601,74 @@ const AddExam = () => {
                                 </Grid>
                             </Box>
                         )}
-
+                        {value === 1 && (
+                            <Grid container spacing={2} alignItems='center'>
+                                <Grid item xs={12} marginTop='20px'>
+                                    <Grid container spacing={2} alignItems='center'>
+                                        <Grid item xs={12} sm={6} md={6}>
+                                            <div className={stylecss.form_container}>
+                                                <label className={stylecss.label_form}>Tên bài kiểm tra:</label>
+                                                <input type="text" className={stylecss.inputField} placeholder='Vd: Đề thi 1' required value={examName} onChange={handleExamNameChange} />
+                                            </div>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6} md={6}>
+                                            <div className={stylecss.form_container}>
+                                                <label className={stylecss.label_form}>Chọn môn học:</label>
+                                                <select className={stylecss.dropdownSub} value={selectedSubject} onChange={handleSubjectChange}>
+                                                    <option value="" disabled>--Chọn môn học--</option>
+                                                    {subjects.map(subject => (
+                                                        <option key={getSubjectInfo(subject.id).id} value={getSubjectInfo(subject.id).id}>{getSubjectInfo(subject.id).name}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        </Grid>
+                                    </Grid>
+                                    <div style={{ marginTop: '20px' }}></div>
+                                    <EnhancedTable initialRows={rows} headCells={headCells} handleClick={handleClick} handleSelectAllClick={handleSelectAllClick} selected={selected} handleCreateExam={handleStartButtonClick}></EnhancedTable>
+                                    <Snackbar
+                                        open={showErrorModal}
+                                        autoHideDuration={6000}
+                                        onClose={handleCloseErrorModal}
+                                        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                                        style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+                                    >
+                                        <Alert
+                                            style={{ alignItems: 'center' }}
+                                            severity="error"
+                                            action={
+                                                <IconButton size="large" aria-label="close" color="inherit" onClick={handleCloseErrorModal}>
+                                                    <ErrorIcon fontSize="30px" />
+                                                </IconButton>
+                                            }
+                                            sx={{ width: '100%', fontSize: '20px', }}
+                                        >
+                                            {errorMessage}
+                                        </Alert>
+                                    </Snackbar>
+                                    <Modal
+                                        open={open}
+                                        onClose={handleClose}
+                                        aria-labelledby="modal-modal-title"
+                                        aria-describedby="modal-modal-description"
+                                    >
+                                        <Box sx={style}>
+                                            <Typography className={stylecss.headerModal} style={{ fontSize: '20px', fontWeight: 'bold' }} id="modal-modal-title" variant="h6" component="h2">
+                                                Tạo câu hỏi thành công
+                                            </Typography>
+                                            <Typography className={stylecss.modalContent} id="modal-modal-description" sx={{ mt: 2 }} style={{ fontSize: '15px' }}>Nhấn ok để xem hoặc chỉnh sửa đề thi của bạn</Typography>
+                                            <Box style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                                                <Button onClick={handleClose} color="secondary" variant="contained" style={{ marginRight: '30px', backgroundColor: 'gray', fontSize: '13px' }}>
+                                                    Quay lại
+                                                </Button>
+                                                <Button color="primary" onClick={handleEditExam} variant="contained" style={{ fontSize: '13px' }}>
+                                                    OK
+                                                </Button>
+                                            </Box>
+                                        </Box>
+                                    </Modal>
+                                </Grid>
+                            </Grid>
+                        )}
                     </Box>
                 ) : (
                     <>

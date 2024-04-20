@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import stylecss from '../../styles-page/exam.module.css';
 import JsonData from '../../data/data.json';
 import HeaderandSidebar from '../menu/headerandsidebar';
@@ -227,7 +227,9 @@ const SubjectManagement = () => {
                     <h2>{getSubjectInfo(id_sub).name}</h2>
                 </div>
                 <div className={stylecss.add_subject}>
+                    <Link to={`/teacher/${id}/manage/${id_sub}/addquestion`}>
                     <button className={`${stylecss.btn_add} ${stylecss.left}`}>Thêm câu hỏi</button>
+                    </Link>
                     {!listQuestionsDeleted ? (
                     <button onClick={handleChangelistDeleted}  className={`${stylecss.btn_add} ${stylecss.right}`}>Câu hỏi đã xóa({getQuestionsWithStatusMinusOne().length})</button>
                     ) : (

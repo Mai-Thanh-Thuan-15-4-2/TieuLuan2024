@@ -3,6 +3,7 @@ import { Card, CardContent, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import ArticleIcon from '@mui/icons-material/Article';
 import InfoIcon from '@mui/icons-material/Info';
+import Delete from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 
 const colors = ['#880000', '#666666', '#FF3300', '#3399FF', '#33FF00', '#FF3366', '#993300', '#3300FF', '#007700', '#FF9900'];
@@ -75,10 +76,10 @@ const CustomButton = styled('button')({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    boxShadow: '0 0 10px #00D5FF', 
+    boxShadow: '0 0 10px #00D5FF',
     transition: 'all 0.3s ease-in-out',
     '&:hover': {
-        boxShadow: '0 0 30px #00D5FF', 
+        boxShadow: '0 0 30px #00D5FF',
     },
 });
 const DetailCard = styled(Card)(({ theme }) => ({
@@ -103,7 +104,7 @@ const DetailCard = styled(Card)(({ theme }) => ({
 const BoldLabel = styled('span')({
     fontWeight: 'bold',
 });
-export const CardItem = ({ id, name, year, credits, link }) => {
+export const CardItem = ({ id, name, year, credits, link, isEdit }) => {
     const [detailsOpened, setDetailsOpened] = useState(false);
 
     useEffect(() => {
@@ -121,15 +122,21 @@ export const CardItem = ({ id, name, year, credits, link }) => {
     };
     const truncate = (str) => {
         return str.length > 15 ? str.substring(0, 15) + "..." : str;
-      };
+    };
     return (
         <div style={{ position: 'relative' }}>
             <CustomCard>
                 <IconArticle>
                     <ArticleIcon style={{ fontSize: '25px', opacity: '0.4' }} />
                 </IconArticle>
-                <IconInfo onClick={handleInfoClick}>
-                    <InfoIcon />
+                <IconInfo>
+                    <InfoIcon onClick={handleInfoClick} />
+                    {isEdit && (
+                        <>
+                            <span style={{ marginRight: '5px' }}></span>
+                            <Delete style={{ color: 'red' }} />
+                        </>
+                    )}
                 </IconInfo>
                 <ButtonWrapper>
                     <Link to={link}>

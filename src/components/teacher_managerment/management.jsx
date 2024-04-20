@@ -38,6 +38,7 @@ const Management = () => {
                                 year={getSubjectInfo(subject.id).year}
                                 credits={getSubjectInfo(subject.id).credits}
                                 link={`/teacher/${id}/manage/${subject.id}`}
+                                isEdit={true}
                             />
                         </Grid>
                     ))}

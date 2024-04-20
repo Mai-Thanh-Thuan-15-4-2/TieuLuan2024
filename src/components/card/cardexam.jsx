@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/system';
 import stylecss from '../../styles-page/exam.module.css';
 import InfoIcon from '@mui/icons-material/Info';
-import { Card, CardContent, Typography } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import Delete from '@mui/icons-material/Delete';
 
 
 const DetailCard = styled(Card)(({ theme }) => ({
@@ -52,10 +53,17 @@ const CustomButton = styled('button')({
     alignItems: 'center',
     transition: 'all 0.3s ease-in-out',
 });
+const IconInfo = styled('div')({
+    position: 'absolute',
+    top: '8px',
+    right: '8px',
+    fontSize: '25px',
+    zIndex: '2'
+});
 const BoldLabel = styled('span')({
     fontWeight: 'bold',
 });
-const CardExam = ({ id, name, subject, totalquestion, createdate, editdate, link }) => {
+const CardExam = ({ id, name, subject, totalquestion, createdate, editdate, link, isDelete }) => {
     const [detailsOpened, setDetailsOpened] = useState(false);
 
     useEffect(() => {
@@ -79,7 +87,15 @@ const CardExam = ({ id, name, subject, totalquestion, createdate, editdate, link
             <div className={stylecss.examCard}>
                 <div className={stylecss.examTitle}>
                     <p className={stylecss.examName}>{truncate(name, 25)}</p>
-                    <InfoIcon onClick={handleInfoClick} className={stylecss.iconInfo} />
+                    <IconInfo>
+                    <InfoIcon onClick={handleInfoClick} />
+                    {isDelete && (
+                        <>
+                            <span style={{ marginRight: '5px' }}></span>
+                            <Delete style={{ color: 'red' }} />
+                        </>
+                    )}
+                </IconInfo>
                 </div>
                 <ButtonWrapper>
                     <Link to={link}>

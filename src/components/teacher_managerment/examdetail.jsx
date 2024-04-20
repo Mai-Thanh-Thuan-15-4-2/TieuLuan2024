@@ -23,7 +23,7 @@ const ExamDetail = () => {
     };
     return (
         <div className={stylecss.container_manage}>
-            <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()} link={`/`} link1={`/teacher/${id}`} link3={`/teacher/${id}/examlist`} active={3} />
+            <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()} link={`/teacher/${id}/examlist`} link1={`/teacher/${id}`} link3={`/teacher/${id}/examlist`} active={3} />
             <div className={`${sidebarVisible ? stylecss.content_manage : stylecss.content_manage_full}`}>
                 <div className={stylecss.title_wrapper}>
                     <h2>Chỉnh sửa đề thi</h2>
