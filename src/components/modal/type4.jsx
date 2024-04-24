@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { Grid, IconButton, Typography, Modal } from '@mui/material';
-import { AddCircleOutline } from '@mui/icons-material';
-import { Visibility, ThumbUpAlt } from '@mui/icons-material';
+import { Grid, IconButton, Modal, Typography } from '@mui/material';
+import { Visibility, ThumbUpAlt, AddCircleOutline, HelpOutline } from '@mui/icons-material';
 import stylecss from '../../styles-page/exam.module.css';
 import Close from '@mui/icons-material/Close';
 import Delete from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
-//Thêm topic mới thì id sẽ dựa vào chủ sở hữu
-const Type1 = (categories) => {
+
+const Type4 = (categories) => {
     const [answers, setAnswers] = useState([{ label: 'A', value: '' }, { label: 'B', value: '' }]);
-    const [textareaValues, setTextareaValues] = useState(['']);
     const [selectedTopics, setSelectedTopics] = useState([]);
     const [imageSrc, setImageSrc] = useState(null);
     const [previewModalOpen, setPreviewModalOpen] = useState(false);
+    const [textareaValue, setTextareaValue] = useState('');
+    const [selectedWords, setSelectedWords] = useState({});
+    const [wordPositions, setWordPositions] = useState({});
+    const [selectedWordsObject, setSelectedWordsObject] = useState({});
     const [showCustomTopicInput, setShowCustomTopicInput] = useState(false);
     const [customTopicValue, setCustomTopicValue] = useState('');
 
@@ -38,6 +40,7 @@ const Type1 = (categories) => {
     const handleCustomTopicInputChange = (event) => {
         setCustomTopicValue(event.target.value);
     };
+
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -48,7 +51,6 @@ const Type1 = (categories) => {
             reader.readAsDataURL(file);
         }
     };
-
     const handleAddAnswer = () => {
         const newLabel = String.fromCharCode(65 + answers.length);
         setAnswers(prevAnswers => [...prevAnswers, { label: newLabel, value: '' }]);
@@ -69,11 +71,52 @@ const Type1 = (categories) => {
             }
         });
     };
-    const handleTextareaChange = (index, value) => {
-        setTextareaValues(prevValues => {
-            const updatedValues = [...prevValues];
-            updatedValues[index] = value;
-            return updatedValues;
+    const handleTextareaChange = (e) => {
+        const value = e.target.value;
+        setTextareaValue(value);
+        const words = value.split(/\s+/).filter(word => word.trim() !== '');
+        setWordPositions(words.reduce((acc, word, index) => {
+            if (!acc[word]) {
+                acc[word] = {};
+            }
+            acc[word][index] = true;
+            return acc;
+        }, {}));
+        setSelectedWords({});
+        setSelectedWordsObject({});
+    };
+    const handleWordClick = (index, word) => {
+        setSelectedWords(prevSelectedWords => {
+            const newSelectedWords = { ...prevSelectedWords };
+            if (newSelectedWords[index] !== undefined) {
+                delete newSelectedWords[index];
+                setSelectedWordsObject(prevObject => {
+                    const newSelectedWordsObject = { ...prevObject };
+                    if (newSelectedWordsObject[word] && newSelectedWordsObject[word][index] !== undefined) {
+                        delete newSelectedWordsObject[word][index];
+                        if (Object.keys(newSelectedWordsObject[word]).length === 0) {
+                            delete newSelectedWordsObject[word];
+                        }
+                    } else {
+                        if (!newSelectedWordsObject[word]) {
+                            newSelectedWordsObject[word] = {};
+                        }
+                        newSelectedWordsObject[word][index] = true;
+                    }
+                    return newSelectedWordsObject;
+                });
+            } else {
+                newSelectedWords[index] = index;
+                setSelectedWordsObject(prevObject => {
+                    const newSelectedWordsObject = { ...prevObject };
+                    if (!newSelectedWordsObject[word]) {
+                        newSelectedWordsObject[word] = {};
+                    }
+                    newSelectedWordsObject[word][index] = true;
+                    return newSelectedWordsObject;
+                });
+            }
+            return newSelectedWords;
         });
     };
 
@@ -92,6 +135,23 @@ const Type1 = (categories) => {
         const contentArray = ids.map(id => contentById[id]);
         return contentArray;
     };
+    const getPreviewQuestion = () => {
+        const words = textareaValue.split(/\s+/).filter(word => word.trim() !== '');
+        let previewWords = [];
+        let answerList = [];
+        for (let i = 0; i < words.length; i++) {
+            if (selectedWordsObject[words[i]] && selectedWordsObject[words[i]][i]) {
+                previewWords.push(`<span style="font-weight: bold; color: #50C7C7; text-decoration: underline;">${words[i]}</span>`);
+                answerList.push({ word: words[i], index: i });
+            } else {
+                previewWords.push(words[i]);
+            }
+        }
+        answerList.sort((a, b) => a.index - b.index);
+        let previewQuestion = previewWords.join(' ');
+        return { previewQuestion, answerList };
+    };
+    const preview = getPreviewQuestion();
     return (
         <div className={stylecss.form_type1}>
             <Grid container spacing={2} justifyContent='center'>
@@ -114,7 +174,7 @@ const Type1 = (categories) => {
                                     </label>
                                 </li>
                             ))}
-                            <li key="newTopic" style={styles.topicListItem}>
+                             <li key="newTopic" style={styles.topicListItem}>
                                 <input
                                     type="checkbox"
                                     id="newTopic"
@@ -144,12 +204,17 @@ const Type1 = (categories) => {
                     </div>
                 </Grid>
                 <Grid item sm={5} md={5}>
-                    <label className={stylecss.label_form}>Câu hỏi trắc nghiệm:</label>
+                    <label className={stylecss.label_form}>Câu hỏi:</label>
+                    <Tooltip title={<p className='title-tooltip'>Điền nội dung câu hỏi của bạn vào đây</p>}>
+                        <IconButton style={{ marginLeft: '5px', marginTop: '-7px', cursor: 'default' }}>
+                            <HelpOutline style={{ color: 'gray', fontSize: '20px' }} />
+                        </IconButton>
+                    </Tooltip>
                     <textarea
                         className={stylecss.textarea_type1}
                         rows={4}
-                        value={textareaValues[0]}
-                        onChange={e => handleTextareaChange(0, e.target.value)}
+                        value={textareaValue}
+                        onChange={handleTextareaChange}
                     />
                     <div>
                         <input
@@ -159,7 +224,7 @@ const Type1 = (categories) => {
                             style={{ display: 'none' }}
                             id="fileInput"
                         />
-                        <label htmlFor="fileInput" style={{ cursor: 'pointer' }}>
+                        <label htmlFor="fileInput" style={{ cursor: 'pointer', marginLeft: '10px' }}>
                             <img src="/img/addquestion/addimg.png" alt="Upload Icon" style={{ width: '50px', height: '50px' }} />
                         </label>
                         {imageSrc &&
@@ -172,18 +237,44 @@ const Type1 = (categories) => {
                         }
                     </div>
                 </Grid>
+                <Grid item xs={10}>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <label style={{ whiteSpace: 'nowrap' }} className={stylecss.label_form}>Từ khóa:</label>
+                            <Tooltip title={<p className='title-tooltip'>Chọn các từ khóa cần thiết để làm nổi bật</p>}>
+                                <IconButton style={{ marginLeft: '5px', marginTop: '-7px', cursor: 'default' }}>
+                                    <HelpOutline style={{ color: 'gray', fontSize: '20px' }} />
+                                </IconButton>
+                            </Tooltip>
+                            <div>
+                                <span style={{ marginLeft: '10px' }}></span>
+                                {textareaValue.split(/\s+/).filter(word => word.trim() !== '').map((word, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => handleWordClick(index, word)}
+                                        style={{ marginRight: '5px', marginBottom: '5px', backgroundColor: selectedWords[index] !== undefined ? 'green' : 'lightgray', color: 'white', border: 'none', borderRadius: '5px', padding: '5px' }}
+                                    >
+                                        {word}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </Grid>
                 {answers.map((answer, index) => (
                     <Grid item sm={5} md={5} key={index}>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 {index === answers.length - 1 && (
-                                    <IconButton onClick={() => handleRemoveAnswer(index)} style={{ marginTop: '-5px' }}>
-                                        <Delete style={{ color: 'red', fontSize: '20px' }} />
-                                    </IconButton>
+                                    <Tooltip title={<p className='title-tooltip'>Xóa đáp án</p>}>
+                                        <IconButton onClick={() => handleRemoveAnswer(index)} style={{ marginTop: '-5px' }}>
+                                            <Delete style={{ color: 'red', fontSize: '20px' }} />
+                                        </IconButton>
+                                    </Tooltip>
                                 )}
                                 <label className={stylecss.label_form}>{`Đáp án ${answer.label}:`}</label>
                                 {answer.label === 'A' && (
-                                    <Tooltip title='Đáp án đúng'>
+                                    <Tooltip title={<p className='title-tooltip'>Đáp án đúng</p>}>
                                         <IconButton style={{ marginLeft: '5px', marginTop: '-7px', cursor: 'default' }}>
                                             <ThumbUpAlt style={{ color: 'green', fontSize: '20px' }} />
                                         </IconButton>
@@ -236,7 +327,7 @@ const Type1 = (categories) => {
                     </p>
                     <p>
                         <strong>Câu hỏi: </strong>
-                        {textareaValues[0]}
+                        <span dangerouslySetInnerHTML={{ __html: preview.previewQuestion }} />
                     </p>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         {imageSrc && (
@@ -275,4 +366,4 @@ const styles = {
         marginBottom: '10px',
     },
 }
-export default Type1;
+export default Type4;

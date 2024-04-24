@@ -7,6 +7,9 @@ import Close from '@mui/icons-material/Close';
 import Type1 from './type1';
 import Type2 from './type2';
 import Type3 from './type3';
+import Type4 from './type4';
+import Type5 from './type5';
+import Type6 from './type6';
 
 const ModalAddQuestion = ({ id, title, open, onClose, categories }) => {
     const [confirmCloseModal, setConfirmCloseModal] = useState(false);
@@ -20,6 +23,15 @@ const ModalAddQuestion = ({ id, title, open, onClose, categories }) => {
         ),
         'type3': (
             <Type3 categories={categories}></Type3>
+        ),
+        'type4': (
+            <Type4 categories={categories}></Type4>
+        ),
+        'type5': (
+            <Type5 categories={categories}></Type5>
+        ),
+        'type6': (
+            <Type6 categories={categories}></Type6>
         ),
     };
 

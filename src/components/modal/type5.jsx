@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, IconButton, Typography, Modal } from '@mui/material';
 import { AddCircleOutline } from '@mui/icons-material';
 import { Visibility, ThumbUpAlt } from '@mui/icons-material';
 import stylecss from '../../styles-page/exam.module.css';
 import Close from '@mui/icons-material/Close';
 import Delete from '@mui/icons-material/Delete';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Tooltip from '@mui/material/Tooltip';
-//Thêm topic mới thì id sẽ dựa vào chủ sở hữu
-const Type1 = (categories) => {
-    const [answers, setAnswers] = useState([{ label: 'A', value: '' }, { label: 'B', value: '' }]);
-    const [textareaValues, setTextareaValues] = useState(['']);
+
+const Type5 = (categories) => {
+    const [textareaValues, setTextareaValues] = useState({});
     const [selectedTopics, setSelectedTopics] = useState([]);
     const [imageSrc, setImageSrc] = useState(null);
     const [previewModalOpen, setPreviewModalOpen] = useState(false);
+    const [questions, setQuestions] = useState([
+        { label: 1, value: '', answers: [{ label: 'A', value: '' }, { label: 'B', value: '' }] }
+    ]);
     const [showCustomTopicInput, setShowCustomTopicInput] = useState(false);
     const [customTopicValue, setCustomTopicValue] = useState('');
 
@@ -38,6 +42,7 @@ const Type1 = (categories) => {
     const handleCustomTopicInputChange = (event) => {
         setCustomTopicValue(event.target.value);
     };
+
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -48,32 +53,64 @@ const Type1 = (categories) => {
             reader.readAsDataURL(file);
         }
     };
+    useEffect(() => {
+        const editor = document.querySelector('.ck-editor__editable');
 
-    const handleAddAnswer = () => {
-        const newLabel = String.fromCharCode(65 + answers.length);
-        setAnswers(prevAnswers => [...prevAnswers, { label: newLabel, value: '' }]);
-    };
-    const handleRemoveAnswer = (index) => {
-        const newAnswers = [...answers];
-        newAnswers.splice(index, 1);
-        setAnswers(newAnswers);
-    };
-    const handleAnswerChange = (index, value) => {
-        setAnswers(prevAnswers => {
-            if (index >= 0 && index < prevAnswers.length) {
-                const updatedAnswers = [...prevAnswers];
-                updatedAnswers[index].value = value;
-                return updatedAnswers;
-            } else {
-                return prevAnswers;
-            }
+        if (editor) {
+            const resizeObserver = new ResizeObserver(() => {
+                requestAnimationFrame(() => {
+                });
+            });
+
+            resizeObserver.observe(editor);
+
+            return () => {
+                resizeObserver.unobserve(editor);
+            };
+        }
+    }, []);
+    const handleQuestionChange = (qIndex, value) => {
+        setQuestions(prevQuestions => {
+            const updatedQuestions = [...prevQuestions];
+            updatedQuestions[qIndex].value = value;
+            return updatedQuestions;
         });
     };
-    const handleTextareaChange = (index, value) => {
-        setTextareaValues(prevValues => {
-            const updatedValues = [...prevValues];
-            updatedValues[index] = value;
-            return updatedValues;
+
+    const handleAddAnswer = (qIndex) => {
+        setQuestions(prevQuestions => {
+            const updatedQuestions = [...prevQuestions];
+            const newLabel = String.fromCharCode(65 + updatedQuestions[qIndex].answers.length);
+            updatedQuestions[qIndex].answers.push({ label: newLabel, value: '' });
+            return updatedQuestions;
+        });
+    };
+
+    const handleAnswerChange = (qIndex, aIndex, value) => {
+        setQuestions(prevQuestions => {
+            const updatedQuestions = [...prevQuestions];
+            updatedQuestions[qIndex].answers[aIndex].value = value;
+            return updatedQuestions;
+        });
+    };
+
+    const handleAddQuestion = () => {
+        const newQuestion = { label: questions.length + 1, value: '', answers: [{ label: 'A', value: '' }, { label: 'B', value: '' }] };
+        setQuestions(prevQuestions => [...prevQuestions, newQuestion]);
+    };
+    const handleRemoveQuestion = (qIndex) => {
+        setQuestions(prevQuestions => {
+            const updatedQuestions = [...prevQuestions];
+            updatedQuestions.splice(qIndex, 1);
+            return updatedQuestions;
+        });
+    };
+
+    const handleRemoveAnswer = (qIndex, aIndex) => {
+        setQuestions(prevQuestions => {
+            const updatedQuestions = [...prevQuestions];
+            updatedQuestions[qIndex].answers.splice(aIndex, 1);
+            return updatedQuestions;
         });
     };
 
@@ -114,7 +151,7 @@ const Type1 = (categories) => {
                                     </label>
                                 </li>
                             ))}
-                            <li key="newTopic" style={styles.topicListItem}>
+                             <li key="newTopic" style={styles.topicListItem}>
                                 <input
                                     type="checkbox"
                                     id="newTopic"
@@ -143,13 +180,15 @@ const Type1 = (categories) => {
                         </ul>
                     </div>
                 </Grid>
-                <Grid item sm={5} md={5}>
-                    <label className={stylecss.label_form}>Câu hỏi trắc nghiệm:</label>
-                    <textarea
-                        className={stylecss.textarea_type1}
-                        rows={4}
-                        value={textareaValues[0]}
-                        onChange={e => handleTextareaChange(0, e.target.value)}
+                <Grid item xs={12} sm={6}>
+                    <label style={{ marginTop: '6px' }} className={stylecss.label_form}>Đoạn văn: </label>
+                    <CKEditor
+                        editor={ClassicEditor}
+                        data={textareaValues.hasOwnProperty(0) ? textareaValues[0] : ''}
+                        onChange={(event, editor) => {
+                            const data = editor.getData();
+                            setTextareaValues({ ...textareaValues, 0: data });
+                        }}
                     />
                     <div>
                         <input
@@ -172,37 +211,67 @@ const Type1 = (categories) => {
                         }
                     </div>
                 </Grid>
-                {answers.map((answer, index) => (
-                    <Grid item sm={5} md={5} key={index}>
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                                {index === answers.length - 1 && (
-                                    <IconButton onClick={() => handleRemoveAnswer(index)} style={{ marginTop: '-5px' }}>
-                                        <Delete style={{ color: 'red', fontSize: '20px' }} />
-                                    </IconButton>
-                                )}
-                                <label className={stylecss.label_form}>{`Đáp án ${answer.label}:`}</label>
-                                {answer.label === 'A' && (
-                                    <Tooltip title='Đáp án đúng'>
-                                        <IconButton style={{ marginLeft: '5px', marginTop: '-7px', cursor: 'default' }}>
-                                            <ThumbUpAlt style={{ color: 'green', fontSize: '20px' }} />
+                {questions.map((question, qIndex) => (
+                    <Grid container spacing={2} key={qIndex} justifyContent='center'>
+                        <Grid item xs={10}>
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    {qIndex === questions.length - 1 && (
+                                        <IconButton onClick={() => handleRemoveQuestion(qIndex)} style={{ marginTop: '-7px' }}>
+                                            <Delete style={{ color: 'red', fontSize: '20px' }} />
                                         </IconButton>
-                                    </Tooltip>
-                                )}
+                                    )}
+                                    <label className={stylecss.label_form}>{`Câu hỏi ${question.label}:`}</label>
+                                </div>
+                                <input
+                                    type="text"
+                                    value={question.value}
+                                    onChange={e => handleQuestionChange(qIndex, e.target.value)}
+                                    className={stylecss.input_type1}
+                                />
                             </div>
-                            <input
-                                type="text"
-                                value={answer.value}
-                                onChange={e => handleAnswerChange(index, e.target.value)}
-                                className={stylecss.input_type1}
-                            />
-                        </div>
+                            <Grid justifyContent='space-between' container item xs={12}>
+                                {question.answers.map((answer, aIndex) => (
+                                    <Grid style={{ marginTop: '5px' }} item sm={5} md={5} key={aIndex}>
+                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                {aIndex === question.answers.length - 1 && (
+                                                    <IconButton onClick={() => handleRemoveAnswer(qIndex, aIndex)} style={{ marginTop: '-5px' }}>
+                                                        <Delete style={{ color: 'red', fontSize: '20px' }} />
+                                                    </IconButton>
+                                                )}
+                                                <label className={stylecss.label_form}>{`Đáp án ${answer.label}:`}</label>
+                                                {answer.label === 'A' && (
+                                                    <Tooltip title='Đáp án đúng'>
+                                                        <IconButton style={{ marginLeft: '5px', marginTop: '-7px', cursor: 'default' }}>
+                                                            <ThumbUpAlt style={{ color: 'green', fontSize: '20px' }} />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                )}
+                                            </div>
+                                            <input
+                                                type="text"
+                                                value={answer.value}
+                                                onChange={e => handleAnswerChange(qIndex, aIndex, e.target.value)}
+                                                className={stylecss.input_type1}
+                                            />
+                                        </div>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                            <Grid item xs={12} sm={5} md={5} style={{ textAlign: 'center' }}>
+                                <IconButton onClick={() => handleAddAnswer(qIndex)} aria-label="Thêm đáp án">
+                                    <AddCircleOutline style={{ fontSize: '20px', color: 'blue' }} />
+                                    <Typography style={{ fontSize: '13px', color: 'blue' }} variant="caption">  Thêm đáp án</Typography>
+                                </IconButton>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 ))}
                 <Grid item xs={12} sm={5} md={5} style={{ textAlign: 'center' }}>
-                    <IconButton onClick={handleAddAnswer} aria-label="Thêm đáp án">
-                        <AddCircleOutline style={{ fontSize: '20px', color: 'blue' }} />
-                        <Typography style={{ fontSize: '13px', color: 'blue' }} variant="caption"> &nbsp;Thêm đáp án</Typography>
+                    <IconButton onClick={handleAddQuestion} aria-label="Thêm câu hỏi">
+                        <AddCircleOutline style={{ fontSize: '20px', color: 'green', fontWeight: 'bold' }} />
+                        <Typography style={{ fontSize: '13px', color: 'green', fontWeight: 'bold' }} variant="caption">  Thêm câu hỏi</Typography>
                     </IconButton>
                 </Grid>
                 <div className={stylecss.add_subject}>
@@ -234,10 +303,11 @@ const Type1 = (categories) => {
                             )}
                         </ul>
                     </p>
-                    <p>
-                        <strong>Câu hỏi: </strong>
-                        {textareaValues[0]}
-                    </p>
+                    <div className='preview-exam'>
+                        <strong>Đoạn văn: </strong>
+                        <br/>
+                        <span style={{ display: 'inline-block', marginLeft: '20px' }} dangerouslySetInnerHTML={{ __html: textareaValues[0] }} />
+                    </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         {imageSrc && (
                             <div>
@@ -245,14 +315,19 @@ const Type1 = (categories) => {
                             </div>
                         )}
                     </div>
-                    {answers.map((answer, index) => (
-                        <p style={{ marginLeft: '20px' }} key={index}>
-                            <strong>{answer.label}: </strong>
-                            {answer.value}
-                            {answer.label === 'A' && (
-                                <span style={{ color: 'green', fontWeight: 'bold', marginLeft: '5px' }}>(Đáp án đúng)</span>
-                            )}
-                        </p>
+                    {questions.map((question, qIndex) => (
+                        <div key={qIndex}>
+                            <p><strong>Câu hỏi {question.label}: </strong>{question.value}</p>
+                            {question.answers.map((answer, aIndex) => (
+                                <p style={{ marginLeft: '20px' }} key={aIndex}>
+                                    <strong>{answer.label}: </strong>
+                                    {answer.value}
+                                    {answer.label === 'A' && (
+                                        <span style={{ color: 'green', fontWeight: 'bold', marginLeft: '5px' }}>(Đáp án đúng)</span>
+                                    )}
+                                </p>
+                            ))}
+                        </div>
                     ))}
                     <button style={{ float: 'right', paddingLeft: '20px', paddingRight: '20px' }} className={stylecss.btn_add} onClick={handlePreviewModalClose}>Đóng</button>
                 </div>
@@ -275,4 +350,4 @@ const styles = {
         marginBottom: '10px',
     },
 }
-export default Type1;
+export default Type5;

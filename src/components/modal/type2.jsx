@@ -3,8 +3,10 @@ import { Grid, IconButton, Typography, Modal } from '@mui/material';
 import { AddCircleOutline } from '@mui/icons-material';
 import { Visibility, ThumbUpAlt, ThumbUpOffAlt } from '@mui/icons-material';
 import stylecss from '../../styles-page/exam.module.css';
+import Delete from '@mui/icons-material/Delete';
 import Close from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
+
 
 const Type2 = (categories) => {
     const [answers, setAnswers] = useState([
@@ -15,6 +17,31 @@ const Type2 = (categories) => {
     const [selectedTopics, setSelectedTopics] = useState([]);
     const [imageSrc, setImageSrc] = useState(null);
     const [previewModalOpen, setPreviewModalOpen] = useState(false);
+    const [showCustomTopicInput, setShowCustomTopicInput] = useState(false);
+    const [customTopicValue, setCustomTopicValue] = useState('');
+
+    const handleCheckboxChange = (event) => {
+        const { name, checked } = event.target;
+        if (name === 'newTopic') {
+            if (checked) {
+                setShowCustomTopicInput(true);
+                setSelectedTopics([...selectedTopics, name]);
+            } else {
+                setShowCustomTopicInput(false);
+                setSelectedTopics(selectedTopics.filter(topic => topic !== name));
+                setCustomTopicValue('');
+            }
+        } else {
+            if (checked) {
+                setSelectedTopics([...selectedTopics, name]);
+            } else {
+                setSelectedTopics(selectedTopics.filter(topic => topic !== name));
+            }
+        }
+    };
+    const handleCustomTopicInputChange = (event) => {
+        setCustomTopicValue(event.target.value);
+    };
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -46,6 +73,11 @@ const Type2 = (categories) => {
         setAnswers(prevAnswers => [...prevAnswers, { label: newLabel, value: '', isCorrect: false }]);
     };
 
+    const handleRemoveAnswer = (index) => {
+        const newAnswers = [...answers];
+        newAnswers.splice(index, 1);
+        setAnswers(newAnswers);
+    };
     const handleAnswerChange = (index, value) => {
         setAnswers(prevAnswers => {
             if (index >= 0 && index < prevAnswers.length) {
@@ -63,15 +95,6 @@ const Type2 = (categories) => {
             updatedValues[index] = value;
             return updatedValues;
         });
-    };
-
-    const handleCheckboxChange = (event) => {
-        const { name, checked } = event.target;
-        if (checked) {
-            setSelectedTopics([...selectedTopics, name]);
-        } else {
-            setSelectedTopics(selectedTopics.filter(topic => topic !== name));
-        }
     };
 
     const handlePreviewModalOpen = () => {
@@ -111,6 +134,32 @@ const Type2 = (categories) => {
                                     </label>
                                 </li>
                             ))}
+                             <li key="newTopic" style={styles.topicListItem}>
+                                <input
+                                    type="checkbox"
+                                    id="newTopic"
+                                    name="newTopic"
+                                    checked={selectedTopics.includes('newTopic')}
+                                    onChange={handleCheckboxChange}
+                                    style={styles.checkbox}
+                                />
+                                <label htmlFor="newTopic" style={{ fontSize: '15px', color: 'blue' }}>
+                                    Chủ đề khác...
+                                </label>
+                            </li>
+                            {showCustomTopicInput && (
+                                <li key="customTopicInput" style={styles.topicListItem}>
+                                    <input
+                                        type="text"
+                                        id="customTopicInput"
+                                        name="customTopicInput"
+                                        value={customTopicValue}
+                                        onChange={handleCustomTopicInputChange}
+                                        className='input-add-cate'
+                                        placeholder='Nhập tên chủ đề'
+                                    />
+                                </li>
+                            )}
                         </ul>
                     </div>
                 </Grid>
@@ -147,8 +196,15 @@ const Type2 = (categories) => {
                     <Grid item sm={5} md={5} key={index}>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
+                                {index === answers.length - 1 && (
+                                    <Tooltip title={<p className='title-tooltip'>Xóa đáp án</p>}>
+                                        <IconButton onClick={() => handleRemoveAnswer(index)} style={{ marginTop: '-5px' }}>
+                                            <Delete style={{ color: 'red', fontSize: '20px' }} />
+                                        </IconButton>
+                                    </Tooltip>
+                                )}
                                 <label className={stylecss.label_form}>{`Đáp án ${answer.label}:`}</label>
-                                <Tooltip title='Đáp án đúng'>
+                                <Tooltip title={<p className='title-tooltip'>Đáp án đúng</p>}>
                                     <IconButton
                                         style={{ marginLeft: '5px', marginTop: '-7px' }}
                                         onClick={() => handleToggleCorrectAnswer(index)}
@@ -198,6 +254,11 @@ const Type2 = (categories) => {
                             {getContentByIds(selectedTopics).map((topic, index) => (
                                 <li style={{ marginLeft: '20px' }} key={index}>{topic}</li>
                             ))}
+                            {showCustomTopicInput && (
+                                <li style={{ marginLeft: '20px' }}>
+                                    {customTopicValue.trim() ? customTopicValue : "Chủ đề khác..."}
+                                </li>
+                            )}
                         </ul>
                     </p>
                     <p>

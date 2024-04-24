@@ -523,7 +523,9 @@ div.content_manage_full {
 
 .add_subject {
   width: 100%;
-  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .btn_add {

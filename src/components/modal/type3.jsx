@@ -1,20 +1,43 @@
 import React, { useState } from 'react';
-import { Grid, IconButton, Typography, Modal } from '@mui/material';
-import { AddCircleOutline } from '@mui/icons-material';
-import { Visibility, ThumbUpAlt, ThumbUpOffAlt } from '@mui/icons-material';
+import { Grid, IconButton, Modal } from '@mui/material';
+import { Visibility, HelpOutline } from '@mui/icons-material';
 import stylecss from '../../styles-page/exam.module.css';
 import Close from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
 
 const Type3 = (categories) => {
-    const [answers, setAnswers] = useState([
-        { label: 'A', value: '', isCorrect: false },
-        { label: 'B', value: '', isCorrect: false }
-    ]);
-    const [textareaValues, setTextareaValues] = useState(['']);
     const [selectedTopics, setSelectedTopics] = useState([]);
     const [imageSrc, setImageSrc] = useState(null);
     const [previewModalOpen, setPreviewModalOpen] = useState(false);
+    const [textareaValue, setTextareaValue] = useState('');
+    const [selectedWords, setSelectedWords] = useState({});
+    const [wordPositions, setWordPositions] = useState({});
+    const [selectedWordsObject, setSelectedWordsObject] = useState({});
+    const [showCustomTopicInput, setShowCustomTopicInput] = useState(false);
+    const [customTopicValue, setCustomTopicValue] = useState('');
+
+    const handleCheckboxChange = (event) => {
+        const { name, checked } = event.target;
+        if (name === 'newTopic') {
+            if (checked) {
+                setShowCustomTopicInput(true);
+                setSelectedTopics([...selectedTopics, name]);
+            } else {
+                setShowCustomTopicInput(false);
+                setSelectedTopics(selectedTopics.filter(topic => topic !== name));
+                setCustomTopicValue('');
+            }
+        } else {
+            if (checked) {
+                setSelectedTopics([...selectedTopics, name]);
+            } else {
+                setSelectedTopics(selectedTopics.filter(topic => topic !== name));
+            }
+        }
+    };
+    const handleCustomTopicInputChange = (event) => {
+        setCustomTopicValue(event.target.value);
+    };
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -26,54 +49,54 @@ const Type3 = (categories) => {
             reader.readAsDataURL(file);
         }
     };
-    const [correctAnswers, setCorrectAnswers] = useState([]);
-
-
-    const handleToggleCorrectAnswer = (index) => {
-        setAnswers((prevAnswers) => {
-            const updatedAnswers = [...prevAnswers];
-            updatedAnswers[index].isCorrect = !updatedAnswers[index].isCorrect;
-            if (updatedAnswers[index].isCorrect) {
-                setCorrectAnswers([...correctAnswers, index]);
-            } else {
-                setCorrectAnswers(correctAnswers.filter((idx) => idx !== index));
+    const handleTextareaChange = (e) => {
+        const value = e.target.value;
+        setTextareaValue(value);
+        const words = value.split(/\s+/).filter(word => word.trim() !== '');
+        setWordPositions(words.reduce((acc, word, index) => {
+            if (!acc[word]) {
+                acc[word] = {};
             }
-            return updatedAnswers;
-        });
+            acc[word][index] = true;
+            return acc;
+        }, {}));
+        setSelectedWords({});
+        setSelectedWordsObject({});
     };
-    const handleAddAnswer = () => {
-        const newLabel = String.fromCharCode(65 + answers.length);
-        setAnswers(prevAnswers => [...prevAnswers, { label: newLabel, value: '', isCorrect: false }]);
-    };
-
-    const handleAnswerChange = (index, value) => {
-        setAnswers(prevAnswers => {
-            if (index >= 0 && index < prevAnswers.length) {
-                const updatedAnswers = [...prevAnswers];
-                updatedAnswers[index].value = value;
-                return updatedAnswers;
+    const handleWordClick = (index, word) => {
+        setSelectedWords(prevSelectedWords => {
+            const newSelectedWords = { ...prevSelectedWords };
+            if (newSelectedWords[index] !== undefined) {
+                delete newSelectedWords[index];
+                setSelectedWordsObject(prevObject => {
+                    const newSelectedWordsObject = { ...prevObject };
+                    if (newSelectedWordsObject[word] && newSelectedWordsObject[word][index] !== undefined) {
+                        delete newSelectedWordsObject[word][index];
+                        if (Object.keys(newSelectedWordsObject[word]).length === 0) {
+                            delete newSelectedWordsObject[word];
+                        }
+                    } else {
+                        if (!newSelectedWordsObject[word]) {
+                            newSelectedWordsObject[word] = {};
+                        }
+                        newSelectedWordsObject[word][index] = true;
+                    }
+                    return newSelectedWordsObject;
+                });
             } else {
-                return prevAnswers;
+                newSelectedWords[index] = index;
+                setSelectedWordsObject(prevObject => {
+                    const newSelectedWordsObject = { ...prevObject };
+                    if (!newSelectedWordsObject[word]) {
+                        newSelectedWordsObject[word] = {};
+                    }
+                    newSelectedWordsObject[word][index] = true;
+                    return newSelectedWordsObject;
+                });
             }
+            return newSelectedWords;
         });
     };
-    const handleTextareaChange = (index, value) => {
-        setTextareaValues(prevValues => {
-            const updatedValues = [...prevValues];
-            updatedValues[index] = value;
-            return updatedValues;
-        });
-    };
-
-    const handleCheckboxChange = (event) => {
-        const { name, checked } = event.target;
-        if (checked) {
-            setSelectedTopics([...selectedTopics, name]);
-        } else {
-            setSelectedTopics(selectedTopics.filter(topic => topic !== name));
-        }
-    };
-
     const handlePreviewModalOpen = () => {
         setPreviewModalOpen(true);
     };
@@ -89,6 +112,22 @@ const Type3 = (categories) => {
         const contentArray = ids.map(id => contentById[id]);
         return contentArray;
     };
+    const getPreviewQuestion = () => {
+        const words = textareaValue.split(/\s+/).filter(word => word.trim() !== '');
+        let previewWords = [...words];
+        let answerList = [];
+        for (let i = 0; i < words.length; i++) {
+            if (selectedWordsObject[words[i]] && selectedWordsObject[words[i]][i]) {
+                previewWords[i] = '.....'.repeat(words[i].length);
+                answerList.push({ word: words[i], index: i });
+            }
+        }
+        answerList.sort((a, b) => a.index - b.index);
+        let previewQuestion = previewWords.join(' ');
+        previewQuestion = previewQuestion.replace(/(\.\.\.\.\s)+/g, '....');
+        return { previewQuestion, answerList };
+    };
+    const preview = getPreviewQuestion();
     return (
         <div className={stylecss.form_type1}>
             <Grid container spacing={2} justifyContent='center'>
@@ -111,16 +150,47 @@ const Type3 = (categories) => {
                                     </label>
                                 </li>
                             ))}
+                             <li key="newTopic" style={styles.topicListItem}>
+                                <input
+                                    type="checkbox"
+                                    id="newTopic"
+                                    name="newTopic"
+                                    checked={selectedTopics.includes('newTopic')}
+                                    onChange={handleCheckboxChange}
+                                    style={styles.checkbox}
+                                />
+                                <label htmlFor="newTopic" style={{ fontSize: '15px', color: 'blue' }}>
+                                    Chủ đề khác...
+                                </label>
+                            </li>
+                            {showCustomTopicInput && (
+                                <li key="customTopicInput" style={styles.topicListItem}>
+                                    <input
+                                        type="text"
+                                        id="customTopicInput"
+                                        name="customTopicInput"
+                                        value={customTopicValue}
+                                        onChange={handleCustomTopicInputChange}
+                                        className='input-add-cate'
+                                        placeholder='Nhập tên chủ đề'
+                                    />
+                                </li>
+                            )}
                         </ul>
                     </div>
                 </Grid>
                 <Grid item sm={5} md={5}>
-                    <label className={stylecss.label_form}>Câu hỏi trắc nghiệm:</label>
+                    <label className={stylecss.label_form}>Câu hỏi:</label>
+                    <Tooltip title={<p className='title-tooltip'>Nhập đầy đủ câu hỏi của bạn vào đây</p>}>
+                        <IconButton style={{ marginLeft: '5px', marginTop: '-7px', cursor: 'default' }}>
+                            <HelpOutline style={{ color: 'gray', fontSize: '20px' }} />
+                        </IconButton>
+                    </Tooltip>
                     <textarea
                         className={stylecss.textarea_type1}
                         rows={4}
-                        value={textareaValues[0]}
-                        onChange={e => handleTextareaChange(0, e.target.value)}
+                        value={textareaValue}
+                        onChange={handleTextareaChange}
                     />
                     <div>
                         <input
@@ -130,7 +200,7 @@ const Type3 = (categories) => {
                             style={{ display: 'none' }}
                             id="fileInput"
                         />
-                        <label htmlFor="fileInput" style={{ cursor: 'pointer' }}>
+                        <label htmlFor="fileInput" style={{ cursor: 'pointer', marginLeft: '10px' }}>
                             <img src="/img/addquestion/addimg.png" alt="Upload Icon" style={{ width: '50px', height: '50px' }} />
                         </label>
                         {imageSrc &&
@@ -143,38 +213,29 @@ const Type3 = (categories) => {
                         }
                     </div>
                 </Grid>
-                {answers.map((answer, index) => (
-                    <Grid item sm={5} md={5} key={index}>
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <label className={stylecss.label_form}>{`Đáp án ${answer.label}:`}</label>
-                                <Tooltip title='Đáp án đúng'>
-                                    <IconButton
-                                        style={{ marginLeft: '5px', marginTop: '-7px' }}
-                                        onClick={() => handleToggleCorrectAnswer(index)}
+                <Grid item xs={10}>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <label style={{ whiteSpace: 'nowrap' }} className={stylecss.label_form}>Đáp án:</label>
+                            <Tooltip title={<p className='title-tooltip'>Chọn 1 hoặc nhiều từ để làm đáp án</p>}>
+                                <IconButton style={{ marginLeft: '5px', marginTop: '-7px', cursor: 'default' }}>
+                                    <HelpOutline style={{ color: 'gray', fontSize: '20px' }} />
+                                </IconButton>
+                            </Tooltip>
+                            <div>
+                                <span style={{ marginLeft: '10px' }}></span>
+                                {textareaValue.split(/\s+/).filter(word => word.trim() !== '').map((word, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => handleWordClick(index, word)}
+                                        style={{ marginRight: '5px', marginBottom: '5px', backgroundColor: selectedWords[index] !== undefined ? 'green' : 'lightgray', color: 'white', border: 'none', borderRadius: '5px', padding: '5px' }}
                                     >
-                                        {answer.isCorrect ? (
-                                            <ThumbUpAlt style={{ color: 'green', fontSize: '20px' }} />
-                                        ) : (
-                                            <ThumbUpOffAlt style={{ fontSize: '20px' }} />
-                                        )}
-                                    </IconButton>
-                                </Tooltip>
+                                        {word}
+                                    </button>
+                                ))}
                             </div>
-                            <input
-                                type="text"
-                                value={answer.value}
-                                onChange={(e) => handleAnswerChange(index, e.target.value)}
-                                className={stylecss.input_type1}
-                            />
                         </div>
-                    </Grid>
-                ))}
-                <Grid item xs={12} sm={5} md={5} style={{ textAlign: 'center' }}>
-                    <IconButton onClick={handleAddAnswer} aria-label="Thêm đáp án">
-                        <AddCircleOutline style={{ fontSize: '20px', color: 'blue' }} />
-                        <Typography style={{ fontSize: '13px', color: 'blue' }} variant="caption"> &nbsp;Thêm đáp án</Typography>
-                    </IconButton>
+                    </div>
                 </Grid>
                 <div className={stylecss.add_subject}>
                     <button style={{ float: 'right' }} className={stylecss.btn_add}>Lưu lại</button>
@@ -198,11 +259,16 @@ const Type3 = (categories) => {
                             {getContentByIds(selectedTopics).map((topic, index) => (
                                 <li style={{ marginLeft: '20px' }} key={index}>{topic}</li>
                             ))}
+                            {showCustomTopicInput && (
+                                <li style={{ marginLeft: '20px' }}>
+                                    {customTopicValue.trim() ? customTopicValue : "Chủ đề khác..."}
+                                </li>
+                            )}
                         </ul>
                     </p>
                     <p>
                         <strong>Câu hỏi: </strong>
-                        {textareaValues[0]}
+                        {preview.previewQuestion}
                     </p>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         {imageSrc && (
@@ -211,15 +277,14 @@ const Type3 = (categories) => {
                             </div>
                         )}
                     </div>
-                    {answers.map((answer, index) => (
-                        <p style={{ marginLeft: '20px' }} key={index}>
-                            <strong>{answer.label}: </strong>
-                            {answer.value}
-                            {answer.isCorrect && (
-                                <span style={{ color: 'green', fontWeight: 'bold', marginLeft: '5px' }}>(Đáp án đúng)</span>
-                            )}
-                        </p>
-                    ))}
+                    <p>
+                        <strong>Đáp án:</strong>
+                        <ul>
+                            {preview.answerList.map((entry, index) => (
+                                <li style={{ marginLeft: '20px' }} key={index}>{index + 1}: {entry.word}</li>
+                            ))}
+                        </ul>
+                    </p>
                     <button style={{ float: 'right', paddingLeft: '20px', paddingRight: '20px' }} className={stylecss.btn_add} onClick={handlePreviewModalClose}>Đóng</button>
                 </div>
             </Modal>

@@ -10,7 +10,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import Grid from '@mui/material/Grid';
+import { Grid, Modal, Typography } from '@mui/material';
+import ModalTopicManage from '../modal/modaltopicmanage';
+import CloseIcon from '@mui/icons-material/Close';
 
 const SubjectManagement = () => {
     const [detailsOpened, setDetailsOpened] = useState(false);
@@ -34,18 +36,18 @@ const SubjectManagement = () => {
     const [listQuestionsDeleted, setListQuestionsDeleted] = useState(false);
     const [listDeleted, setListDeleted] = useState(false);
     const [searchValue, setSearchValue] = React.useState('');
+    const [openModal, setOpenModal] = useState(false);
     let [filteredData, setFilteredData] = React.useState([]);
     useEffect(() => {
         const result = getQuestionsByIds(account.listsub.map(sub => sub.listquestions).filter(list => list).flat());
         setListQuestionsAcc(result);
     }, []);
-    console.log(listQuestionsAcc);
-    const handleChangelistDeleted =() => {
+    const handleChangelistDeleted = () => {
         setListQuestionsDeleted(!listQuestionsDeleted);
         setListDeleted(!listDeleted);
         setListQuestionsAcc(getQuestionsWithStatusMinusOne());
     }
-    const handleChangelistQuestion =() => {
+    const handleChangelistQuestion = () => {
         setListQuestionsDeleted(!listQuestionsDeleted);
         setListDeleted(!listDeleted);
         const result = getQuestionsByIds(account.listsub.map(sub => sub.listquestions).filter(list => list).flat());
@@ -62,7 +64,7 @@ const SubjectManagement = () => {
             });
         }
         return result;
-    };    
+    };
     const getQuestionsWithStatusMinusOne = () => {
         let result = [];
         if (mainSubjects && mainSubjects.length > 0) {
@@ -78,7 +80,7 @@ const SubjectManagement = () => {
         }
         return result;
     };
-    
+
     const getSubjectInfo = (subjectId) => {
         return mainSubjects.find(subject => subject.id === subjectId);
     };
@@ -94,10 +96,10 @@ const SubjectManagement = () => {
             const correctAnswer = question.answers.find((answer) => answer.correct);
             return correctAnswer ? correctAnswer.text : '';
         } else {
-            return ''; 
+            return '';
         }
     };
-    
+
     const getCategoryContent = (categoryId) => {
         const category = getSubjectInfo(id_sub).listcategory.find((cat) => cat.id === categoryId);
         return category ? category.content : '';
@@ -219,6 +221,9 @@ const SubjectManagement = () => {
         default:
             sortedData = filteredData;
     }
+    const handleCloseModal = () => {
+        setOpenModal(false);
+    };
     return (
         <div className={stylecss.container_manage}>
             <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()} link={`/teacher/${id}`} link1={`/teacher/${id}`} link3={`/teacher/${id}/examlist`} active={1} />
@@ -228,14 +233,51 @@ const SubjectManagement = () => {
                 </div>
                 <div className={stylecss.add_subject}>
                     <Link to={`/teacher/${id}/manage/${id_sub}/addquestion`}>
-                    <button className={`${stylecss.btn_add} ${stylecss.left}`}>Thêm câu hỏi</button>
+                        <button className={`${stylecss.btn_add} ${stylecss.left}`}>Thêm câu hỏi</button>
                     </Link>
+                    <button onClick={() => setOpenModal(true)} className={stylecss.btn_add}>Quản lý chủ đề</button>
                     {!listQuestionsDeleted ? (
-                    <button onClick={handleChangelistDeleted}  className={`${stylecss.btn_add} ${stylecss.right}`}>Câu hỏi đã xóa({getQuestionsWithStatusMinusOne().length})</button>
+                        <button onClick={handleChangelistDeleted} className={stylecss.btn_add}>
+                            Câu hỏi đã xóa({getQuestionsWithStatusMinusOne().length})
+                        </button>
                     ) : (
-                    <button onClick={handleChangelistQuestion}  className={`${stylecss.btn_add} ${stylecss.right}`}>Danh sách câu hỏi</button>
+                        <button onClick={handleChangelistQuestion} className={stylecss.btn_add}>
+                            Danh sách câu hỏi
+                        </button>
                     )}
                 </div>
+                <Modal
+                    open={openModal}
+                    onClose={handleCloseModal}
+                    aria-labelledby="modal-title"
+                    aria-describedby="modal-description"
+                >
+                    <>
+                    <IconButton
+                        className={stylecss.btnClose}
+                        aria-label="close"
+                        onClick={handleCloseModal}
+                    >
+                        <CloseIcon style={{ fontSize: '30px', color: 'red' }} />
+                    </IconButton>
+                    <div className={stylecss.modalContent_addquestion}>
+                        <Typography
+                            style={{
+                                marginTop: '40px',
+                                marginBottom: '20px',
+                                fontSize: '20px'
+                            }}
+                            className={stylecss.modalHeader_addquestion}
+                            variant="h5"
+                            id="modal-title"
+                            gutterBottom
+                        >
+                            Quản lý chủ đề
+                        </Typography>
+                        <ModalTopicManage categories={categories}></ModalTopicManage>
+                    </div>
+                    </>
+                </Modal>
                 <Grid container spacing={2} alignItems="center">
                     <Grid item xs={12} sm={4}>
                         <FormControl fullWidth>
@@ -359,16 +401,16 @@ const SubjectManagement = () => {
                 {sortedData && sortedData.length > 0 ? (
                     sortedData.map(question => (
                         <QuestionCard
-                        id_acc={id}
-                        key={question.id}
-                        id={question.id}
-                        question={question.text}
-                        category={getCategoryContent(question.category)}
-                        correct_answer={getCorrectAnswer(question)}
-                        answers={question.answers}
-                        author={question.author}
-                        isdelete={listDeleted}
-                    />                            
+                            id_acc={id}
+                            key={question.id}
+                            id={question.id}
+                            question={question.text}
+                            category={getCategoryContent(question.category)}
+                            correct_answer={getCorrectAnswer(question)}
+                            answers={question.answers}
+                            author={question.author}
+                            isdelete={listDeleted}
+                        />
                     ))
                 ) : (
                     <p className={stylecss.list_empty}>Danh sách trống</p>

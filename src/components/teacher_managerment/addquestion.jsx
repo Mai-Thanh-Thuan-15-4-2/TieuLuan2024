@@ -29,11 +29,18 @@ const AddQuestion = () => {
         let selectedCategory = [];
         const selectedMainSubject = mainSubjects.find(subject => subject.id === id_sub);
         if (selectedMainSubject) {
-            selectedCategory = selectedMainSubject.listcategory;
+            selectedCategory = selectedMainSubject.listcategory.filter(category => {
+                if (category.author) {
+                    return category.author === id;
+                }
+                return true;
+            });
         }
         return selectedCategory;
     }
     
+    
+    console.log(getCategoryByIdSub())
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);

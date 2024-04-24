@@ -109,33 +109,27 @@
     },
     {
       "id": "type5",
-      "title": "Sắp xếp thứ tự",
-      "description": "<p>Sắp xếp câu hỏi theo một trình tự nhất định để hoàn thành câu trả lời</p>",
-      "img": "/img/addquestion/sapxepthutu.gif"
-    },
-    {
-      "id": "type6",
-      "title": "Nối cột",
-      "description": "<p>Nối hai nội dung cột A và B để hoàn thành câu trả lời</p>",
-      "img": "/img/addquestion/noicot.gif"
-    },
-    {
-      "id": "type7",
       "title": "Đoạn văn",
       "description": "<p>Gồm có đoạn văn và nhiều câu hỏi để chọn kết quả</p>",
       "img": "/img/addquestion/doanvanchondapan.gif"
     },
     {
-      "id": "type8",
+      "id": "type6",
       "title": "Tự luận",
-      "description": "<p>Chỉ bao gồm câu hỏi</p>",
-      "img": "/img/addquestion/tuluan.png"
-    },
-    {
-      "id": "type9",
-      "title": "Tự luận có mô tả",
       "description": "<p>Bao gồm câu hỏi và phần mô tả chi tiết</p>",
       "img": "/img/addquestion/tuluancomota.gif"
+    },
+    {
+      "id": "type7",
+      "title": "Sắp xếp thứ tự",
+      "description": "<p>Sắp xếp câu hỏi theo một trình tự nhất định để hoàn thành câu trả lời</p>",
+      "img": "/img/addquestion/sapxepthutu.gif"
+    },
+    {
+      "id": "type8",
+      "title": "Nối cột",
+      "description": "<p>Nối hai nội dung cột A và B để hoàn thành câu trả lời</p>",
+      "img": "/img/addquestion/noicot.gif"
     }
   ],
   "Accounts": [
@@ -3098,7 +3092,12 @@
           {
             "id": "CTMT_cate6",
             "content": "Hệ thống vào ra"
-          }
+          }, 
+          {
+            "id": "CTMT_cate7",
+            "content": "Chủ đề mới Chủ đề mới Chủ đề mới Chủ đề mới Chủ đề mới Chủ đề mới",
+            "author": "1003"
+          } 
         ],
         "questions": [
           {

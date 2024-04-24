@@ -183,7 +183,8 @@ hr {
 .section-title {
   margin-bottom: 50px;
 }
-.section-title-doc{
+
+.section-title-doc {
   margin-bottom: 20px;
 }
 
@@ -346,6 +347,7 @@ header .intro-text {
   bottom: 0;
   left: 0;
 }
+
 #about .about-text li {
   margin-bottom: 6px;
   margin-left: 6px;
@@ -526,6 +528,7 @@ header .intro-text {
   font-weight: 600;
   color: #666;
 }
+
 /* Contact Section */
 #contact {
   padding: 100px 0 60px;
@@ -794,12 +797,14 @@ label {
   cursor: pointer;
   font-size: small;
 }
-.option{
+
+.option {
   color: #1f386e;
   cursor: pointer;
   font-size: small;
 }
-.title-signin{
+
+.title-signin {
   color: #608dfd;
   text-align: center;
 }
@@ -809,11 +814,13 @@ label {
   max-width: 300px;
   margin: 0 auto;
 }
+
 .MuiInputBase-root {
   width: 100%;
-  max-width: 300px; 
+  max-width: 300px;
   margin: 0 auto;
 }
+
 .card {
   display: flex;
   align-items: center;
@@ -853,20 +860,60 @@ label {
   font-size: 14px;
   text-align: left;
 }
+
 .textfield-label {
   margin-right: 30px;
 }
+
 .custom-select {
   width: 100%;
-  max-width: 300px; 
+  max-width: 300px;
 }
+
 .custom-textfield {
   width: 100%;
   max-width: 300px;
 }
+
 .container-grid {
-  padding: 20px; 
+  padding: 20px;
 }
+
 .grid-item {
-  padding: 10px; 
+  padding: 10px;
+}
+
+.preview-exam table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.preview-exam table td {
+  border: 1px solid black;
+  padding: 8px;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.preview-exam img {
+  max-width: 100%;
+  max-height: 300px;
+  border-collapse: collapse;
+  border-radius: 5px;
+}
+
+.title-tooltip {
+  font-size: 13px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.input-add-cate{
+  width: 100%;
+  height: 30px;
+  padding: 4px 10px;
+  border: gray solid 1px;
+  border-radius: 3px;
 }

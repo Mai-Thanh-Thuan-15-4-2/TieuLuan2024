@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Grid, IconButton, Typography, Modal } from '@mui/material';
-import { AddCircleOutline } from '@mui/icons-material';
-import { Visibility, ThumbUpAlt } from '@mui/icons-material';
+import { Grid, IconButton, Modal } from '@mui/material';
+import { Visibility, HelpOutline} from '@mui/icons-material';
 import stylecss from '../../styles-page/exam.module.css';
 import Close from '@mui/icons-material/Close';
-import Delete from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
-//Thêm topic mới thì id sẽ dựa vào chủ sở hữu
-const Type1 = (categories) => {
-    const [answers, setAnswers] = useState([{ label: 'A', value: '' }, { label: 'B', value: '' }]);
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+const Type6 = (categories) => {
     const [textareaValues, setTextareaValues] = useState(['']);
+    const [answerValues, setAnswerValues] = useState(['']);
+    const [editorValues, setEditorValues] = useState(['']);
     const [selectedTopics, setSelectedTopics] = useState([]);
     const [imageSrc, setImageSrc] = useState(null);
     const [previewModalOpen, setPreviewModalOpen] = useState(false);
@@ -38,6 +39,7 @@ const Type1 = (categories) => {
     const handleCustomTopicInputChange = (event) => {
         setCustomTopicValue(event.target.value);
     };
+
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -48,29 +50,15 @@ const Type1 = (categories) => {
             reader.readAsDataURL(file);
         }
     };
-
-    const handleAddAnswer = () => {
-        const newLabel = String.fromCharCode(65 + answers.length);
-        setAnswers(prevAnswers => [...prevAnswers, { label: newLabel, value: '' }]);
-    };
-    const handleRemoveAnswer = (index) => {
-        const newAnswers = [...answers];
-        newAnswers.splice(index, 1);
-        setAnswers(newAnswers);
-    };
-    const handleAnswerChange = (index, value) => {
-        setAnswers(prevAnswers => {
-            if (index >= 0 && index < prevAnswers.length) {
-                const updatedAnswers = [...prevAnswers];
-                updatedAnswers[index].value = value;
-                return updatedAnswers;
-            } else {
-                return prevAnswers;
-            }
-        });
-    };
     const handleTextareaChange = (index, value) => {
         setTextareaValues(prevValues => {
+            const updatedValues = [...prevValues];
+            updatedValues[index] = value;
+            return updatedValues;
+        });
+    };
+    const handleAnswerChange = (index, value) => {
+        setAnswerValues(prevValues => {
             const updatedValues = [...prevValues];
             updatedValues[index] = value;
             return updatedValues;
@@ -92,6 +80,7 @@ const Type1 = (categories) => {
         const contentArray = ids.map(id => contentById[id]);
         return contentArray;
     };
+    console.log(editorValues)
     return (
         <div className={stylecss.form_type1}>
             <Grid container spacing={2} justifyContent='center'>
@@ -114,7 +103,7 @@ const Type1 = (categories) => {
                                     </label>
                                 </li>
                             ))}
-                            <li key="newTopic" style={styles.topicListItem}>
+                             <li key="newTopic" style={styles.topicListItem}>
                                 <input
                                     type="checkbox"
                                     id="newTopic"
@@ -144,7 +133,12 @@ const Type1 = (categories) => {
                     </div>
                 </Grid>
                 <Grid item sm={5} md={5}>
-                    <label className={stylecss.label_form}>Câu hỏi trắc nghiệm:</label>
+                    <label className={stylecss.label_form}>Câu hỏi:</label>
+                    <Tooltip title={<p className='title-tooltip'>Nhập đầy đủ câu hỏi của bạn vào đây</p>}>
+                        <IconButton style={{ marginLeft: '5px', marginTop: '-7px', cursor: 'default' }}>
+                            <HelpOutline style={{ color: 'gray', fontSize: '20px' }} />
+                        </IconButton>
+                    </Tooltip>
                     <textarea
                         className={stylecss.textarea_type1}
                         rows={4}
@@ -172,42 +166,30 @@ const Type1 = (categories) => {
                         }
                     </div>
                 </Grid>
-                {answers.map((answer, index) => (
-                    <Grid item sm={5} md={5} key={index}>
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                                {index === answers.length - 1 && (
-                                    <IconButton onClick={() => handleRemoveAnswer(index)} style={{ marginTop: '-5px' }}>
-                                        <Delete style={{ color: 'red', fontSize: '20px' }} />
-                                    </IconButton>
-                                )}
-                                <label className={stylecss.label_form}>{`Đáp án ${answer.label}:`}</label>
-                                {answer.label === 'A' && (
-                                    <Tooltip title='Đáp án đúng'>
-                                        <IconButton style={{ marginLeft: '5px', marginTop: '-7px', cursor: 'default' }}>
-                                            <ThumbUpAlt style={{ color: 'green', fontSize: '20px' }} />
-                                        </IconButton>
-                                    </Tooltip>
-                                )}
-                            </div>
-                            <input
-                                type="text"
-                                value={answer.value}
-                                onChange={e => handleAnswerChange(index, e.target.value)}
-                                className={stylecss.input_type1}
-                            />
-                        </div>
-                    </Grid>
-                ))}
-                <Grid item xs={12} sm={5} md={5} style={{ textAlign: 'center' }}>
-                    <IconButton onClick={handleAddAnswer} aria-label="Thêm đáp án">
-                        <AddCircleOutline style={{ fontSize: '20px', color: 'blue' }} />
-                        <Typography style={{ fontSize: '13px', color: 'blue' }} variant="caption"> &nbsp;Thêm đáp án</Typography>
-                    </IconButton>
+                <Grid item xs={10}>
+                    <label style={{ marginTop: '6px' }} className={stylecss.label_form}>Mô tả: </label>
+                    <CKEditor
+                        editor={ClassicEditor}
+                        data={editorValues.hasOwnProperty(0) ? editorValues[0] : ''}
+                        onChange={(event, editor) => {
+                            const data = editor.getData();
+                            setEditorValues({ ...editorValues, 0: data });
+                        }}
+                        style={{ height: '200px' }}
+                    />
+                </Grid>
+                <Grid item xs={10}>
+                    <label className={stylecss.label_form}>Đáp án:</label>
+                    <textarea
+                        className={stylecss.textarea_type1}
+                        rows={4}
+                        value={answerValues[0]}
+                        onChange={e => handleAnswerChange(0, e.target.value)}
+                    />
                 </Grid>
                 <div className={stylecss.add_subject}>
-                    <button style={{ float: 'right' }} className={stylecss.btn_add}>Lưu lại</button>
-                    <button className={`${stylecss.btn_add} ${stylecss.right}`} onClick={handlePreviewModalOpen} style={{ display: 'flex', alignItems: 'center', backgroundColor: '#879999' }}>
+                    <button style={{ float: 'right', marginTop: '10px' }} className={stylecss.btn_add}>Lưu lại</button>
+                    <button className={`${stylecss.btn_add} ${stylecss.right}`} onClick={handlePreviewModalOpen} style={{ display: 'flex', alignItems: 'center', backgroundColor: '#879999', marginTop: '10px' }}>
                         <Visibility style={{ marginRight: '5px' }} />
                         Xem trước
                     </button>
@@ -245,16 +227,15 @@ const Type1 = (categories) => {
                             </div>
                         )}
                     </div>
-                    {answers.map((answer, index) => (
-                        <p style={{ marginLeft: '20px' }} key={index}>
-                            <strong>{answer.label}: </strong>
-                            {answer.value}
-                            {answer.label === 'A' && (
-                                <span style={{ color: 'green', fontWeight: 'bold', marginLeft: '5px' }}>(Đáp án đúng)</span>
-                            )}
-                        </p>
-                    ))}
-                    <button style={{ float: 'right', paddingLeft: '20px', paddingRight: '20px' }} className={stylecss.btn_add} onClick={handlePreviewModalClose}>Đóng</button>
+                    <div className='preview-exam'>
+                        <strong>Đoạn văn: </strong><br />
+                        <span style={{ display: 'inline-block', marginLeft: '20px' }} dangerouslySetInnerHTML={{ __html: editorValues[0] }} />
+                    </div>
+                    <div style={{marginTop: '10px'}}>
+                        <strong>Đáp án: </strong><br />
+                        <span style={{ display: 'inline-block', marginLeft: '20px' }}>{answerValues[0]}</span>
+                    </div>
+                    <button style={{ float: 'right', paddingLeft: '20px', paddingRight: '20px', marginTop: '10px' }} className={stylecss.btn_add} onClick={handlePreviewModalClose}>Đóng</button>
                 </div>
             </Modal>
         </div>
@@ -275,4 +256,4 @@ const styles = {
         marginBottom: '10px',
     },
 }
-export default Type1;
+export default Type6;

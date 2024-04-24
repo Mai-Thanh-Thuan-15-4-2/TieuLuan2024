@@ -4,6 +4,7 @@ import { styled } from '@mui/system';
 import ArticleIcon from '@mui/icons-material/Article';
 import InfoIcon from '@mui/icons-material/Info';
 import Delete from '@mui/icons-material/Delete';
+import { AddCircle } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
 const colors = ['#880000', '#666666', '#FF3300', '#3399FF', '#33FF00', '#FF3366', '#993300', '#3300FF', '#007700', '#FF9900'];
@@ -104,7 +105,7 @@ const DetailCard = styled(Card)(({ theme }) => ({
 const BoldLabel = styled('span')({
     fontWeight: 'bold',
 });
-export const CardItem = ({ id, name, year, credits, link, isEdit }) => {
+export const CardItem = ({ id, name, year, credits, link, isEdit, isAdd }) => {
     const [detailsOpened, setDetailsOpened] = useState(false);
 
     useEffect(() => {
@@ -138,11 +139,18 @@ export const CardItem = ({ id, name, year, credits, link, isEdit }) => {
                         </>
                     )}
                 </IconInfo>
-                <ButtonWrapper>
-                    <Link to={link}>
-                        <CustomButton>Tùy chọn</CustomButton>
-                    </Link>
-                </ButtonWrapper>
+                {!isAdd ? (
+                    <ButtonWrapper>
+                        <Link to={link}>
+                            <CustomButton>Tùy chọn</CustomButton>
+                        </Link>
+                    </ButtonWrapper>
+                ) : (
+                    <ButtonWrapper>
+                            <CustomButton>Thêm</CustomButton>
+                    </ButtonWrapper>
+                )}
+
                 <CardContent>
                     <TextWrapper>
                         <Typography variant="h5">{truncate(name)}</Typography>
