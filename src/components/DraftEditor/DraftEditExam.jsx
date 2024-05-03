@@ -2,27 +2,37 @@ import React, { useEffect, useRef, useState } from "react";
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from "draft-js";
 import Toolbar from "../Toolbar/Toolbar";
 import "./DraftEditor.css";
+import callAPI from "../../services/callAPI";
 
-const DraftEditor = ({ content }) => {
-    const initialContent = content;
-    const [editorState, setEditorState] = useState(() => {
-        const contentState = convertFromRaw(initialContent);
-        return EditorState.createWithContent(contentState);
-      });
-    
-      const editor = useRef(null);
-      
-      useEffect(() => {
-        editor.current.focus();
-      }, []);
-      const getTitleFromContent = (content) => {
-        for (const block of content.blocks) {
-            if (block.key === "title_exam") {
-                return block.text;
-            }
-        }
-        return null;
-    };
+const DraftEditor = ({ content, id }) => {
+  const initialContent = content;
+  const api = new callAPI();
+  const [editorState, setEditorState] = useState(() => {
+    const contentState = convertFromRaw(initialContent);
+    return EditorState.createWithContent(contentState);
+  });
+  const [newState, setNewState] = useState({});
+  const editor = useRef(null);
+  const save = async () => {
+    const id_exam = content.info.id;
+    try {
+      await api.updateContentStateById(id, id_exam, newState.blocks);
+      console.log('Content state updated successfully');
+    } catch (error) {
+      console.error('Error updating content state:', error);
+    }
+  };
+  useEffect(() => {
+    editor.current.focus();
+  }, []);
+  const getTitleFromContent = (content) => {
+    for (const block of content.blocks) {
+      if (block.key === "title_exam") {
+        return block.text;
+      }
+    }
+    return null;
+  };
   const handleKeyCommand = (command) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
@@ -31,12 +41,7 @@ const DraftEditor = ({ content }) => {
     }
     return false;
   };
-  const getCursorPosition = () => {
-    const selectionState = editorState.getSelection();
-    const anchorOffset = selectionState.getAnchorOffset();
-    console.log("Vị trí của con trỏ:", anchorOffset);
-  };
-
+console.log([newState.blocks])
   const styleMap = {
     CODE: {
       backgroundColor: "rgba(0, 0, 0, 0.05)",
@@ -71,8 +76,6 @@ const DraftEditor = ({ content }) => {
       fontSize: "80%",
     },
   };
-
-  // FOR BLOCK LEVEL STYLES(Returns CSS Class From DraftEditor.css)
   const myBlockStyleFn = (contentBlock) => {
     const type = contentBlock.getType();
     const key = contentBlock.getKey();
@@ -129,6 +132,7 @@ const DraftEditor = ({ content }) => {
     }
     document.body.removeChild(downloadLink);
   }
+
   return (
     <div className="editor-wrapper">
       <Toolbar editorState={editorState} setEditorState={setEditorState} />
@@ -171,12 +175,12 @@ const DraftEditor = ({ content }) => {
           onChange={(editorState) => {
             const contentState = editorState.getCurrentContent();
             const newState = convertToRaw(contentState);
-            console.log(newState);
+            setNewState(newState);
             setEditorState(editorState);
           }}
         />
       </div>
-      <button className='button_export'>Lưu đề thi</button>
+      <button className='button_export' onClick={save}>Lưu đề thi</button>
       <button className='button_export' onClick={() => Export2Word('exportContent', getTitleFromContent(content))}>Xuất file .doc</button>
     </div>
   );

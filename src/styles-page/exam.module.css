@@ -521,13 +521,16 @@ div.content_manage_full {
   }
 }
 
-.add_subject {
+.add_subject2 {
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
 }
-
+.add_subject {
+  width: 100%;
+  flex-direction: row;
+}
 .btn_add {
   position: relative;
   background-color: #488eda;

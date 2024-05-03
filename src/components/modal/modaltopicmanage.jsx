@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, IconButton, Typography, Modal, Card, CardHeader, CardActions, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import { AddCircleOutline, Edit, Delete} from '@mui/icons-material';
+import { AddCircleOutline, Edit, Delete } from '@mui/icons-material';
+import Tooltip from '@mui/material/Tooltip';
 
 const ModalTopicManage = ({ categories, id }) => {
     const [openModal, setOpenModal] = useState(false);
@@ -32,30 +33,46 @@ const ModalTopicManage = ({ categories, id }) => {
     };
     return (
         <div>
-            <Grid container spacing={2}>
-                {categories.map((category, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={index}>
-                        <Card style={{background: 'linear-gradient(to bottom, #B8DEDE, white)'}}>
-                            <CardHeader
-                                title={truncate(category.content)}
-                                action={
-                                    <>
-                                        <IconButton onClick={() => handleCategoryClick(category)}>
-                                            <Edit />
-                                        </IconButton>
-                                        <IconButton>
-                                            <Delete style={{color: 'red'}}/>
-                                        </IconButton>
-                                    </>
-                                }
-                            />
-                        </Card>
+            <Grid container spacing={2} alignItems='center'>
+                {categories && categories.length > 0 ? (
+                    categories.map((category, index) => (
+                        <Grid item xs={12} sm={6} md={4} key={index}>
+                            <Card style={{ background: 'linear-gradient(to bottom, #B8DEDE, white)' }}>
+                                <CardHeader
+                                    title={truncate(category.content)}
+                                    action={
+                                        <div>
+                                            <IconButton onClick={() => handleCategoryClick(category)}>
+                                                <Edit />
+                                            </IconButton>
+                                            <IconButton>
+                                                <Delete style={{ color: 'red' }} />
+                                            </IconButton>
+                                        </div>
+                                    }
+                                />
+                            </Card>
+                        </Grid>
+                    ))
+                ) : (
+                    <div style={{ textAlign: 'center', display: 'block', margin: 'auto', width: '100%', marginTop: '100px' }}>
+                        <p>Không có chủ đề.</p>
+                    </div>
 
-                    </Grid>
-                ))}
-                <IconButton style={{marginTop: '10px', marginLeft: '20px'}}>
-                    <AddCircleOutline style={{ fontSize: '30px', color: 'blue' }}/>
-                </IconButton>
+                )}
+                {categories && categories.length > 0 ? (
+                    <Tooltip title={<p className='title-tooltip'>Thêm chủ đề</p>}>
+                        <IconButton style={{ marginTop: '10px', marginLeft: '20px' }}>
+                            <AddCircleOutline style={{ fontSize: '30px', color: 'blue' }} />
+                        </IconButton>
+                    </Tooltip>
+                ) : (
+                    <Tooltip title={<p className='title-tooltip'>Thêm chủ đề</p>}>
+                        <IconButton style={{ marginTop: '10px', marginLeft: '20px', display: 'block', margin: 'auto' }}>
+                            <AddCircleOutline style={{ fontSize: '30px', color: 'blue' }} />
+                        </IconButton>
+                    </Tooltip>
+                )}
             </Grid>
             <Modal
                 open={openModal}

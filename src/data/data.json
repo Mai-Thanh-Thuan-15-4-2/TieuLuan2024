@@ -3071,32 +3071,39 @@
         "listcategory": [
           {
             "id": "CTMT_cate1",
-            "content": "Giới thiệu về cấu trúc máy tính"
+            "content": "Giới thiệu về cấu trúc máy tính",
+            "status": 1
           },
           {
             "id": "CTMT_cate2",
-            "content": "Hệ thống máy tính"
+            "content": "Hệ thống máy tính",
+            "status": 1
           },
           {
             "id": "CTMT_cate3",
-            "content": "Biểu diễn dữ liệu và số học máy tính"
+            "content": "Biểu diễn dữ liệu và số học máy tính",
+            "status": 1
           },
           {
             "id": "CTMT_cate4",
-            "content": "Bộ xử lý trung tâm"
+            "content": "Bộ xử lý trung tâm",
+            "status": 1
           },
           {
             "id": "CTMT_cate5",
-            "content": "Bộ nhớ máy tính"
+            "content": "Bộ nhớ máy tính",
+            "status": 1
           },
           {
             "id": "CTMT_cate6",
-            "content": "Hệ thống vào ra"
+            "content": "Hệ thống vào ra",
+            "status": 1
           }, 
           {
             "id": "CTMT_cate7",
-            "content": "Chủ đề mới Chủ đề mới Chủ đề mới Chủ đề mới Chủ đề mới Chủ đề mới",
-            "author": "1003"
+            "content": "Chủ đề mới",
+            "author": "1003",
+            "status": 2
           } 
         ],
         "questions": [
@@ -3106,10 +3113,9 @@
             "viewers": 1,
             "author": "1003",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
             "type": 1,
-            "status": 1,
-            "category": "CTMT_cate1",
+            "status": -1,
+            "category": "CTMT_cate7",
             "text": "Máy tính được cấu thành từ những thành phần nào chính?",
             "answers": [
               {
@@ -3137,15 +3143,15 @@
             "viewers": 6,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 1,
-            "status": 1,
+            "type": 2,
+            "status": -1,
             "category": "CTMT_cate1",
             "text": "CPU (Central Processing Unit) có chức năng gì trong máy tính?",
             "answers": [
               {
                 "id": "a1",
-                "text": "Lưu trữ dữ liệu"
+                "text": "Lưu trữ dữ liệu",
+                "correct": false
               },
               {
                 "id": "a2",
@@ -3154,43 +3160,34 @@
               },
               {
                 "id": "a3",
-                "text": "Hiển thị hình ảnh"
+                "text": "Hiển thị hình ảnh",
+                "correct": false
               },
               {
                 "id": "a4",
-                "text": "Kết nối với Internet"
+                "text": "Kết nối với Internet",
+                "correct": true
               }
             ]
-          },
+          },          
           {
             "id": "CTMT3",
             "level": 1,
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 1,
+            "type": 3,
             "status": 1,
             "category": "CTMT_cate1",
-            "text": "RAM (Random Access Memory) dùng để làm gì trong máy tính?",
+            "text": "Bộ nhớ RAM (Random Access Memory) là .............., có tốc độ truy xuất nhanh, có thể đọc hoặc ghi dữ liệu. ............ chỉ lưu trữ dữ liệu tạm thời khi máy tính hoạt động và dữ liệu sẽ bị xoá khi mất điện",
             "answers": [
-              {
-                "id": "a1",
-                "text": "Lưu trữ dữ liệu",
-                "correct": true
-              },
-              {
-                "id": "a2",
-                "text": "Xử lý các tác vụ và chương trình"
-              },
-              {
-                "id": "a3",
-                "text": "Hiển thị hình ảnh"
-              },
-              {
-                "id": "a4",
-                "text": "Kết nối với Internet"
-              }
+              {"word": "bộ", "index": 7},
+              {"word": "nhớ", "index": 8},
+              {"word": "truy", "index": 9},
+              {"word": "xuất", "index": 10},
+              {"word": "ngẫu", "index": 11},
+              {"word": "nhiên", "index": 12},
+              {"word": "RAM", "index": 26}
             ]
           },
           {
@@ -3199,69 +3196,71 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 1,
+            "type": 4,
             "status": 1,
             "category": "CTMT_cate1",
-            "text": "Hệ điều hành trong máy tính có vai trò gì?",
+            "text": "'RAM' là một loại bộ nhớ khả biến cho phép đọc - ghi ngẫu nhiên dữ liệu đến bất kỳ vị trí nào trong bộ nhớ dựa theo địa chỉ của bộ nhớ.",
             "answers": [
               {
                 "id": "a1",
-                "text": "Quản lý và điều phối các tài nguyên hệ thống",
+                "text": "Random Access Memory",
                 "correct": true
               },
               {
                 "id": "a2",
-                "text": "Chỉ để lưu trữ dữ liệu"
+                "text": "Readily Accessible Memory"
               },
               {
                 "id": "a3",
-                "text": "Chỉ để xử lý các tác vụ và chương trình"
+                "text": "Rapid Application Model"
               },
               {
                 "id": "a4",
-                "text": "Chỉ để hiển thị hình ảnh"
+                "text": "Resolution Adjustment Module"
               }
             ]
-          },
+          },          
           {
             "id": "CTMT5",
             "level": 1,
+            "name": "Văn bản đọc hiểu",
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 1,
+            "type": 5,
             "status": 1,
             "category": "CTMT_cate1",
-            "text": "Đơn vị lưu trữ nhỏ nhất trong máy tính là gì?",
-            "answers": [
+            "text": "<p>Accidents do not occur at random. People eighty-five years of age and older are twenty-two times likely to die accidentally than are children five to nine years old. The risk for native Americans is four times that for Asian-Americans and twice that for white Americans or African-Americans. Males suffer accidents at more than twice the rate of females, in part because they are more prone to risky behavior. Alaskans are more than three times as likely as Rhode Islanders to die in an accident. Texans are twenty-one times more likely than New Jerseyites to die in a natural disaster. Among the one hundred most populous counties, Kern County, California (Bakersfield), has an accident fatality rate three times greater than Summit County, Ohio (Akron)<br><br>Accidents happens more often to poor people. Those living in poverty receive inferior medical care, are more apt to reside in houses with faulty heating and electrical systems, drive older cars with fewer safety features, and are less likely to use safety belts. People in rural areas have more accidents than city or suburban dwellers because farming is much riskier than working in a factory or office and because emergency medical services are less readily available. These two factors – low income and rural residence – may explain why the south has a higher accident rate than the north.</p>",
+            "child_questions": [
               {
-                "id": "a1",
-                "text": "Byte"
+                "id": "q1",
+                "text": "Which of the following is true according to the passage?",
+                "answers": [
+                  {"id": "a1", "text": "Children aged five to nine face the greatest accident risk.", "correct": true},
+                  {"id": "a2", "text": "All people face an equal risk of having an accident."},
+                  {"id": "a3", "text": "One in every 22 people aged 85 and over will die in an accident."},
+                  {"id": "a4", "text": "The risk of having an accident is greater among certain groups of people."}
+                ]
               },
               {
-                "id": "a2",
-                "text": "Bit",
-                "correct": true
-              },
-              {
-                "id": "a3",
-                "text": "Kilobyte"
-              },
-              {
-                "id": "a4",
-                "text": "Megabyte"
+                "id": "q2",
+                "text": "The word “inferior” in the passage is closest in meaning to__________.",
+                "answers": [
+                  {"id": "a1", "text": "modern", "correct": true},
+                  {"id": "a2", "text": "low-quality"},
+                  {"id": "a3", "text": "well-equipped"},
+                  {"id": "a4", "text": "unsafe"}
+                ]
               }
             ]
-          },
+          },          
           {
             "id": "CTMT6",
             "level": 1,
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3292,7 +3291,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3323,9 +3322,8 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
             "type": 1,
-            "status": -1,
+            "status": 1,
             "category": "CTMT_cate1",
             "text": "Làm thế nào mà RAM giúp tăng tốc độ xử lý của máy tính?",
             "answers": [
@@ -3354,7 +3352,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3385,7 +3383,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3416,7 +3414,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3447,7 +3445,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3478,7 +3476,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3509,7 +3507,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3540,7 +3538,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3571,7 +3569,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3602,7 +3600,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3633,7 +3631,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3664,7 +3662,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3695,7 +3693,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate1",
@@ -3726,7 +3724,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -3757,7 +3755,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -3788,7 +3786,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -3819,7 +3817,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -3850,7 +3848,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -3881,7 +3879,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -3912,7 +3910,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -3943,7 +3941,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -3974,7 +3972,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -4005,7 +4003,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -4036,7 +4034,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -4067,7 +4065,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -4098,7 +4096,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -4129,7 +4127,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -4160,7 +4158,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -4191,7 +4189,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -4222,7 +4220,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -4253,7 +4251,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -4284,7 +4282,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -4315,7 +4313,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate2",
@@ -4346,7 +4344,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4377,7 +4375,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4408,7 +4406,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4439,7 +4437,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4470,7 +4468,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4501,7 +4499,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4532,7 +4530,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4563,7 +4561,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4594,7 +4592,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4625,7 +4623,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4656,7 +4654,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4687,7 +4685,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4718,7 +4716,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4749,7 +4747,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4780,7 +4778,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4811,7 +4809,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4842,7 +4840,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4873,7 +4871,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4904,7 +4902,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4935,7 +4933,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate3",
@@ -4966,7 +4964,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -4997,7 +4995,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5028,7 +5026,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5059,7 +5057,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5090,7 +5088,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5121,7 +5119,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5152,7 +5150,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5183,7 +5181,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5214,7 +5212,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5245,7 +5243,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5276,7 +5274,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5307,7 +5305,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5338,7 +5336,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5369,7 +5367,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5400,7 +5398,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5431,7 +5429,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5462,7 +5460,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5493,7 +5491,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5524,7 +5522,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5555,7 +5553,7 @@
             "viewers": 1,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate4",
@@ -5586,7 +5584,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -5617,7 +5615,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -5648,7 +5646,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -5679,7 +5677,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -5710,7 +5708,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -5733,7 +5731,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -5764,7 +5762,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -5795,7 +5793,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -5826,7 +5824,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -5857,7 +5855,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -5888,7 +5886,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -5919,7 +5917,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -5950,7 +5948,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -5981,7 +5979,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -6012,7 +6010,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -6043,7 +6041,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -6074,7 +6072,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -6105,7 +6103,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -6136,7 +6134,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -6167,7 +6165,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate5",
@@ -6198,7 +6196,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6229,7 +6227,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6260,7 +6258,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6291,7 +6289,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6322,7 +6320,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6353,7 +6351,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6384,7 +6382,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6415,7 +6413,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6446,7 +6444,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6477,7 +6475,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6508,7 +6506,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6539,7 +6537,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6570,7 +6568,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6601,7 +6599,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6632,7 +6630,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6663,7 +6661,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6694,7 +6692,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6725,7 +6723,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6756,7 +6754,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6787,7 +6785,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "CTMT_cate6",
@@ -6817,9 +6815,8 @@
             "level": 5,
             "viewers": 0,
             "author": "1002",
-            "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 2,
+            "created_at": "1/1/2024",           
+            "type": 6,
             "status": 1,
             "category": "CTMT_cate1",
             "text": "Hãy mô tả cấu trúc tổng quan của một máy tính và giải thích vai trò của các thành phần chính trong hệ thống.",
@@ -6831,8 +6828,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 2,
+            "type": 6,
             "status": 1,
             "category": "CTMT_cate1",
             "text": "Nêu các khái niệm cơ bản trong cấu trúc máy tính và mô tả chúng.",
@@ -6844,8 +6840,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 2,
+            "type": 6,
             "status": 1,
             "category": "CTMT_cate2",
             "text": "Hãy mô tả các thành phần cơ bản của một hệ thống máy tính và giải thích vai trò của mỗi thành phần trong quá trình hoạt động của hệ thống.",
@@ -6856,9 +6851,8 @@
             "level": 5,
             "viewers": 0,
             "author": "1002",
-            "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 2,
+            "created_at": "1/1/2024", 
+            "type": 6,
             "status": 1,
             "category": "CTMT_cate2",
             "text": "Giải thích khái niệm về bộ xử lý trung tâm (CPU) trong một hệ thống máy tính và nêu rõ vai trò của nó trong việc thực hiện các phép tính và điều khiển hoạt động của hệ thống.",
@@ -6870,8 +6864,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 2,
+            "type": 6,
             "status": 1,
             "category": "CTMT_cate3",
             "text": "Hãy giải thích các phương pháp biểu diễn dữ liệu trong máy tính và so sánh giữa hệ thống biểu diễn dấu cộng (unsigned) và hệ thống biểu diễn dấu bù (signed).",
@@ -6883,8 +6876,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 2,
+            "type": 6,
             "status": 1,
             "category": "CTMT_cate3",
             "text": "Mô tả các phép toán cơ bản trong số học máy tính và giải thích cách máy tính thực hiện các phép toán này trên dữ liệu nhị phân.",
@@ -6896,8 +6888,7 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 2,
+            "type": 6,
             "status": 1,
             "category": "CTMT_cate4",
             "text": "Mô tả cấu trúc và chức năng của bộ xử lý trung tâm (CPU) trong một hệ thống máy tính. Hãy giải thích cách CPU thực hiện các phép tính logic và toán học, và vai trò của nó trong việc điều khiển và thực hiện các tác vụ của hệ thống.",
@@ -6909,8 +6900,8 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 2,
+            
+            "type": 6,
             "status": 1,
             "category": "CTMT_cate4",
             "text": "Hãy mô tả các loại bộ xử lý trung tâm (CPU) phổ biến và so sánh giữa chúng về hiệu suất và ứng dụng.",
@@ -6922,8 +6913,8 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 2,
+            
+            "type": 6,
             "status": 1,
             "category": "CTMT_cate5",
             "text": "Mô tả các loại bộ nhớ trong máy tính và giải thích vai trò của mỗi loại trong quá trình hoạt động của hệ thống.",
@@ -6935,8 +6926,8 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 2,
+            
+            "type": 6,
             "status": 1,
             "category": "CTMT_cate5",
             "text": "So sánh giữa bộ nhớ RAM và bộ nhớ ROM trong máy tính. Hãy trình bày các đặc điểm khác nhau và ứng dụng của hai loại bộ nhớ này.",
@@ -6948,8 +6939,8 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 2,
+            
+            "type": 6,
             "status": 1,
             "category": "CTMT_cate6",
             "text": "Mô tả và giải thích vai trò của hệ thống vào ra (I/O) trong một hệ thống máy tính.",
@@ -6961,8 +6952,8 @@
             "viewers": 0,
             "author": "1002",
             "created_at": "1/1/2024",
-            "correct_answers": 1,
-            "type": 2,
+            
+            "type": 6,
             "status": 1,
             "category": "CTMT_cate6",
             "text": "So sánh giữa các phương pháp truyền dữ liệu trong hệ thống vào ra, bao gồm truyền dẫn đồng bộ và không đồng bộ. Hãy trình bày ưu điểm, nhược điểm và các ứng dụng của mỗi phương pháp.",
@@ -7002,7 +6993,7 @@
             "viewers": 1,
             "author": "1003",
             "create_at": "1/1/2024",
-            "correct_answers": 1,
+            
             "type": 1,
             "status": 1,
             "category": "MMTCB_cate1",

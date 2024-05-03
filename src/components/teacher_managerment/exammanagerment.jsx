@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import stylecss from '../../styles-page/exam.module.css';
-import JsonData from '../../data/data.json';
 import HeaderandSidebar from '../menu/headerandsidebar';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,9 +11,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import CardExam from '../card/cardexam';
+import callAPI from '../../services/callAPI';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const ExamManagement = () => {
     const [detailsOpened, setDetailsOpened] = useState(false);
+    const [showLoading, setShowLoading] = useState(true);
     useEffect(() => {
         let timeoutId;
         if (detailsOpened) {
@@ -25,8 +28,8 @@ const ExamManagement = () => {
         return () => clearTimeout(timeoutId);
     }, [detailsOpened]);
     const { id } = useParams();
-    const account = JsonData.Accounts.find(account => account.id === id);
-    const mainSubjects = JsonData.Exams.main;
+    const [account, setAccount] = useState(null);
+    const [mainSubjects, setMainSubjects] = useState([]);
     const [filterValue, setFilterValue] = React.useState('');
     const [sortValue, setSortValue] = React.useState('');
     const [listData, setListData] = React.useState('');
@@ -35,9 +38,25 @@ const ExamManagement = () => {
     const [searchValue, setSearchValue] = React.useState('');
     let [filteredData, setFilteredData] = React.useState([]);
     useEffect(() => {
+        async function fetchAccountAndMainSubjects() {
+            try {
+                const api = new callAPI();
+                const accountData = await api.getAccountById(id);
+                setAccount(accountData);
+                const mainExamsData = await api.fetchMainExams();
+                setMainSubjects(mainExamsData);
+                setShowLoading(false);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setShowLoading(false);
+            }
+        };
+        fetchAccountAndMainSubjects();
+    }, []);
+    useEffect(() => {
         const result = getListExams().filter(list => list).flat();
         setListData(result);
-    }, []);
+    }, [mainSubjects]);
     const handleChangelistDeleted = () => {
         setListQuestionsDeleted(!listQuestionsDeleted);
         setListDeleted(!listDeleted);
@@ -89,23 +108,29 @@ const ExamManagement = () => {
     };
 
     const handleSearchChange = (event) => {
-        const searchValue = event.target.value;
-        setSearchValue(searchValue);
-        const searchData = searchFunction(listData, searchValue);
-        setFilterValue(0);
-        setFilteredData(searchData);
+        setSearchValue(event.target.value); 
+        // if (searchValue !== undefined) {
+        //     setSearchValue(searchValue);
+        //     const searchData = searchFunction(listData, searchValue);
+        //     setFilterValue(0);
+        //     setFilteredData(searchData);
+        // }
     };
-
     // Hàm tìm kiếm chung
     const searchFunction = (data, searchValue) => {
         return data.filter(item => {
-            // Tìm kiếm dựa trên ID và text
-            return (
-                item.id.toLowerCase().includes(searchValue.toLowerCase()) ||
-                item.text.toLowerCase().includes(searchValue.toLowerCase())
-            );
+            // Kiểm tra xem item có tồn tại và không phải là undefined
+            if (item && item.id && item.text) {
+                // Tìm kiếm dựa trên ID và text
+                return (
+                    item.id.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    item.text.toLowerCase().includes(searchValue.toLowerCase())
+                );
+            }
+            return false;
         });
     };
+    
 
     // Lọc dữ liệu
     filteredData = searchValue ? searchFunction(listData, searchValue) : listData;
@@ -163,7 +188,6 @@ const ExamManagement = () => {
 
     // Sắp xếp dữ liệu
     let sortedData = filteredData;
-    console.log(sortedData);
     switch (sortValue) {
         case '1':
             sortedData = filteredData.sort((a, b) => a.level - b.level);
@@ -209,156 +233,141 @@ const ExamManagement = () => {
     return (
         <div id="subjects" className={stylecss.container_manage}>
             <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()} link={`/teacher/${id}`} link1={`/teacher/${id}`} link3={`/teacher/${id}/examlist`} active={3} />
-            <div className={`${sidebarVisible ? stylecss.content_manage : stylecss.content_manage_full}`}>
-                <div className={stylecss.title_wrapper}>
-                    <h2>Quản lý đề thi</h2>
-                </div>
-                <div className={stylecss.add_subject}>
-                    <Link to={`/teacher/${id}/addexam`}>
-                        <button className={`${stylecss.btn_add} ${stylecss.left}`}>Tạo đề thi</button>
-                    </Link>
-                    {!listQuestionsDeleted ? (
-                        <button onClick={handleChangelistDeleted} className={`${stylecss.btn_add} ${stylecss.right}`}>Đề thi đã xóa({getListExamDeleted().length})</button>
-                    ) : (
-                        <button onClick={handleChangelistQuestion} className={`${stylecss.btn_add} ${stylecss.right}`}>Danh sách đề thi</button>
-                    )}
-                </div>
-                <Grid container spacing={2} alignItems="center">
-                    <Grid item xs={12} sm={4}>
-                        <FormControl fullWidth>
-                            <Select
-                                id="filter"
-                                value={filterValue}
-                                onChange={handleFilterChange}
-                                displayEmpty
-                                renderValue={(selected) => {
-                                    if (!selected) {
-                                        return <em>Lọc đề thi</em>;
-                                    }
-                                    switch (selected) {
-                                        case "0":
-                                            return "Tất cả";
-                                        case "101":
-                                            return "Câu hỏi do bạn thêm";
-                                        case "102":
-                                            return "Đã ẩn";
-                                        case "103":
-                                            return "Không bị ẩn";
-                                        case "104":
-                                            return "Trắc nghiệm";
-                                        case "105":
-                                            return "Tự luận";
-                                        case "106":
-                                            return "Mức độ: Biết";
-                                        case "107":
-                                            return "Mức độ: Hiểu";
-                                        case "108":
-                                            return "Mức độ: Vận dụng";
-                                        case "109":
-                                            return "Mức độ: Vận dụng cao";
-                                        default:
-                                            return "";
-                                    }
-                                }}
-                            >
-                                <MenuItem value="" disabled>
-                                    <em>Chọn một mục</em>
-                                </MenuItem>
-                                <MenuItem value="0">Tất cả</MenuItem>
-                                <MenuItem value="101">Câu hỏi do bạn thêm</MenuItem>
-                                <MenuItem value="102">Đã ẩn</MenuItem>
-                                <MenuItem value="103">Không bị ẩn</MenuItem>
-                                <MenuItem value="104">Trắc nghiệm</MenuItem>
-                                <MenuItem value="105">Tự luận</MenuItem>
-                                <MenuItem value="106">Mức độ: Biết</MenuItem>
-                                <MenuItem value="107">Mức độ: Hiểu</MenuItem>
-                                <MenuItem value="108">Mức độ: Vận dụng</MenuItem>
-                                <MenuItem value="109">Mức độ: Vận dụng cao</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                        <FormControl fullWidth>
-                            <Select
-                                id="sort"
-                                value={sortValue}
-                                onChange={handleSortChange}
-                                displayEmpty
-                                renderValue={(selected) => {
-                                    if (!selected) {
-                                        return <em>Sắp xếp đề thi</em>;
-                                    }
-                                    switch (selected) {
-                                        case "0":
-                                            return "Mặc định";
-                                        case "1":
-                                            return "Dễ đến khó";
-                                        case "2":
-                                            return "Khó đến dễ";
-                                        case "3":
-                                            return "Mới nhất";
-                                        case "4":
-                                            return "Cũ nhất";
-                                        case "5":
-                                            return "Số lượt tiếp cận";
-                                        default:
-                                            return "";
-                                    }
-                                }}
-                            >
-                                <MenuItem value="" disabled>
-                                    <em>Chọn một mục</em>
-                                </MenuItem>
-                                <MenuItem value="0">Mặc định</MenuItem>
-                                <MenuItem value="1">Dễ đến khó</MenuItem>
-                                <MenuItem value="2">Khó đến dễ</MenuItem>
-                                <MenuItem value="3">Mới nhất</MenuItem>
-                                <MenuItem value="4">Cũ nhất</MenuItem>
-                                <MenuItem value="5">Số lượt tiếp cận</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                        <TextField
-                            fullWidth
-                            id="search"
-                            placeholder='Tìm kiếm'
-                            value={searchValue}
-                            onChange={handleSearchChange}
-                            InputProps={{
-                                endAdornment: (
-                                    <IconButton>
-                                        <SearchIcon />
-                                    </IconButton>
-                                ),
-                            }}
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2}>
-                    {sortedData && sortedData.length > 0 ? (
-                        sortedData.map(exam => (
-                            <Grid item xs={12} sm={8} md={4} key={exam.contentState.info.id}>
-                            <CardExam
-                                id={exam.contentState.info.id}
-                                key={exam.contentState.info.id}
-                                name={exam.contentState.blocks[0].text}
-                                subject={getSubjectInfo(exam.contentState.info.subject).name}
-                                totalquestion={countQuestionBlocks(exam)}
-                                createdate={formatDate(exam.contentState.info.create_date)}
-                                editdate={formatDate(exam.contentState.info.edit_date)}
-                                link={`/teacher/${id}/examdetail/${exam.contentState.info.id}`}
-                                isDelete={true}
-                            />
-                            </Grid>
-                        ))
-                    ) : (
-                         <Grid item xs={12} sm={12} md={12} key="list_empty">
-                        <p className={stylecss.list_empty}>Danh sách trống</p>
+                <div className={`${sidebarVisible ? stylecss.content_manage : stylecss.content_manage_full}`}>
+                    <div className={stylecss.title_wrapper}>
+                        <h2>Quản lý đề thi</h2>
+                    </div>
+                    <div className={stylecss.add_subject}>
+                        <Link to={`/teacher/${id}/addexam`}>
+                            <button className={`${stylecss.btn_add} ${stylecss.left}`}>Tạo đề thi</button>
+                        </Link>
+                        {!listQuestionsDeleted ? (
+                            <button onClick={handleChangelistDeleted} className={`${stylecss.btn_add} ${stylecss.right}`}>Đề thi đã xóa({getListExamDeleted().length})</button>
+                        ) : (
+                            <button onClick={handleChangelistQuestion} className={`${stylecss.btn_add} ${stylecss.right}`}>Danh sách đề thi</button>
+                        )}
+                    </div>
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item xs={12} sm={4}>
+                            <FormControl fullWidth>
+                                <Select
+                                    id="filter"
+                                    value={filterValue}
+                                    onChange={handleFilterChange}
+                                    displayEmpty
+                                    renderValue={(selected) => {
+                                        if (!selected) {
+                                            return <em>Lọc đề thi</em>;
+                                        }
+                                        switch (selected) {
+                                            case "0":
+                                                return "Tất cả";
+                                            default:
+                                                return "";
+                                        }
+                                    }}
+                                >
+                                    <MenuItem value="" disabled>
+                                        <em>Chọn một mục</em>
+                                    </MenuItem>
+                                    <MenuItem value="0">Tất cả</MenuItem>
+                                </Select>
+                            </FormControl>
                         </Grid>
-                    )}
-                </Grid>
-            </div>
+                        <Grid item xs={12} sm={4}>
+                            <FormControl fullWidth>
+                                <Select
+                                    id="sort"
+                                    value={sortValue}
+                                    onChange={handleSortChange}
+                                    displayEmpty
+                                    renderValue={(selected) => {
+                                        if (!selected) {
+                                            return <em>Sắp xếp đề thi</em>;
+                                        }
+                                        switch (selected) {
+                                            case "0":
+                                                return "Mặc định";
+                                            case "1":
+                                                return "Mới nhất";
+                                            case "2":
+                                                return "Cũ nhất";
+                                            case "3":
+                                                return "Nhiều câu nhất";
+                                            case "4":
+                                                return "Ít câu nhất";
+                                            default:
+                                                return "";
+                                        }
+                                    }}
+                                >
+                                    <MenuItem value="" disabled>
+                                        <em>Chọn một mục</em>
+                                    </MenuItem>
+                                    <MenuItem value="0">Mặc định</MenuItem>
+                                    <MenuItem value="1">Mới nhất</MenuItem>
+                                    <MenuItem value="2">Cũ nhất</MenuItem>
+                                    <MenuItem value="3">Nhiều câu nhất</MenuItem>
+                                    <MenuItem value="4">Ít câu nhất</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <TextField
+                                fullWidth
+                                id="search"
+                                placeholder='Tìm kiếm'
+                                value={searchValue}
+                                onChange={handleSearchChange}
+                                InputProps={{
+                                    endAdornment: (
+                                        <IconButton>
+                                            <SearchIcon />
+                                        </IconButton>
+                                    ),
+                                }}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={2}>
+                    {!showLoading ? (
+                        <>
+                        {sortedData && sortedData.length > 0 ? (
+                            sortedData.map(exam => (
+                                <Grid item xs={12} sm={8} md={4} key={exam.contentState.info.id}>
+                                    <CardExam
+                                        id={exam.contentState.info.id}
+                                        key={exam.contentState.info.id}
+                                        name={exam.contentState.blocks[0].text}
+                                        subject={getSubjectInfo(exam.contentState.info.subject).name}
+                                        totalquestion={countQuestionBlocks(exam)}
+                                        createdate={formatDate(exam.contentState.info.create_date)}
+                                        editdate={formatDate(exam.contentState.info.edit_date)}
+                                        link={`/teacher/${id}/examdetail/${exam.contentState.info.id}`}
+                                        isDelete={true}
+                                    />
+                                </Grid>
+                            ))
+                        ) : (
+                            <Grid item xs={12} sm={12} md={12} key="list_empty">
+                                <p className={stylecss.list_empty}>Danh sách trống</p>
+                            </Grid>
+                        )}
+                        </>
+                    ) : (
+                        <Box sx={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '40vh'
+                        }}>
+                            <CircularProgress />
+                        </Box>
+                    )
+                    }
+                    </Grid>
+                </div>
         </div>
     );
 };

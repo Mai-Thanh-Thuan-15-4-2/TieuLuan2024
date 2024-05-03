@@ -167,19 +167,28 @@ const ExamContent = ({ examQuestions, examTime, totalQuestions }) => {
                                 ) : (
                                     <FlagOutlined className={stylecss.icon_flagoutlined} style={{ fontSize: '30px' }} onClick={handleClick} />
                                 )}
-                                <p><span className={stylecss.question_label}>Câu hỏi: </span>{question.text}</p>
+                                <p><span className={stylecss.question_label}>Câu hỏi: </span><span dangerouslySetInnerHTML={{ __html: question.text }} /></p>
                                 <div className={stylecss.answers}>
                                     {question.answers.map(answer => (
                                         <div key={answer.id} className={stylecss.answer_group}>
                                             <div className={stylecss.answer_row}>
                                                 <p className={stylecss.answer_option}>
-                                                    <input
-                                                        type="radio"
-                                                        name={question.id}
-                                                        value={answer.id}
-                                                        onClick={() => handleAnswer(question.id, answer.id)}
-                                                    />
-                                                    <span>{answer.text}</span>
+                                                    {question.type === 2 ? (
+                                                        <input
+                                                            type="checkbox"
+                                                            name={question.id}
+                                                            value={answer.id}
+                                                            onChange={() => handleAnswer(question.id, answer.id)}
+                                                        />
+                                                    ) : (
+                                                        <input
+                                                            type="radio"
+                                                            name={question.id}
+                                                            value={answer.id}
+                                                            onClick={() => handleAnswer(question.id, answer.id)}
+                                                        />
+                                                    )}
+                                                    <span style={{marginLeft: '5px'}}>{answer.text}</span>
                                                 </p>
                                             </div>
                                         </div>

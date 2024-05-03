@@ -102,7 +102,7 @@ const BlueText = styled('span')({
     color: "#1f30b2",
     fontWeight: 'bold'
 });
-export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, category, author, isdelete }) => {
+export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, category, author, name, type, isdelete, answer, childquestions }) => {
     const [detailsOpened, setDetailsOpened] = useState(false);
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -125,7 +125,27 @@ export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, ca
         }
         return "";
     };
+    const groupWordsByIndex = (answers) => {
+        let groupedWords = [];
+        let currentGroup = [];
 
+        answers.forEach((answer, index) => {
+            const prevAnswer = answers[index - 1];
+
+            if (!prevAnswer || answer.index === prevAnswer.index + 1) {
+
+                currentGroup.push(answer.word);
+            } else {
+
+                groupedWords.push(currentGroup.join(' '));
+                currentGroup = [answer.word];
+            }
+        });
+
+        groupedWords.push(currentGroup.join(' '));
+
+        return groupedWords;
+    };
     return (
         <div style={{ position: 'relative' }}>
             <CustomCard>
@@ -141,7 +161,7 @@ export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, ca
                             </>
                         ) : (
                             <>
-                                <LockOpen style={{ marginRight: '5px', color: 'lightgray' }}/>
+                                <LockOpen style={{ marginRight: '5px', color: 'lightgray' }} />
                                 <Edit style={{ marginRight: '5px', color: 'lightgray' }} />
                                 <Delete style={{ marginRight: '5px', color: 'lightgray' }} />
                             </>
@@ -159,13 +179,56 @@ export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, ca
                     <TextWrapper theme={theme}>
                         <Typography variant="p">
                             <BoldLabel>Câu hỏi: </BoldLabel>
-                            <BlueText>{isSmallScreen ? truncate(question, 30) : truncate(question, 100)}</BlueText>
+                            {type === 4 ? (
+                                <BlueText dangerouslySetInnerHTML={{ __html: isSmallScreen ? truncate(question, 30) : truncate(question, 102) }} />
+                            ) : type === 5 ? (
+                                <BlueText>{isSmallScreen ? truncate(name, 30) : truncate(name, 100)}</BlueText>
+                            ) : (
+                                <BlueText>{isSmallScreen ? truncate(question, 30) : truncate(question, 100)}</BlueText>
+                            )}
                         </Typography>
                     </TextWrapper>
                     <AnswerWrapper theme={theme}>
                         <Typography variant="p">
-                            <BoldLabel>Đáp án đúng: </BoldLabel>
-                            {isSmallScreen ? truncate(correct_answer, 30) : truncate(correct_answer, 100)}
+                            {type !== 5 ? (
+                                <BoldLabel>Đáp án đúng: </BoldLabel>
+                            ) : (
+                                <BoldLabel>Loại câu hỏi: </BoldLabel>
+                            )}
+                            {type === 1 || type === 4 ? (
+                                isSmallScreen ? truncate(correct_answer, 30) : truncate(correct_answer, 100)
+                            ) : type === 2 ? (
+                                <>
+                                    {answers && answers.filter(answer => answer.correct).map((answer, index) => (
+                                        <React.Fragment key={answer.id}>
+                                            {index !== 0 && ", "}
+                                            {isSmallScreen ? (
+                                                truncate(answer.text, 10)
+                                            ) : (
+                                                truncate(answer.text, 100)
+                                            )}
+                                        </React.Fragment>
+                                    ))}
+                                </>
+                            ) : type === 5 ? (
+                                <span style={{ fontWeight: 'bolder', color: 'green' }}>Đoạn văn</span>
+                            ) : type === 6 ? (
+                                <span>{isSmallScreen ? truncate(answer, 30) : truncate(answer, 100)}</span>
+                            ) : (
+                                <>
+                                    {answers &&
+                                        groupWordsByIndex(answers).map((groupedWord, index) => (
+                                            <React.Fragment key={index}>
+                                                {index !== 0 && ", "}
+                                                {isSmallScreen ? (
+                                                    truncate(groupedWord, 10)
+                                                ) : (
+                                                    truncate(groupedWord, 100)
+                                                )}
+                                            </React.Fragment>
+                                        ))}
+                                </>
+                            )}
                         </Typography>
                     </AnswerWrapper>
                 </CardContent>
@@ -174,21 +237,86 @@ export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, ca
                 <DetailCard>
                     <Typography><BoldLabel>ID: </BoldLabel> {id}</Typography>
                     <Typography><BoldLabel>Chủ đề: </BoldLabel>{category}</Typography>
-                    <Typography><BoldLabel>Nội dung: </BoldLabel>{question}</Typography>
-                    <Typography><BoldLabel>Đáp án: </BoldLabel></Typography>
-                    {answers && (
+                    {type === 4 || type === 5 ? (
+                        <Typography>
+                            <BoldLabel>Nội dung: </BoldLabel>
+                            <span dangerouslySetInnerHTML={{ __html: question }} />
+                        </Typography>
+                    ) : (
+                        <Typography>
+                            <BoldLabel>Nội dung: </BoldLabel>{question}
+                        </Typography>
+                    )}
+                    {(type === 1 || type === 2 || type === 4 || type === 5) && (
                         <>
                             <Typography><BoldLabel>Đáp án: </BoldLabel></Typography>
-                            {answers.map((answer, index) => (
-                                <Typography key={answer.id}>
-                                    {index + 1}. {answer.text}
-                                </Typography>
-                            ))}
+                            {answers && (
+                                <>
+                                    {answers.map((answer, index) => (
+                                        <Typography key={answer.id}>
+                                            {index + 1}. {answer.text}
+                                        </Typography>
+                                    ))}
+                                </>
+                            )}
                         </>
                     )}
-                    <Typography><BoldLabel>Đáp án đúng: </BoldLabel>{correct_answer}</Typography>
+                    {type === 5 && childquestions.map((childQuestion, index) => (
+                        <div key={childQuestion.id} style={{ fontSize: '10px' }}>
+                            <BoldLabel style={{ fontSize: '10px' }}>{`Câu hỏi ${index + 1}: ${childQuestion.text}`}</BoldLabel>
+                            {childQuestion.answers.map((childAnswer, childIndex) => (
+                                <div key={childAnswer.id} style={{ fontSize: '10px' }}>
+                                    <BoldLabel style={{ fontSize: '10px' }}>{`Đáp án ${index + 1}.${childIndex + 1}: `}</BoldLabel>
+                                    <span style={{ fontSize: '10px' }}>{childAnswer.text}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                    {type === 1 || type === 4 ? (
+                        <Typography><BoldLabel>Đáp án đúng: </BoldLabel>{correct_answer}</Typography>
+                    ) : type === 2 ? (
+                        <Typography variant="p">
+                            <BoldLabel style={{ fontSize: '10px' }}>Đáp án đúng: </BoldLabel>
+                            <br></br>
+                            {answers && answers.map((answer) => (
+                                answer.correct && (
+                                    <>
+                                        <span style={{ fontSize: '10px' }} key={answer.id}>
+                                            {answer.text}
+                                        </span>
+                                        <br></br>
+                                    </>
+                                )
+                            ))}
+                        </Typography>
+                    ) : type === 3 ? (
+                        <>
+                            <BoldLabel style={{ fontSize: '10px' }}>Đáp án đúng: </BoldLabel>
+                            {answers &&
+                                groupWordsByIndex(answers).map((groupedWord, index) => (
+                                    <span key={index} style={{ fontSize: '10px' }}>
+                                        {index !== 0 && ", "}
+                                        {groupedWord}
+                                    </span>
+                                ))}
+                        </>
+                    ) : type === 6 ? (
+                        <>
+                            <BoldLabel style={{ fontSize: '10px' }}>Đáp án đúng: </BoldLabel>
+                            <p>{answer}</p>
+                        </>
+                    ) : type === 5 ? (
+                        <> </>
+                    ) : (
+                        <>
+                            <BoldLabel style={{ fontSize: '10px' }}>Đáp án đúng: </BoldLabel>
+                            <br></br>
+                            <p>Không có đáp án</p>
+                        </>
+                    )
+                    }
                 </DetailCard>
             )}
-        </div>
+        </div >
     );
 };

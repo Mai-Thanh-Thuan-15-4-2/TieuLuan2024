@@ -19,7 +19,11 @@ const Type5 = (categories) => {
     ]);
     const [showCustomTopicInput, setShowCustomTopicInput] = useState(false);
     const [customTopicValue, setCustomTopicValue] = useState('');
+    const [nameValue, setNameValue] = useState('');
 
+    const handleNameChange = (event) => {
+        setNameValue(event.target.value);
+    };
     const handleCheckboxChange = (event) => {
         const { name, checked } = event.target;
         if (name === 'newTopic') {
@@ -151,7 +155,7 @@ const Type5 = (categories) => {
                                     </label>
                                 </li>
                             ))}
-                             <li key="newTopic" style={styles.topicListItem}>
+                            <li key="newTopic" style={styles.topicListItem}>
                                 <input
                                     type="checkbox"
                                     id="newTopic"
@@ -181,6 +185,15 @@ const Type5 = (categories) => {
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={6}>
+                    <label style={{ marginTop: '6px' }} className={stylecss.label_form}>Tên đoạn văn: </label>
+                    <input
+                        type="text"
+                        placeholder='Nhập vào tên văn bản'
+                        value={nameValue}
+                        onChange={handleNameChange}
+                        className={stylecss.input_type1}
+                        style={{marginBottom: '10px'}}
+                    />
                     <label style={{ marginTop: '6px' }} className={stylecss.label_form}>Đoạn văn: </label>
                     <CKEditor
                         editor={ClassicEditor}
@@ -290,7 +303,7 @@ const Type5 = (categories) => {
             >
                 <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px', maxWidth: '600px', margin: 'auto', marginTop: '120px', maxHeight: '75%', overflow: 'auto' }}>
                     <h2 id="preview-modal-title" className={stylecss.modalHeader_addquestion}>Xem trước</h2>
-                    <p id="preview-modal-description">
+                    <div id="preview-modal-description">
                         <strong>Chủ đề:</strong>
                         <ul>
                             {getContentByIds(selectedTopics).map((topic, index) => (
@@ -302,10 +315,12 @@ const Type5 = (categories) => {
                                 </li>
                             )}
                         </ul>
-                    </p>
+                        <strong>Tên đoạn văn:</strong>
+                        <span style={{marginLeft: '6px'}}>{nameValue}</span>
+                    </div>
                     <div className='preview-exam'>
                         <strong>Đoạn văn: </strong>
-                        <br/>
+                        <br />
                         <span style={{ display: 'inline-block', marginLeft: '20px' }} dangerouslySetInnerHTML={{ __html: textareaValues[0] }} />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>

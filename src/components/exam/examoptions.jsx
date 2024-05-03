@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import JsonData from '../../data/data.json';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
 import stylecss from '../../styles-page/exam.module.css';
 import { Snackbar, IconButton, Alert } from '@mui/material';
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
 import ErrorIcon from '@mui/icons-material/Error';
 import ExamContent from './examcontent';
+import callAPI from '../../services/callAPI';
 
 const ExamOptions = () => {
     const { id } = useParams();
-    const basicExamData = JsonData.Exams.basic;
-    const mainExamData = JsonData.Exams.main;
-    const examData = [...basicExamData, ...mainExamData].find(exam => exam.id === id) || [];
     const [questionsValue, setQuestionsValue] = useState("10");
     const [questionsCustomValue, setQuestionsCustomValue] = useState("");
     const [timesValue, setTimesValue] = useState("10");
@@ -25,14 +24,45 @@ const ExamOptions = () => {
     const [errorTimesMessage, setErrorTimesMessage] = useState('');
     const [examContentData, setExamContentData] = useState(null);
     const [showContent, setShowContent] = useState(true);
+    const [mainExamData, setMainExamData] = useState([]);
+    const [basicExamData, setBasicExamData] = useState([]);
+    const [examData, setExamData] = useState([]);
+    const [showLoading, setShowLoading] = useState(true);
 
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const api = new callAPI();
+                const mainExamsData = await api.fetchMainExams();
+                setMainExamData(mainExamsData);
+
+                const basicExamsData = await api.fetchBasicExams();
+                setBasicExamData(basicExamsData);
+                setShowLoading(false);
+            } catch (error) {
+                console.error('Lỗi khi lấy dữ liệu:', error);
+                setShowLoading(false);
+            }
+        }
+        fetchData();
+    }, []);
+    useEffect(() => {
+        const mergedExamsData = [...basicExamData, ...mainExamData];
+        const foundExam = mergedExamsData.find(exam => exam.id === id);
+        setExamData(foundExam || []);
+    }, [basicExamData, mainExamData, id]);
     const sumTotalQuestionsSelected = (questionIds) => {
+        if (!examData || !examData.questions) {
+            return 0;
+        }
         const selectedQuestions = examData.questions.filter((question) =>
-            questionIds.includes(question.category) && question.level !== 5
+            questionIds.includes(question.category) && question.type !== 5 && question.type !== 6 && question.type !== 3
         );
         return selectedQuestions.length;
     };
+
     const totalQuestionsSelected = sumTotalQuestionsSelected(selectedTopics);
+
     const handleQuestionsCountChange = (value) => {
         if (value === "custom") {
             setQuestionsValue("custom");
@@ -50,7 +80,16 @@ const ExamOptions = () => {
         }
     };
 
-    const categories = examData.listcategory;
+    const categories = [];
+
+    if (examData.listcategory) {
+        for (const category of examData.listcategory) {
+            if (category.status === 1) {
+                categories.push(category);
+            }
+        }
+    }
+
     const handleCheckboxChange = (event) => {
         const { name, checked } = event.target;
         if (name === 'selectAll') {
@@ -112,8 +151,8 @@ const ExamOptions = () => {
         if (selectedTopics.length > 0) {
             questions = questions.filter(question => selectedTopics.includes(question.category));
         }
-
-        const totalQuestions = questions.filter(question => question.level !== 5).length;
+        questions = questions.filter(question => question.type !== 5 && question.type !== 6 && question.type !== 3);
+        const totalQuestions = questions.length;
         if (totalQuestions === selectedCount) {
             return {
                 1: questions.filter(question => question.level === 1),
@@ -167,16 +206,16 @@ const ExamOptions = () => {
 
         return examQuestions;
     };
-
     const handleStartExam = () => {
-        if (!categories) {
+        if (categories.length === 0) {
             const selectedQuestionCount = parseInt(questionsValue === 'custom' ? questionsCustomValue : questionsValue, 10);
             const examQuestions = generateExamQuestions(examData.questions, selectedTopics, selectedQuestionCount);
             setExamContentData({ examQuestions, examTime: timesValue === 'custom' ? timesCustomValue : timesValue, totalQuestions: questionsValue === 'custom' ? questionsCustomValue : questionsValue });
             setShowContent(false);
             return;
         }
-        if (categories.length === 0) {
+
+        if (selectedTopics.length === 0) {
             setErrorTimesMessage('Hãy chọn chủ đề bạn muốn làm');
             setShowErrorTimesModal(true);
         } else if (parseInt(questionsValue) > 0 && parseInt(questionsValue) > totalQuestionsSelected) {
@@ -189,7 +228,9 @@ const ExamOptions = () => {
             setShowContent(false);
         }
     };
-    const numberOfQuestionsNotLevel5 = examData.questions.filter(question => question.level !== 5).length;
+    const quizzQuestion = examData && examData.questions ?
+        examData.questions.filter(question => question.type !== 5 && question.type !== 6 && question.type !== 3).length
+        : 0;
     return (
         <div style={styles.container}>
             <header style={styles.header}>
@@ -199,159 +240,169 @@ const ExamOptions = () => {
                 </Link>
                 <h1>{examData.name}</h1>
             </header>
-            {showContent && (
+            {!showLoading ? (
                 <>
-                    <div style={styles.content}>
-                        <div style={styles.sidebar}>
-                            <h5 style={{ color: 'blue' }}>Tổng số câu hỏi: {numberOfQuestionsNotLevel5}</h5>
-                            {categories && categories.length > 0 ? (
-                                <p style={{ color: 'blue' }}>Tổng số câu hỏi ở chủ đề đã chọn: {totalQuestionsSelected}</p>
-                            ) : null}
-                            <h3>Chủ đề:</h3>
-                            <ul style={styles.topicList}>
-                                {categories && categories.length > 0 ? (
-                                    <li style={styles.topicListItem}>
-                                        <input
-                                            type="checkbox"
-                                            id="selectAll"
-                                            name="selectAll"
-                                            checked={selectAll}
-                                            onChange={handleCheckboxChange}
-                                            style={styles.checkbox}
-                                        />
-                                        <label htmlFor="selectAll" style={{ fontSize: '15px', color: 'blue' }}>
-                                            Chọn tất cả
-                                        </label>
-                                    </li>
-                                ) : null}
-                                {categories && categories.map((category, index) => (
-                                    <li key={index} style={styles.topicListItem}>
-                                        <input
-                                            type="checkbox"
-                                            id={`topic${index}`}
-                                            name={category.id}
-                                            checked={selectedTopics.includes(category.id)}
-                                            onChange={handleCheckboxChange}
-                                            style={styles.checkbox}
-                                        />
-                                        <label htmlFor={`topic${index}`} style={{ fontSize: '15px' }}>
-                                            {category.content}
-                                        </label>
-                                    </li>
-                                ))}
-                                {!categories || categories.length === 0 ? (
-                                    <li style={styles.topicListItem}>
-                                        <span style={{ fontSize: '15px', marginLeft: '50px' }}>
-                                            Không có chủ đề
-                                        </span>
-                                    </li>
-                                ) : null}
-                            </ul>
-                        </div>
-                        <div style={styles.questionCountWrapper}>
-                            <div style={styles.questionCount}>
-                                <h3>Câu hỏi: </h3>
-                                <div>
-                                    <select
-                                        value={questionsValue}
-                                        onChange={(e) => handleQuestionsCountChange(e.target.value)}
-                                        style={styles.dropdown}
-                                    >
-                                        <option value="10">10 câu</option>
-                                        <option value="20">20 câu</option>
-                                        <option value="25">25 câu</option>
-                                        <option value="30">30 câu</option>
-                                        <option value="40">40 câu</option>
-                                        <option value="50">50 câu</option>
-                                        <option value="60">60 câu</option>
-                                        <option value="custom">Nhập số khác</option>
-                                    </select>
-                                    {questionsValue === "custom" && (
-                                        <input
-                                            type="number"
-                                            value={questionsCustomValue}
-                                            onChange={handleInputQuestionsChange}
-                                            placeholder="Nhập số lượng"
-                                            style={styles.customInput}
-                                        />
-                                    )}
-                                    <Snackbar
-                                        open={showErrorQuestionsModal}
-                                        autoHideDuration={6000}
-                                        onClose={handleCloseErrorQuestionsModal}
-                                        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                                        style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-                                    >
-                                        <Alert
-                                            style={{ alignItems: 'center' }}
-                                            severity="error"
-                                            action={
-                                                <IconButton size="large" aria-label="close" color="inherit" onClick={handleCloseErrorQuestionsModal}>
-                                                    <ErrorIcon fontSize="30px" />
-                                                </IconButton>
-                                            }
-                                            sx={{ width: '100%', fontSize: '20px', }}
-                                        >
-                                            {errorQuestionsMessage}
-                                        </Alert>
-                                    </Snackbar>
+                    {showContent && (
+                        <>
+                            <div style={styles.content}>
+                                <div style={styles.sidebar}>
+                                    <h5 style={{ color: 'blue' }}>Tổng số câu hỏi: {quizzQuestion}</h5>
+                                    {categories && categories.length > 0 ? (
+                                        <p style={{ color: 'blue' }}>Tổng số câu hỏi ở chủ đề đã chọn: {totalQuestionsSelected}</p>
+                                    ) : null}
+                                    <h3>Chủ đề:</h3>
+                                    <ul style={styles.topicList}>
+                                        {categories && categories.length > 0 ? (
+                                            <li style={styles.topicListItem}>
+                                                <input
+                                                    type="checkbox"
+                                                    id="selectAll"
+                                                    name="selectAll"
+                                                    checked={selectAll}
+                                                    onChange={handleCheckboxChange}
+                                                    style={styles.checkbox}
+                                                />
+                                                <label htmlFor="selectAll" style={{ fontSize: '15px', color: 'blue' }}>
+                                                    Chọn tất cả
+                                                </label>
+                                            </li>
+                                        ) : null}
+                                        {categories && categories.map((category, index) => (
+                                            <li key={index} style={styles.topicListItem}>
+                                                <input
+                                                    type="checkbox"
+                                                    id={`topic${index}`}
+                                                    name={category.id}
+                                                    checked={selectedTopics.includes(category.id)}
+                                                    onChange={handleCheckboxChange}
+                                                    style={styles.checkbox}
+                                                />
+                                                <label htmlFor={`topic${index}`} style={{ fontSize: '15px' }}>
+                                                    {category.content}
+                                                </label>
+                                            </li>
+                                        ))}
+                                        {!categories || categories.length === 0 ? (
+                                            <li style={styles.topicListItem}>
+                                                <span style={{ fontSize: '15px', marginLeft: '50px' }}>
+                                                    Không có chủ đề
+                                                </span>
+                                            </li>
+                                        ) : null}
+                                    </ul>
+                                </div>
+                                <div style={styles.questionCountWrapper}>
+                                    <div style={styles.questionCount}>
+                                        <h3>Câu hỏi: </h3>
+                                        <div>
+                                            <select
+                                                value={questionsValue}
+                                                onChange={(e) => handleQuestionsCountChange(e.target.value)}
+                                                style={styles.dropdown}
+                                            >
+                                                <option value="10">10 câu</option>
+                                                <option value="20">20 câu</option>
+                                                <option value="25">25 câu</option>
+                                                <option value="30">30 câu</option>
+                                                <option value="40">40 câu</option>
+                                                <option value="50">50 câu</option>
+                                                <option value="60">60 câu</option>
+                                                <option value="custom">Nhập số khác</option>
+                                            </select>
+                                            {questionsValue === "custom" && (
+                                                <input
+                                                    type="number"
+                                                    value={questionsCustomValue}
+                                                    onChange={handleInputQuestionsChange}
+                                                    placeholder="Nhập số lượng"
+                                                    style={styles.customInput}
+                                                />
+                                            )}
+                                            <Snackbar
+                                                open={showErrorQuestionsModal}
+                                                autoHideDuration={6000}
+                                                onClose={handleCloseErrorQuestionsModal}
+                                                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                                                style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+                                            >
+                                                <Alert
+                                                    style={{ alignItems: 'center' }}
+                                                    severity="error"
+                                                    action={
+                                                        <IconButton size="large" aria-label="close" color="inherit" onClick={handleCloseErrorQuestionsModal}>
+                                                            <ErrorIcon fontSize="30px" />
+                                                        </IconButton>
+                                                    }
+                                                    sx={{ width: '100%', fontSize: '20px', }}
+                                                >
+                                                    {errorQuestionsMessage}
+                                                </Alert>
+                                            </Snackbar>
+                                        </div>
+                                    </div>
+                                    <div style={styles.questionCount}>
+                                        <h3>Thời gian: </h3>
+                                        <div>
+                                            <select
+                                                value={timesValue}
+                                                onChange={(e) => handleTimesCountChange(e.target.value)}
+                                                style={styles.dropdown}
+                                            >
+                                                <option value="10">10 phút</option>
+                                                <option value="20">20 phút</option>
+                                                <option value="25">25 phút</option>
+                                                <option value="30">30 phút</option>
+                                                <option value="45">45 phút</option>
+                                                <option value="60">60 phút</option>
+                                                <option value="custom">Nhập số khác</option>
+                                            </select>
+                                            {timesValue === "custom" && (
+                                                <input
+                                                    type="number"
+                                                    value={timesCustomValue}
+                                                    onChange={handleInputTimesChange}
+                                                    placeholder="Nhập số lượng"
+                                                    style={styles.customInput}
+                                                />
+                                            )}
+                                            <Snackbar
+                                                open={showErrorTimesModal}
+                                                autoHideDuration={6000}
+                                                onClose={handleCloseErrorTimesModal}
+                                                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                                                style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+                                            >
+                                                <Alert
+                                                    style={{ alignItems: 'center' }}
+                                                    severity="error"
+                                                    action={
+                                                        <IconButton size="large" aria-label="close" color="inherit" onClick={handleCloseErrorTimesModal}>
+                                                            <ErrorIcon fontSize="30px" />
+                                                        </IconButton>
+                                                    }
+                                                    sx={{ width: '100%', fontSize: '20px', }}
+                                                >
+                                                    {errorTimesMessage}
+                                                </Alert>
+                                            </Snackbar>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div style={styles.questionCount}>
-                                <h3>Thời gian: </h3>
-                                <div>
-                                    <select
-                                        value={timesValue}
-                                        onChange={(e) => handleTimesCountChange(e.target.value)}
-                                        style={styles.dropdown}
-                                    >
-                                        <option value="10">10 phút</option>
-                                        <option value="20">20 phút</option>
-                                        <option value="25">25 phút</option>
-                                        <option value="30">30 phút</option>
-                                        <option value="45">45 phút</option>
-                                        <option value="60">60 phút</option>
-                                        <option value="custom">Nhập số khác</option>
-                                    </select>
-                                    {timesValue === "custom" && (
-                                        <input
-                                            type="number"
-                                            value={timesCustomValue}
-                                            onChange={handleInputTimesChange}
-                                            placeholder="Nhập số lượng"
-                                            style={styles.customInput}
-                                        />
-                                    )}
-                                    <Snackbar
-                                        open={showErrorTimesModal}
-                                        autoHideDuration={6000}
-                                        onClose={handleCloseErrorTimesModal}
-                                        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                                        style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-                                    >
-                                        <Alert
-                                            style={{ alignItems: 'center' }}
-                                            severity="error"
-                                            action={
-                                                <IconButton size="large" aria-label="close" color="inherit" onClick={handleCloseErrorTimesModal}>
-                                                    <ErrorIcon fontSize="30px" />
-                                                </IconButton>
-                                            }
-                                            sx={{ width: '100%', fontSize: '20px', }}
-                                        >
-                                            {errorTimesMessage}
-                                        </Alert>
-                                    </Snackbar>
-                                </div>
+                            <div className={stylecss.buttonWrapper}>
+                                <button className={stylecss.startButton} onClick={handleStartExam}>Bắt đầu</button>
                             </div>
-                        </div>
-                    </div>
-                    <div className={stylecss.buttonWrapper}>
-                        <button className={stylecss.startButton} onClick={handleStartExam}>Bắt đầu</button>
-                    </div>
+                        </>
+                    )}
+                    {examContentData && <ExamContent examQuestions={examContentData.examQuestions} examTime={examContentData.examTime} totalQuestions={examContentData.totalQuestions} />}
                 </>
+            ) : (
+                <Box sx={{ width: '100%', textAlign: 'center' }}>
+                    <LinearProgress />
+                    <img src="https://i.pinimg.com/originals/4e/8c/91/4e8c9197c64747175890b4f8cd740bb7.gif" alt="Vui lòng chờ...." style={{ display: 'block', margin: '0 auto', width: '300px', height: '200px' }} />
+                </Box>
+
             )}
-            {examContentData && <ExamContent examQuestions={examContentData.examQuestions} examTime={examContentData.examTime} totalQuestions={examContentData.totalQuestions} />}
         </div>
     )
 

@@ -203,7 +203,7 @@ const Type6 = (categories) => {
             >
                 <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px', maxWidth: '600px', margin: 'auto', marginTop: '120px', maxHeight: '75%', overflow: 'auto' }}>
                     <h2 id="preview-modal-title" className={stylecss.modalHeader_addquestion}>Xem trước</h2>
-                    <p id="preview-modal-description">
+                    <div id="preview-modal-description">
                         <strong>Chủ đề:</strong>
                         <ul>
                             {getContentByIds(selectedTopics).map((topic, index) => (
@@ -215,7 +215,7 @@ const Type6 = (categories) => {
                                 </li>
                             )}
                         </ul>
-                    </p>
+                    </div>
                     <p>
                         <strong>Câu hỏi: </strong>
                         {textareaValues[0]}

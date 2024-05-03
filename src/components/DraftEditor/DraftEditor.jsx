@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from "draft-js";
+import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw, ContentState } from "draft-js";
 import Toolbar from "../Toolbar/Toolbar";
 import "./DraftEditor.css";
+import htmlToDraft from 'html-to-draftjs';
 
-const DraftEditor = ({ title, questions, create, subject, content }) => {
+const DraftEditor = ({ title, questions, create, subject }) => {
   let hasInsertedEssayHeader = false;
   const lastBlock = {
     key: 'endBlock',
@@ -46,7 +47,7 @@ const DraftEditor = ({ title, questions, create, subject, content }) => {
         "entityRanges": [],
         "data": {}
       },
-      ...(questions.some(question => question.level !== 5) && questions.some(question => question.level === 5)
+      ...(questions.some(question => question.type === 1 || question.type === 2 || question.type === 4) && questions.some(question => question.type === 6)
         ? [
           {
             key: 'part1',
@@ -58,7 +59,10 @@ const DraftEditor = ({ title, questions, create, subject, content }) => {
             data: {},
           },
           ...questions.flatMap((question, index) => {
-            if (question.level === 5 && !hasInsertedEssayHeader && questions.some(question => question.level === 5)) {
+            const { contentBlocks, entityMap } = htmlToDraft(question.text);
+            const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+            const raw = convertToRaw(contentState);
+            if (question.type === 6 && !hasInsertedEssayHeader && questions.some(question => question.type === 6)) {
               hasInsertedEssayHeader = true;
               return [
                 {
@@ -72,7 +76,7 @@ const DraftEditor = ({ title, questions, create, subject, content }) => {
                 },
                 {
                   key: `question_${question.id}`,
-                  text: `${++essayQuestionCount}. ${question.text}`,
+                  text: `${++essayQuestionCount}. ${raw.blocks[0].text}`,
                   type: 'unstyled',
                   depth: 0,
                   inlineStyleRanges: [
@@ -81,20 +85,73 @@ const DraftEditor = ({ title, questions, create, subject, content }) => {
                       length: question.text.length + 5,
                       style: 'BOLD',
                     },
-                    {
-                      offset: 0,
-                      length: question.text.length + 5,
-                      style: 'ITALIC',
-                    },
                   ],
                   entityRanges: [],
                   data: {},
                 }
               ];
+            } else if (question.type === 5) {
+              const questionLabelBlock = {
+                key: `label_${question.id}`,
+                text: 'Đoạn văn',
+                type: 'unstyled',
+                depth: 0,
+                inlineStyleRanges: [{
+                  offset: 0,
+                  length: 'Đoạn văn'.length,
+                  style: 'BOLD',
+                }],
+                entityRanges: [],
+                data: {},
+              };
+              const questionBlock = {
+                key: `question_${question.id}`,
+                text: `${raw.blocks[0].text}`,
+                type: 'unstyled',
+                depth: 0,
+                inlineStyleRanges: [],
+                entityRanges: [],
+                data: {},
+              };
+
+              const childQuestions = question.child_questions.flatMap((childQuestion, childIndex) => {
+                const childQuestionBlock = {
+                  key: `question_${childQuestion.id}`,
+                  text: `${question.type === 6 ? ++essayQuestionCount : ++multipleChoiceQuestionCount}. ${childQuestion.text}`,
+                  type: 'unstyled',
+                  depth: 0,
+                  inlineStyleRanges: [{
+                    offset: 0,
+                    length: question.text.length + 5,
+                    style: 'BOLD',
+                  }],
+                  entityRanges: [],
+                  data: {},
+                };
+                const childAnswerBlocks = childQuestion.answers.map((answer, answerIndex) => ({
+                  key: `answer_x${childQuestion.id}_${answer.id}`,
+                  text: `${String.fromCharCode(65 + answerIndex)}. ${answer.text}`,
+                  type: 'unstyled',
+                  depth: 5,
+                  inlineStyleRanges: [
+                    {
+                      offset: 0,
+                      length: 2,
+                      style: 'BOLD',
+                    },
+                  ],
+                  entityRanges: [],
+                  data: {},
+                }));
+
+                return [childQuestionBlock, ...childAnswerBlocks];
+              });
+
+              return [questionLabelBlock, questionBlock, ...childQuestions];
             } else {
               const questionBlock = {
                 key: `question_${question.id}`,
-                text: `${question.level === 5 ? ++essayQuestionCount : ++multipleChoiceQuestionCount}. ${question.text}`,
+                text: `${question.type === 6 ? ++essayQuestionCount : ++multipleChoiceQuestionCount}. ${raw.blocks[0].text}`,
                 type: 'unstyled',
                 depth: 0,
                 inlineStyleRanges: [
@@ -103,17 +160,12 @@ const DraftEditor = ({ title, questions, create, subject, content }) => {
                     length: question.text.length + 5,
                     style: 'BOLD',
                   },
-                  {
-                    offset: 0,
-                    length: question.text.length + 5,
-                    style: 'ITALIC',
-                  },
                 ],
                 entityRanges: [],
                 data: {},
               };
 
-              if (question.level !== 5) {
+              if (question.type === 1 || question.type === 2 || question.type === 4) {
                 const answerBlocks = question.answers.map((answer, answerIndex) => ({
                   key: `answer_exam${index}${answerIndex}`,
                   text: `${String.fromCharCode(65 + answerIndex)}. ${answer.text}`,
@@ -138,9 +190,12 @@ const DraftEditor = ({ title, questions, create, subject, content }) => {
           }),
         ]
         : questions.flatMap((question, index) => {
+          const { contentBlocks, entityMap } = htmlToDraft(question.text);
+          const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+          const raw = convertToRaw(contentState);
           const questionBlock = {
             key: `question_${question.id}`,
-            text: `${question.level === 5 ? ++essayQuestionCount : ++multipleChoiceQuestionCount}. ${question.text}`,
+            text: `${question.type === 6 ? ++essayQuestionCount : ++multipleChoiceQuestionCount}. ${raw.blocks[0].text}`,
             type: 'unstyled',
             depth: 0,
             inlineStyleRanges: [
@@ -149,17 +204,12 @@ const DraftEditor = ({ title, questions, create, subject, content }) => {
                 length: question.text.length + 5,
                 style: 'BOLD',
               },
-              {
-                offset: 0,
-                length: question.text.length + 5,
-                style: 'ITALIC',
-              },
             ],
             entityRanges: [],
             data: {},
           };
 
-          if (question.level !== 5) {
+          if (question.type === 1 || question.type === 2 || question.type === 4) {
             const answerBlocks = question.answers.map((answer, answerIndex) => ({
               key: `answer_exam${index}${answerIndex}`,
               text: `${String.fromCharCode(65 + answerIndex)}. ${answer.text}`,
@@ -177,6 +227,65 @@ const DraftEditor = ({ title, questions, create, subject, content }) => {
             }));
 
             return [questionBlock, ...answerBlocks];
+          } else if (question.type === 5) {
+            const questionLabelBlock = {
+              key: `label_${question.id}`,
+              text: 'Đoạn văn',
+              type: 'unstyled',
+              depth: 0,
+              inlineStyleRanges: [{
+                offset: 0,
+                length: 'Đoạn văn'.length,
+                style: 'BOLD',
+              }],
+              entityRanges: [],
+              data: {},
+            };
+            const questionBlock = {
+              key: `question_${question.id}`,
+              text: `${raw.blocks[0].text}`,
+              type: 'unstyled',
+              depth: 0,
+              inlineStyleRanges: [],
+              entityRanges: [],
+              data: {},
+            };
+
+            const childQuestions = question.child_questions.flatMap((childQuestion, childIndex) => {
+              const childQuestionBlock = {
+                key: `question_${childQuestion.id}`,
+                text: `${question.type === 6 ? ++essayQuestionCount : ++multipleChoiceQuestionCount}. ${childQuestion.text}`,
+                type: 'unstyled',
+                depth: 0,
+                inlineStyleRanges: [{
+                  offset: 0,
+                  length: question.text.length + 5,
+                  style: 'BOLD',
+                }],
+                entityRanges: [],
+                data: {},
+              };
+
+              const childAnswerBlocks = childQuestion.answers.map((answer, answerIndex) => ({
+                key: `answer_x${childQuestion.id}_${answer.id}`,
+                text: `${String.fromCharCode(65 + answerIndex)}. ${answer.text}`,
+                type: 'unstyled',
+                depth: 5,
+                inlineStyleRanges: [
+                  {
+                    offset: 0,
+                    length: 2,
+                    style: 'BOLD',
+                  },
+                ],
+                entityRanges: [],
+                data: {},
+              }));
+
+              return [childQuestionBlock, ...childAnswerBlocks];
+            });
+
+            return [questionLabelBlock, questionBlock, ...childQuestions];
           } else {
             return [questionBlock];
           }
@@ -185,6 +294,7 @@ const DraftEditor = ({ title, questions, create, subject, content }) => {
       lastBlock,
     ],
   };
+
   console.log(initialContent)
   const [editorState, setEditorState] = useState(() => {
     const contentState = convertFromRaw(initialContent);
@@ -192,7 +302,7 @@ const DraftEditor = ({ title, questions, create, subject, content }) => {
   });
 
   const editor = useRef(null);
-  
+
   useEffect(() => {
     editor.current.focus();
   }, []);
@@ -204,7 +314,7 @@ const DraftEditor = ({ title, questions, create, subject, content }) => {
     }
     return false;
   };
-  
+
   const styleMap = {
     CODE: {
       backgroundColor: "rgba(0, 0, 0, 0.05)",
@@ -246,6 +356,9 @@ const DraftEditor = ({ title, questions, create, subject, content }) => {
     const key = contentBlock.getKey();
     if (key.startsWith('answer_exam')) {
       return 'answer_exam';
+    }
+    if (key.startsWith('answer_x')) {
+      return 'answer_x';
     }
     if (key.startsWith('title_exam')) {
       return 'title_exam';
@@ -315,6 +428,10 @@ const DraftEditor = ({ title, questions, create, subject, content }) => {
             font-weight: bold;
           }
           .answer_exam {
+            font-family:'Times New Roman', Times, serif;
+            text-indent: 20px;
+          }
+          .answer_x {
             font-family:'Times New Roman', Times, serif;
             text-indent: 20px;
           }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import stylecss from '../../styles-page/exam.module.css';
-import JsonData from '../../data/data.json';
 import HeaderandSidebar from '../menu/headerandsidebar';
 import { QuestionCard } from '../card/cardquestion';
 import TextField from '@mui/material/TextField';
@@ -13,9 +12,27 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Grid, Modal, Typography } from '@mui/material';
 import ModalTopicManage from '../modal/modaltopicmanage';
 import CloseIcon from '@mui/icons-material/Close';
+import callAPI from '../../services/callAPI';
+import LinearProgress from '@mui/material/LinearProgress';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const SubjectManagement = () => {
     const [detailsOpened, setDetailsOpened] = useState(false);
+    const [showLoading, setShowLoading] = useState(true);
+    const [account, setAccount] = useState(null);
+    const [mainSubjects, setMainSubjects] = useState([]);
+    const { id, id_sub } = useParams();
+    const [subject, setSubject] = useState({});
+    const [filterValue, setFilterValue] = React.useState('');
+    const [sortValue, setSortValue] = React.useState('');
+    const [listQuestionsAcc, setListQuestionsAcc] = React.useState([]);
+    const [listQuestionsDeleted, setListQuestionsDeleted] = useState(false);
+    const [listDeleted, setListDeleted] = useState(false);
+    const [searchValue, setSearchValue] = React.useState('');
+    const [openModal, setOpenModal] = useState(false);
+    const [filteredData, setFilteredData] = React.useState([]);
+    const [categories, setCategories] = useState([]);
     useEffect(() => {
         let timeoutId;
         if (detailsOpened) {
@@ -25,23 +42,41 @@ const SubjectManagement = () => {
         }
         return () => clearTimeout(timeoutId);
     }, [detailsOpened]);
-    const { id, id_sub } = useParams();
-    const account = JsonData.Accounts.find(account => account.id === id);
-    const mainSubjects = JsonData.Exams.main;
-    const subject = mainSubjects.find(exam => exam.id === id_sub) || [];
-    const categories = subject.listcategory;
-    const [filterValue, setFilterValue] = React.useState('');
-    const [sortValue, setSortValue] = React.useState('');
-    const [listQuestionsAcc, setListQuestionsAcc] = React.useState('');
-    const [listQuestionsDeleted, setListQuestionsDeleted] = useState(false);
-    const [listDeleted, setListDeleted] = useState(false);
-    const [searchValue, setSearchValue] = React.useState('');
-    const [openModal, setOpenModal] = useState(false);
-    let [filteredData, setFilteredData] = React.useState([]);
     useEffect(() => {
-        const result = getQuestionsByIds(account.listsub.map(sub => sub.listquestions).filter(list => list).flat());
-        setListQuestionsAcc(result);
+        async function fetchAccountAndMainSubjects() {
+            try {
+                const api = new callAPI();
+                const accountData = await api.getAccountById(id);
+                setAccount(accountData);
+                const mainExamsData = await api.fetchMainExams();
+                setMainSubjects(mainExamsData);
+                setShowLoading(false);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setShowLoading(false);
+            }
+        };
+        fetchAccountAndMainSubjects();
     }, []);
+    useEffect(() => {
+        if (mainSubjects) {
+            const selectedSubject = mainSubjects.find(exam => exam.id === id_sub) || [];
+            setSubject(selectedSubject);
+        }
+    }, [mainSubjects]);
+    useEffect(() => {
+        if (subject && subject.listcategory) {
+            const filteredCategories = subject.listcategory.filter(cat => !cat.author || cat.author === id);
+            setCategories(filteredCategories);
+        }
+    }, [subject]);
+    useEffect(() => {
+        if (account && mainSubjects.length > 0) {
+            const result = getQuestionsByIds(account.listsub.map(sub => sub.listquestions).filter(list => list).flat());
+            setListQuestionsAcc(result);
+        }
+    }, [account, mainSubjects]);
+
     const handleChangelistDeleted = () => {
         setListQuestionsDeleted(!listQuestionsDeleted);
         setListDeleted(!listDeleted);
@@ -67,20 +102,15 @@ const SubjectManagement = () => {
     };
     const getQuestionsWithStatusMinusOne = () => {
         let result = [];
-        if (mainSubjects && mainSubjects.length > 0) {
-            mainSubjects.forEach(subject => {
-                if (subject.questions && subject.questions.length > 0) {
-                    subject.questions.forEach(question => {
-                        if (question.status === -1 && question.author === id) {
-                            result.push(question);
-                        }
-                    });
+        if (subject && subject.questions && subject.questions.length > 0) {
+            subject.questions.forEach(question => {
+                if (question.status === -1 && question.author === id) {
+                    result.push(question);
                 }
             });
         }
         return result;
     };
-
     const getSubjectInfo = (subjectId) => {
         return mainSubjects.find(subject => subject.id === subjectId);
     };
@@ -101,9 +131,19 @@ const SubjectManagement = () => {
     };
 
     const getCategoryContent = (categoryId) => {
-        const category = getSubjectInfo(id_sub).listcategory.find((cat) => cat.id === categoryId);
-        return category ? category.content : '';
+        const subjectInfo = getSubjectInfo(id_sub);
+        if (subjectInfo && subjectInfo.listcategory) {
+            const category = subjectInfo.listcategory.find((cat) => cat.id === categoryId);
+            if (category) {
+                return category.content;
+            } else {
+                return '';
+            }
+        } else {
+            return '';
+        }
     };
+
 
     const handleFilterChange = (event) => {
         setFilterValue(event.target.value);
@@ -134,43 +174,67 @@ const SubjectManagement = () => {
     };
 
     // Lọc dữ liệu
-    filteredData = searchValue ? searchFunction(listQuestionsAcc, searchValue) : listQuestionsAcc;
-    switch (filterValue) {
-        case '101':
-            filteredData = listQuestionsAcc.filter(item => item.author === id);
-            break;
-        case '102':
-            filteredData = listQuestionsAcc.filter(item => isNaN(item.status) && item.status === '0');
-            break;
-        case '103':
-            filteredData = listQuestionsAcc.filter(item => !isNaN(item.status) && parseInt(item.status) === 1);
-            break;
-        case '104':
-            filteredData = listQuestionsAcc.filter(item => isNaN(item.type) && item.type === '1');
-            break;
-        case '105':
-            filteredData = listQuestionsAcc.filter(item => isNaN(item.type) && item.type === '2');
-            break;
-        case '106':
-            filteredData = listQuestionsAcc.filter(item => !isNaN(item.level) && parseInt(item.level) === 1);
-            break;
-        case '107':
-            filteredData = listQuestionsAcc.filter(item => !isNaN(item.level) && parseInt(item.level) === 2);
-            break;
-        case '108':
-            filteredData = listQuestionsAcc.filter(item => !isNaN(item.level) && parseInt(item.level) === 3);
-            break;
-        case '109':
-            filteredData = listQuestionsAcc.filter(item => !isNaN(item.level) && parseInt(item.level) === 4);
-            break;
-        default:
-            const categoryIndex = parseInt(filterValue) - 1;
-            if (categoryIndex >= 0 && categoryIndex < categories.length) {
-                const categoryId = categories[categoryIndex].id;
-                filteredData = listQuestionsAcc.filter(item => item.category === categoryId);
+    useEffect(() => {
+        if (listQuestionsAcc.length > 0) {
+            let updatedFilteredData = listQuestionsAcc;
+            if (searchValue) {
+                updatedFilteredData = searchFunction(listQuestionsAcc, searchValue);
+            } else {
+                switch (filterValue) {
+                    case '101':
+                        updatedFilteredData = listQuestionsAcc.filter(item => item.author === id);
+                        break;
+                    case '102':
+                        updatedFilteredData = listQuestionsAcc.filter(item => isNaN(item.status) && item.status === '0');
+                        break;
+                    case '103':
+                        updatedFilteredData = listQuestionsAcc.filter(item => !isNaN(item.status) && parseInt(item.status) === 1);
+                        break;
+                    case '104':
+                        updatedFilteredData = listQuestionsAcc.filter(item => !isNaN(item.type) && item.type === 1);
+                        break;
+                    case '110':
+                        updatedFilteredData = listQuestionsAcc.filter(item => !isNaN(item.type) && item.type === 2);
+                        break;
+                    case '111':
+                        updatedFilteredData = listQuestionsAcc.filter(item => !isNaN(item.type) && item.type === 3);
+                        break;
+                    case '112':
+                        updatedFilteredData = listQuestionsAcc.filter(item => !isNaN(item.type) && item.type === 4);
+                        break;
+                    case '113':
+                        updatedFilteredData = listQuestionsAcc.filter(item => !isNaN(item.type) && item.type === 5);
+                        break;
+                    case '114':
+                        updatedFilteredData = listQuestionsAcc.filter(item => !isNaN(item.type) && item.type !== 6);
+                        break;
+                    case '105':
+                        updatedFilteredData = listQuestionsAcc.filter(item => !isNaN(item.type) && item.type === 6);
+                        break;
+                    case '106':
+                        updatedFilteredData = listQuestionsAcc.filter(item => !isNaN(item.level) && parseInt(item.level) === 1);
+                        break;
+                    case '107':
+                        updatedFilteredData = listQuestionsAcc.filter(item => !isNaN(item.level) && parseInt(item.level) === 2);
+                        break;
+                    case '108':
+                        updatedFilteredData = listQuestionsAcc.filter(item => !isNaN(item.level) && parseInt(item.level) === 3);
+                        break;
+                    case '109':
+                        updatedFilteredData = listQuestionsAcc.filter(item => !isNaN(item.level) && parseInt(item.level) === 4);
+                        break;
+                    default:
+                        const categoryIndex = parseInt(filterValue) - 1;
+                        if (categoryIndex >= 0 && categoryIndex < categories.length) {
+                            const categoryId = categories[categoryIndex].id;
+                            updatedFilteredData = listQuestionsAcc.filter(item => item.category === categoryId);
+                        }
+                        break;
+                }
             }
-            break;
-    }
+            setFilteredData(updatedFilteredData);
+        }
+    }, [listQuestionsAcc, searchValue, filterValue, categories]);
     function parseDate(dateString) {
         if (!dateString || typeof dateString !== 'string') {
             return null;
@@ -229,9 +293,21 @@ const SubjectManagement = () => {
             <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()} link={`/teacher/${id}`} link1={`/teacher/${id}`} link3={`/teacher/${id}/examlist`} active={1} />
             <div className={`${sidebarVisible ? stylecss.content_manage : stylecss.content_manage_full}`}>
                 <div className={stylecss.title_wrapper}>
-                    <h2>{getSubjectInfo(id_sub).name}</h2>
+                    {!showLoading ? (
+                        <h2>{getSubjectInfo(id_sub)?.name}</h2>
+                    ) : (
+                        <Box sx={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '60px'
+                        }}>
+                            <CircularProgress />
+                        </Box>
+                    )}
                 </div>
-                <div className={stylecss.add_subject}>
+                <div className={stylecss.add_subject2}>
                     <Link to={`/teacher/${id}/manage/${id_sub}/addquestion`}>
                         <button className={`${stylecss.btn_add} ${stylecss.left}`}>Thêm câu hỏi</button>
                     </Link>
@@ -253,29 +329,29 @@ const SubjectManagement = () => {
                     aria-describedby="modal-description"
                 >
                     <>
-                    <IconButton
-                        className={stylecss.btnClose}
-                        aria-label="close"
-                        onClick={handleCloseModal}
-                    >
-                        <CloseIcon style={{ fontSize: '30px', color: 'red' }} />
-                    </IconButton>
-                    <div className={stylecss.modalContent_addquestion}>
-                        <Typography
-                            style={{
-                                marginTop: '40px',
-                                marginBottom: '20px',
-                                fontSize: '20px'
-                            }}
-                            className={stylecss.modalHeader_addquestion}
-                            variant="h5"
-                            id="modal-title"
-                            gutterBottom
+                        <IconButton
+                            className={stylecss.btnClose}
+                            aria-label="close"
+                            onClick={handleCloseModal}
                         >
-                            Quản lý chủ đề
-                        </Typography>
-                        <ModalTopicManage categories={categories}></ModalTopicManage>
-                    </div>
+                            <CloseIcon style={{ fontSize: '30px', color: 'red' }} />
+                        </IconButton>
+                        <div className={stylecss.modalContent_addquestion}>
+                            <Typography
+                                style={{
+                                    marginTop: '40px',
+                                    marginBottom: '20px',
+                                    fontSize: '20px'
+                                }}
+                                className={stylecss.modalHeader_addquestion}
+                                variant="h5"
+                                id="modal-title"
+                                gutterBottom
+                            >
+                                Quản lý chủ đề
+                            </Typography>
+                            <ModalTopicManage categories={categories}></ModalTopicManage>
+                        </div>
                     </>
                 </Modal>
                 <Grid container spacing={2} alignItems="center">
@@ -300,6 +376,16 @@ const SubjectManagement = () => {
                                         case "103":
                                             return "Không bị ẩn";
                                         case "104":
+                                            return "Trắc nghiệm 1 đáp án";
+                                        case "110":
+                                            return "Trắc nghiệm nhiều đáp án";
+                                        case "111":
+                                            return "Điền vào chỗ trống";
+                                        case "112":
+                                            return "Từ khóa nổi bật";
+                                        case "113":
+                                            return "Đoạn văn";
+                                        case "114":
                                             return "Trắc nghiệm";
                                         case "105":
                                             return "Tự luận";
@@ -325,13 +411,18 @@ const SubjectManagement = () => {
                                     <em>Chọn một mục</em>
                                 </MenuItem>
                                 <MenuItem value="0">Tất cả</MenuItem>
-                                {categories.map((category, index) => (
+                                {categories && categories.map((category, index) => (
                                     <MenuItem key={category.id} value={index + 1}>Chủ đề {index + 1}: {category.content}</MenuItem>
                                 ))}
                                 <MenuItem value="101">Câu hỏi do bạn thêm</MenuItem>
                                 <MenuItem value="102">Đã ẩn</MenuItem>
                                 <MenuItem value="103">Không bị ẩn</MenuItem>
-                                <MenuItem value="104">Trắc nghiệm</MenuItem>
+                                <MenuItem value="104">Trắc nghiệm 1 đáp án</MenuItem>
+                                <MenuItem value="110">Trắc nghiệm nhiều đáp án</MenuItem>
+                                <MenuItem value="111">Điền vào chỗ trống</MenuItem>
+                                <MenuItem value="112">Từ khóa nổi bật</MenuItem>
+                                <MenuItem value="113">Đoạn văn</MenuItem>
+                                <MenuItem value="114">Trắc nghiệm</MenuItem>
                                 <MenuItem value="105">Tự luận</MenuItem>
                                 <MenuItem value="106">Mức độ: Biết</MenuItem>
                                 <MenuItem value="107">Mức độ: Hiểu</MenuItem>
@@ -398,6 +489,8 @@ const SubjectManagement = () => {
                         />
                     </Grid>
                 </Grid>
+                {!showLoading ? (
+                <>
                 {sortedData && sortedData.length > 0 ? (
                     sortedData.map(question => (
                         <QuestionCard
@@ -408,15 +501,31 @@ const SubjectManagement = () => {
                             category={getCategoryContent(question.category)}
                             correct_answer={getCorrectAnswer(question)}
                             answers={question.answers}
+                            answer={question.answer}
                             author={question.author}
+                            name={question.name}
+                            childquestions={question.child_questions}
+                            type={question.type}
                             isdelete={listDeleted}
                         />
                     ))
                 ) : (
                     <p className={stylecss.list_empty}>Danh sách trống</p>
                 )}
-            </div>
+                </>
+                  ) : (
+                    <Box sx={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '40vh'
+                    }}>
+                        <CircularProgress />
+                    </Box>
+                )}
         </div>
+        </div >
     );
 };
 

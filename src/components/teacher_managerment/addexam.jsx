@@ -16,7 +16,6 @@ import Modal from '@mui/material/Modal';
 import DraftEditor from '../DraftEditor/DraftEditor';
 import EnhancedTable from '../table/EnhancedTable'
 
-
 const AddExam = () => {
     const { id } = useParams();
     const account = JsonData.Accounts.find(account => account.id === id);
@@ -50,7 +49,6 @@ const AddExam = () => {
         const result = getQuestionsByIds(account.listsub.map(sub => sub.listquestions).filter(list => list).flat());
         setListQuestionsAcc(result);
     }, [account.listsub, selectedSubject]);
-
     useEffect(() => {
         setEssayValue(difficultyCounts.essay);
     }, [difficultyCounts.essay]);
@@ -61,6 +59,15 @@ const AddExam = () => {
             return;
         }
         setSelected([]);
+    };
+    const uniqueTypes = [...new Set(listQuestionsAcc.map(question => question.type))];
+    const [selectedTypes, setSelectedTypes] = useState([1, 2, 3, 4, 5, 6]);
+    const handleCheckboxTypeChange = (type) => {
+        if (selectedTypes.includes(type)) {
+            setSelectedTypes(selectedTypes.filter(t => t !== type));
+        } else {
+            setSelectedTypes([...selectedTypes, type]);
+        }
     };
     const handleClick = (event, id) => {
         const selectedIndex = selected.indexOf(id);
@@ -123,15 +130,35 @@ const AddExam = () => {
                 return '';
         }
     }
+    const mapTypeToDescription = (type) => {
+        switch (type) {
+            case 1:
+                return 'Chọn 1';
+            case 2:
+                return 'Chọn nhiều';
+            case 3:
+                return 'Ô trống';
+            case 4:
+                return 'Từ khóa';
+            case 5:
+                return 'Đoạn văn';
+            case 6:
+                return 'Tự luận';
+            default:
+                return '';
+        }
+    };
     const rows = listQuestionsAcc.map(question => {
+        const categoryContent = getCategoryByIdSub(question.category)?.content;
         return {
             id: question.id,
             question: question.text,
-            category: getCategoryByIdSub(question.category).content,
-            type: question.type === 1 ? 'Trắc nghiệm' : (question.type === 2 ? 'Tự luận' : 'True/False'),
+            category: categoryContent || "Unknown",
+            type: mapTypeToDescription(question.type),
             createat: question.created_at,
             level: mapLevelToDescription(question.level),
-            owner: 'User' + question.author
+            owner: 'User' + question.author,
+            name: question.name
         };
     });
     const headCells = [
@@ -205,7 +232,7 @@ const AddExam = () => {
         const subject = mainSubjects.find(exam => exam.id === selectedSubject);
         if (subject && subject.questions && subject.questions.length > 0) {
             subject.questions.forEach(question => {
-                if (ids.includes(question.id) && question.status !== -1) {
+                if (ids.includes(question.id) && question.status === 1) {
                     result.push(question);
                 }
             });
@@ -217,7 +244,7 @@ const AddExam = () => {
             return [];
         }
 
-        const essayQuestions = listQuestionsAcc.filter(question => question.level === 5);
+        const essayQuestions = listQuestionsAcc.filter(question => question.type === 6);
         return essayQuestions;
     }
     const listEssay = getListEssay();
@@ -225,43 +252,68 @@ const AddExam = () => {
         value: question.id,
         label: `Câu ${index + 1}: ${question.text}`
     }));
-    const sumTotalQuestionsEssay = (category) => {
-        const selectedQuestions = listQuestionsAcc.filter((question) =>
-            category.includes(question.category) && question.level === 5
+    const sumTotalQuestionsEssay = (category, selectedTypes) => {
+        const filteredQuestions = listQuestionsAcc.filter(question =>
+            category.includes(question.category) && selectedTypes.includes(question.type)
         );
+
+        const selectedQuestions = filteredQuestions.filter(question =>
+            question.type === 6
+        );
+
         return selectedQuestions.length;
     };
 
-    const sumTotalQuestionsQuizzLevel1 = (category) => {
-        const selectedQuestions = listQuestionsAcc.filter((question) =>
-            category.includes(question.category) && question.level === 1
+    const sumTotalQuestionsQuizzLevel1 = (category, selectedTypes) => {
+        const filteredQuestions = listQuestionsAcc.filter(question =>
+            category.includes(question.category) && selectedTypes.includes(question.type)
         );
+
+        const selectedQuestions = filteredQuestions.filter(question =>
+            question.level === 1
+        );
+
         return selectedQuestions.length;
     };
-    const sumTotalQuestionsQuizzLevel2 = (category) => {
-        const selectedQuestions = listQuestionsAcc.filter((question) =>
-            category.includes(question.category) && question.level === 2
+    const sumTotalQuestionsQuizzLevel2 = (category, selectedTypes) => {
+        const filteredQuestions = listQuestionsAcc.filter(question =>
+            category.includes(question.category) && selectedTypes.includes(question.type)
         );
+
+        const selectedQuestions = filteredQuestions.filter(question =>
+            question.level === 2
+        );
+
         return selectedQuestions.length;
     };
-    const sumTotalQuestionsQuizzLevel3 = (category) => {
-        const selectedQuestions = listQuestionsAcc.filter((question) =>
-            category.includes(question.category) && question.level === 3
+    const sumTotalQuestionsQuizzLevel3 = (category, selectedTypes) => {
+        const filteredQuestions = listQuestionsAcc.filter(question =>
+            category.includes(question.category) && selectedTypes.includes(question.type)
         );
+
+        const selectedQuestions = filteredQuestions.filter(question =>
+            question.level === 3
+        );
+
         return selectedQuestions.length;
     };
-    const sumTotalQuestionsQuizzLevel4 = (category) => {
-        const selectedQuestions = listQuestionsAcc.filter((question) =>
-            category.includes(question.category) && question.level === 4
+    const sumTotalQuestionsQuizzLevel4 = (category, selectedTypes) => {
+        const filteredQuestions = listQuestionsAcc.filter(question =>
+            category.includes(question.category) && selectedTypes.includes(question.type)
         );
+
+        const selectedQuestions = filteredQuestions.filter(question =>
+            question.level === 4
+        );
+
         return selectedQuestions.length;
     };
-    const totalQuestionsSelected = sumTotalQuestionsSelected(selectedTopics);
-    const totalQuestionsQuizzLv1 = sumTotalQuestionsQuizzLevel1(selectedTopics);
-    const totalQuestionsQuizzLv2 = sumTotalQuestionsQuizzLevel2(selectedTopics);
-    const totalQuestionsQuizzLv3 = sumTotalQuestionsQuizzLevel3(selectedTopics);
-    const totalQuestionsQuizzLv4 = sumTotalQuestionsQuizzLevel4(selectedTopics);
-    const totalQuestionsEssay = sumTotalQuestionsEssay(selectedTopics);
+    const totalQuestionsSelected = sumTotalQuestionsSelected(selectedTopics, selectedTypes);
+    const totalQuestionsQuizzLv1 = sumTotalQuestionsQuizzLevel1(selectedTopics, selectedTypes);
+    const totalQuestionsQuizzLv2 = sumTotalQuestionsQuizzLevel2(selectedTopics, selectedTypes);
+    const totalQuestionsQuizzLv3 = sumTotalQuestionsQuizzLevel3(selectedTopics, selectedTypes);
+    const totalQuestionsQuizzLv4 = sumTotalQuestionsQuizzLevel4(selectedTopics, selectedTypes);
+    const totalQuestionsEssay = sumTotalQuestionsEssay(selectedTopics, selectedTypes);
     const handleSubjectChange = (event) => {
         setSelectedSubject(event.target.value);
     };
@@ -334,21 +386,32 @@ const AddExam = () => {
             setErrorMessage('Số câu hỏi mức độ vận dụng cao không đủ để tạo đề thi.');
             return;
         }
-
+        if (difficultyCounts.essay > totalQuestionsEssay) {
+            setShowErrorModal(true);
+            setErrorMessage('Số câu hỏi tự luận không đủ để tạo đề thi.');
+            return;
+        }
         const selectedQuestions = [];
+        if (selectedQuestions.length > totalQuestionsEssay) {
+            setShowErrorModal(true);
+            setErrorMessage('Số câu hỏi tự luận không đủ để tạo đề thi.');
+            return;
+        }
         const { easy, medium, hard, advanced, essay } = difficultyCounts;
-
-        const randomEasyQuestions = random(listQuestionsAcc.filter(question => question.level === 1), easy);
-        const randomMediumQuestions = random(listQuestionsAcc.filter(question => question.level === 2), medium);
-        const randomHardQuestions = random(listQuestionsAcc.filter(question => question.level === 3), hard);
-        const randomAdvancedQuestions = random(listQuestionsAcc.filter(question => question.level === 4), advanced);
+        const filteredQuestions = listQuestionsAcc.filter(question =>
+            selectedTypes.includes(question.type)
+        );
+        const randomEasyQuestions = random(filteredQuestions.filter(question => question.level === 1), easy);
+        const randomMediumQuestions = random(filteredQuestions.filter(question => question.level === 2), medium);
+        const randomHardQuestions = random(filteredQuestions.filter(question => question.level === 3), hard);
+        const randomAdvancedQuestions = random(filteredQuestions.filter(question => question.level === 4), advanced);
 
         selectedQuestions.push(...randomEasyQuestions, ...randomMediumQuestions, ...randomHardQuestions, ...randomAdvancedQuestions);
         if (essay > 0) {
             if (useSelectCount) {
                 selectedQuestions.push(...selectedOptions.map(option => listQuestionsAcc.find(question => question.id === option.value)));
             } else {
-                const essayQuestions = listQuestionsAcc.filter(question => question.level === 5);
+                const essayQuestions = listQuestionsAcc.filter(question => question.type === 6);
                 const selectedEssayQuestions = random(essayQuestions, essay);
                 selectedQuestions.push(...selectedEssayQuestions);
             }
@@ -462,6 +525,34 @@ const AddExam = () => {
                                                         {categories && categories.length > 0 ? (
                                                             <p style={{ color: 'blue' }}>Tổng số câu hỏi ở chủ đề đã chọn: <span style={{ color: 'green', fontWeight: '500' }}>{totalQuestionsSelected}</span></p>
                                                         ) : null}
+                                                    </div>
+                                                    <div className={stylecss.form_container}>
+                                                        <label className={stylecss.label_form}>Loại câu hỏi:</label>
+                                                        <Grid container spacing={3}>
+                                                            {uniqueTypes.map(type => (
+                                                                <Grid item xs={12} sm={6} md={6} key={type}>
+                                                                    <li style={styles.topicListItem}>
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            id={`checkbox${type}`}
+                                                                            style={styles.checkbox}
+                                                                            checked={selectedTypes.includes(type)}
+                                                                            onChange={() => handleCheckboxTypeChange(type)}
+                                                                        />
+                                                                        <label htmlFor={`checkbox${type}`} style={{ fontSize: '15px', color: 'green' }}>
+                                                                            {mapTypeToDescription(type)}
+                                                                        </label>
+                                                                    </li>
+                                                                </Grid>
+                                                            ))}
+                                                            {!uniqueTypes || uniqueTypes.length === 0 ? (
+                                                                <li style={styles.topicListItem}>
+                                                                    <span style={{ marginTop: '30px', fontSize: '15px', marginLeft: '70px' }}>
+                                                                        Không có loại câu hỏi
+                                                                    </span>
+                                                                </li>
+                                                            ) : null}
+                                                        </Grid>
                                                     </div>
                                                 </Grid>
                                                 <Grid item xs={12} sm={6} md={6}>

@@ -141,7 +141,7 @@ const Type4 = (categories) => {
         let answerList = [];
         for (let i = 0; i < words.length; i++) {
             if (selectedWordsObject[words[i]] && selectedWordsObject[words[i]][i]) {
-                previewWords.push(`<span style="font-weight: bold; color: #50C7C7; text-decoration: underline;">${words[i]}</span>`);
+                previewWords.push(`<strong>${words[i]}</strong>`);
                 answerList.push({ word: words[i], index: i });
             } else {
                 previewWords.push(words[i]);
@@ -152,6 +152,7 @@ const Type4 = (categories) => {
         return { previewQuestion, answerList };
     };
     const preview = getPreviewQuestion();
+    console.log(preview.previewQuestion)
     return (
         <div className={stylecss.form_type1}>
             <Grid container spacing={2} justifyContent='center'>
@@ -312,7 +313,7 @@ const Type4 = (categories) => {
             >
                 <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px', maxWidth: '600px', margin: 'auto', marginTop: '120px', maxHeight: '75%', overflow: 'auto' }}>
                     <h2 id="preview-modal-title" className={stylecss.modalHeader_addquestion}>Xem trước</h2>
-                    <p id="preview-modal-description">
+                    <div id="preview-modal-description">
                         <strong>Chủ đề:</strong>
                         <ul>
                             {getContentByIds(selectedTopics).map((topic, index) => (
@@ -324,7 +325,7 @@ const Type4 = (categories) => {
                                 </li>
                             )}
                         </ul>
-                    </p>
+                    </div>
                     <p>
                         <strong>Câu hỏi: </strong>
                         <span dangerouslySetInnerHTML={{ __html: preview.previewQuestion }} />

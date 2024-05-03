@@ -15,6 +15,7 @@ import TableCell from '@mui/material/TableCell';
 import Checkbox from '@mui/material/Checkbox';
 import Tooltip from '@mui/material/Tooltip';
 
+
 function EnhancedTable({ initialRows, headCells, selected, handleClick, handleSelectAllClick, handleCreateExam }) {
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('calories');
@@ -23,7 +24,17 @@ function EnhancedTable({ initialRows, headCells, selected, handleClick, handleSe
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [rows, setRows] = useState(initialRows);
     const [searchText, setSearchText] = useState('');
+    const cheerio = require('cheerio');
 
+    function truncateHTML(html, maxLength) {
+        const $ = cheerio.load(html);
+    
+        const text = $.text();
+
+        const truncatedText = text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    
+        return truncatedText;
+    }
     const handleRowClick = (event, id) => {
         handleClick(event, id);
     };
@@ -80,7 +91,7 @@ function EnhancedTable({ initialRows, headCells, selected, handleClick, handleSe
         <Box sx={{ width: '100%' }}>
             <Paper sx={{ width: '100%', mb: 2 }}>
                 <EnhancedTableToolbar
-                    numSelected={selected?.length || 0} F
+                    numSelected={selected?.length || 0}
                     searchText={searchText}
                     searchHandlers={{
                         handleSearchInputChange,
@@ -136,7 +147,11 @@ function EnhancedTable({ initialRows, headCells, selected, handleClick, handleSe
                                                         }}
                                                     />
                                                 </TableCell>
-                                                <Tooltip title={<p style={{ fontSize: '13px', margin: '0', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>{row.question}</p>}>
+                                                <Tooltip title={
+                                                    <div style={{ fontSize: '13px', margin: '0', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                                                        <div dangerouslySetInnerHTML={{ __html: row.question }} />
+                                                    </div>
+                                                }>
                                                     <TableCell
                                                         component="th"
                                                         id={labelId}
@@ -144,13 +159,15 @@ function EnhancedTable({ initialRows, headCells, selected, handleClick, handleSe
                                                         padding="none"
                                                         style={{ fontSize: '13px', important: true }}
                                                     >
-                                                        {truncate(row.question, 30)}
+                                                     {truncateHTML(row.question, 30)}
                                                     </TableCell>
                                                 </Tooltip>
                                                 <Tooltip title={<p style={{ fontSize: '13px', margin: '0', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>{row.category}</p>}>
                                                     <TableCell align="right" style={{ fontSize: '13px', important: true }}>{truncate(row.category, 15)}</TableCell>
                                                 </Tooltip>
-                                                <TableCell align="right" style={{ fontSize: '13px', important: true }}>{row.type}</TableCell>
+                                                <Tooltip title={<p style={{ fontSize: '13px', margin: '0', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>{row.type}</p>}>
+                                                    <TableCell align="right" style={{ fontSize: '13px', important: true }}> {truncate(row.type, 15)}</TableCell>
+                                                </Tooltip>
                                                 <TableCell align="right" style={{ fontSize: '13px', important: true }}>{row.createat}</TableCell>
                                                 <TableCell align="right" style={{ fontSize: '13px', important: true }}>{row.level}</TableCell>
                                                 <TableCell align="right" style={{ fontSize: '13px', important: true }}>{row.owner}</TableCell>

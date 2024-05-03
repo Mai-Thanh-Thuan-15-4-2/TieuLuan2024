@@ -128,6 +128,7 @@ const Type3 = (categories) => {
         return { previewQuestion, answerList };
     };
     const preview = getPreviewQuestion();
+    console.log(preview.answerList);
     return (
         <div className={stylecss.form_type1}>
             <Grid container spacing={2} justifyContent='center'>
@@ -253,7 +254,7 @@ const Type3 = (categories) => {
             >
                 <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px', maxWidth: '600px', margin: 'auto', marginTop: '120px', maxHeight: '75%', overflow: 'auto' }}>
                     <h2 id="preview-modal-title" className={stylecss.modalHeader_addquestion}>Xem trước</h2>
-                    <p id="preview-modal-description">
+                    <div id="preview-modal-description">
                         <strong>Chủ đề:</strong>
                         <ul>
                             {getContentByIds(selectedTopics).map((topic, index) => (
@@ -265,7 +266,7 @@ const Type3 = (categories) => {
                                 </li>
                             )}
                         </ul>
-                    </p>
+                    </div>
                     <p>
                         <strong>Câu hỏi: </strong>
                         {preview.previewQuestion}
@@ -277,14 +278,14 @@ const Type3 = (categories) => {
                             </div>
                         )}
                     </div>
-                    <p>
+                    <>
                         <strong>Đáp án:</strong>
                         <ul>
                             {preview.answerList.map((entry, index) => (
                                 <li style={{ marginLeft: '20px' }} key={index}>{index + 1}: {entry.word}</li>
                             ))}
                         </ul>
-                    </p>
+                    </>
                     <button style={{ float: 'right', paddingLeft: '20px', paddingRight: '20px' }} className={stylecss.btn_add} onClick={handlePreviewModalClose}>Đóng</button>
                 </div>
             </Modal>
