@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import stylecss from '../../styles-page/exam.module.css';
-import JsonData from '../../data/data.json';
 import HeaderandSidebar from '../menu/headerandsidebar';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -14,14 +13,17 @@ import ErrorIcon from '@mui/icons-material/Error';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import DraftEditor from '../DraftEditor/DraftEditor';
-import EnhancedTable from '../table/EnhancedTable'
+import EnhancedTable from '../table/EnhancedTable';
+import callAPI from '../../services/callAPI';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const AddExam = () => {
     const { id } = useParams();
-    const account = JsonData.Accounts.find(account => account.id === id);
     const [value, setValue] = useState(0);
-    const subjects = account ? account.listsub : [];
-    const mainSubjects = JsonData.Exams.main;
+    const [account, setAccount] = useState(null);
+    const [showLoading, setShowLoading] = useState(true);
+    const [mainSubjects, setMainSubjects] = useState([]);
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const [selected, setSelected] = useState([]);
     const [selectAll, setSelectAll] = useState(false);
@@ -45,10 +47,62 @@ const AddExam = () => {
     });
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [essayValue, setEssayValue] = useState(0);
+    const [waiting, setWaiting] = useState(true);
     useEffect(() => {
-        const result = getQuestionsByIds(account.listsub.map(sub => sub.listquestions).filter(list => list).flat());
-        setListQuestionsAcc(result);
-    }, [account.listsub, selectedSubject]);
+        const timer = setTimeout(() => {
+          setWaiting(false);
+        }, 2000);
+        return () => clearTimeout(timer);
+      }, []);
+    useEffect(() => {
+        async function fetchAccountAndMainSubjects() {
+            try {
+                const api = new callAPI();
+                const accountData = await api.getAccountById(id);
+                setAccount(accountData);
+                const mainExamsData = await api.fetchMainExams();
+                setMainSubjects(mainExamsData);
+                setShowLoading(false);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setShowLoading(false);
+            }
+        };
+        fetchAccountAndMainSubjects();
+    }, []);
+    const refreshData = async () => {
+        try {
+            const api = new callAPI();
+            const accountData = await api.getAccountById(id);
+            setAccount(accountData);
+            const mainExamsData = await api.fetchMainExams();
+            setMainSubjects(mainExamsData);
+            setShowLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setShowLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        refreshData();
+    }, []);
+    const [subjects, setSubjects] = useState([]);
+    useEffect(() => {
+        if (account) {
+            setSubjects(account.listsub || []);
+        }
+    }, [account]);
+    useEffect(() => {
+        if (account && account.listsub) {
+            const questionIds = account.listsub
+                .map(sub => sub.listquestions)
+                .filter(list => list)
+                .flat();
+            const result = getQuestionsByIds(questionIds);
+            setListQuestionsAcc(result);
+        }
+    }, [account, selectedSubject]);
     useEffect(() => {
         setEssayValue(difficultyCounts.essay);
     }, [difficultyCounts.essay]);
@@ -60,6 +114,25 @@ const AddExam = () => {
         }
         setSelected([]);
     };
+    const getMaxExamId = () => {
+        let maxId = 0;
+        if (account && account.listexams) {
+            account.listexams.forEach(exam => {
+                if (exam.contentState) {
+                    if (exam.contentState.info) {
+                        const examId = parseInt(exam.contentState.info.id.replace('EXAM_' + id + '_', ''));
+                        if (!isNaN(examId) && examId > maxId) {
+                            maxId = examId;
+                        }
+                    }
+                }
+            });
+        }
+        return maxId + 1;
+    };
+    
+    const nextExamId = 'EXAM_' + id + '_' + getMaxExamId();
+
     const uniqueTypes = [...new Set(listQuestionsAcc.map(question => question.type))];
     const [selectedTypes, setSelectedTypes] = useState([1, 2, 3, 4, 5, 6]);
     const handleCheckboxTypeChange = (type) => {
@@ -87,14 +160,19 @@ const AddExam = () => {
         }
         setSelected(newSelected);
     };
-    function getCategoryByIdSub(idCategory) {
-        let selectedCategory = null;
-        const selectedMainSubject = mainSubjects.find(subject => subject.id === selectedSubject);
-        if (selectedMainSubject) {
-            const categories = selectedMainSubject.listcategory;
-            selectedCategory = categories.find(category => category.id === idCategory);
-        }
-        return selectedCategory;
+    function getCategoriesByIds(ids) {
+        const selectedCategories = [];
+        ids.forEach(id => {
+            const selectedMainSubject = mainSubjects.find(subject => subject.id === selectedSubject);
+            if (selectedMainSubject) {
+                const categories = selectedMainSubject.listcategory;
+                const selectedCategory = categories.find(category => category.id === id);
+                if (selectedCategory) {
+                    selectedCategories.push(selectedCategory);
+                }
+            }
+        });
+        return selectedCategories;
     }
     const handleDropDownChange = (selectedItems) => {
         if (selectedItems.length > totalQuestionsEssay) {
@@ -110,7 +188,7 @@ const AddExam = () => {
     };
     const sumTotalQuestionsSelected = (subjectIds) => {
         const selectedQuestions = listQuestionsAcc.filter((question) =>
-            subjectIds.includes(question.category)
+            question.category.some(category => subjectIds.includes(category))
         );
         return selectedQuestions.length;
     };
@@ -149,7 +227,8 @@ const AddExam = () => {
         }
     };
     const rows = listQuestionsAcc.map(question => {
-        const categoryContent = getCategoryByIdSub(question.category)?.content;
+        const categories = getCategoriesByIds(question.category);
+        const categoryContent = categories.map(category => category.content).join(', ');
         return {
             id: question.id,
             question: question.text,
@@ -254,7 +333,7 @@ const AddExam = () => {
     }));
     const sumTotalQuestionsEssay = (category, selectedTypes) => {
         const filteredQuestions = listQuestionsAcc.filter(question =>
-            category.includes(question.category) && selectedTypes.includes(question.type)
+            question.category.some(cat => category.includes(cat)) && selectedTypes.includes(question.type)
         );
 
         const selectedQuestions = filteredQuestions.filter(question =>
@@ -266,7 +345,7 @@ const AddExam = () => {
 
     const sumTotalQuestionsQuizzLevel1 = (category, selectedTypes) => {
         const filteredQuestions = listQuestionsAcc.filter(question =>
-            category.includes(question.category) && selectedTypes.includes(question.type)
+            question.category.some(cat => category.includes(cat)) && selectedTypes.includes(question.type)
         );
 
         const selectedQuestions = filteredQuestions.filter(question =>
@@ -275,9 +354,10 @@ const AddExam = () => {
 
         return selectedQuestions.length;
     };
+
     const sumTotalQuestionsQuizzLevel2 = (category, selectedTypes) => {
         const filteredQuestions = listQuestionsAcc.filter(question =>
-            category.includes(question.category) && selectedTypes.includes(question.type)
+            question.category.some(cat => category.includes(cat)) && selectedTypes.includes(question.type)
         );
 
         const selectedQuestions = filteredQuestions.filter(question =>
@@ -288,7 +368,7 @@ const AddExam = () => {
     };
     const sumTotalQuestionsQuizzLevel3 = (category, selectedTypes) => {
         const filteredQuestions = listQuestionsAcc.filter(question =>
-            category.includes(question.category) && selectedTypes.includes(question.type)
+            question.category.some(cat => category.includes(cat)) && selectedTypes.includes(question.type)
         );
 
         const selectedQuestions = filteredQuestions.filter(question =>
@@ -299,7 +379,7 @@ const AddExam = () => {
     };
     const sumTotalQuestionsQuizzLevel4 = (category, selectedTypes) => {
         const filteredQuestions = listQuestionsAcc.filter(question =>
-            category.includes(question.category) && selectedTypes.includes(question.type)
+            question.category.some(cat => category.includes(cat)) && selectedTypes.includes(question.type)
         );
 
         const selectedQuestions = filteredQuestions.filter(question =>
@@ -472,9 +552,17 @@ const AddExam = () => {
                                                         <label className={stylecss.label_form}>Chọn môn học:</label>
                                                         <select className={stylecss.dropdownSub} value={selectedSubject} onChange={handleSubjectChange}>
                                                             <option value="" disabled>--Chọn môn học--</option>
-                                                            {subjects.map(subject => (
-                                                                <option key={getSubjectInfo(subject.id).id} value={getSubjectInfo(subject.id).id}>{getSubjectInfo(subject.id).name}</option>
-                                                            ))}
+                                                            {showLoading && <option value="" disabled>Đang tải...</option>}
+                                                            {subjects.map(subject => {
+                                                                const subjectInfo = getSubjectInfo(subject?.id);
+                                                                return (
+                                                                    subjectInfo && (
+                                                                        <option key={subjectInfo.id} value={subjectInfo.id}>
+                                                                            {subjectInfo.name}
+                                                                        </option>
+                                                                    )
+                                                                );
+                                                            })}
                                                         </select>
                                                     </div>
                                                 </Grid>
@@ -744,7 +832,7 @@ const AddExam = () => {
                                     >
                                         <Box sx={style}>
                                             <Typography className={stylecss.headerModal} style={{ fontSize: '20px', fontWeight: 'bold' }} id="modal-modal-title" variant="h6" component="h2">
-                                                Tạo câu hỏi thành công
+                                                Tạo đề thi thành công
                                             </Typography>
                                             <Typography className={stylecss.modalContent} id="modal-modal-description" sx={{ mt: 2 }} style={{ fontSize: '15px' }}>Nhấn ok để xem hoặc chỉnh sửa đề thi của bạn</Typography>
                                             <Box style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
@@ -766,7 +854,18 @@ const AddExam = () => {
                         <div className={stylecss.title_wrapper}>
                             <h2>Chỉnh sửa đề thi</h2>
                         </div>
-                        <DraftEditor title={examName} questions={listQuestionsExam} create={createDate} subject={selectedSubject}></DraftEditor>
+                        {waiting ? (
+                            <Box sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: '40vh'
+                            }}>
+                                <CircularProgress />
+                            </Box>
+                        ) : (
+                            <DraftEditor nextExamId={nextExamId} title={examName} questions={listQuestionsExam} create={createDate} subject={selectedSubject} closeEditExam={refreshData}></DraftEditor>
+                        )}
                     </>
                 )
                 }

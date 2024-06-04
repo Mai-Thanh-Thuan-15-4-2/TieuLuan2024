@@ -55,12 +55,19 @@ const ExamOptions = () => {
         if (!examData || !examData.questions) {
             return 0;
         }
-        const selectedQuestions = examData.questions.filter((question) =>
-            questionIds.includes(question.category) && question.type !== 5 && question.type !== 6 && question.type !== 3
-        );
+        
+        const selectedQuestions = examData.questions.filter((question) => {
+            if (!question.category) return false;
+            
+            const categoryMatch = question.category.some(category => questionIds.includes(category));
+            const unwantedTypes = [3, 5, 6];
+            const typeMatch = !unwantedTypes.includes(question.type);
+            
+            return categoryMatch && typeMatch;
+        });
+        
         return selectedQuestions.length;
     };
-
     const totalQuestionsSelected = sumTotalQuestionsSelected(selectedTopics);
 
     const handleQuestionsCountChange = (value) => {
@@ -149,63 +156,38 @@ const ExamOptions = () => {
     };
     const generateExamQuestions = (questions, selectedTopics, selectedCount) => {
         if (selectedTopics.length > 0) {
-            questions = questions.filter(question => selectedTopics.includes(question.category));
+            questions = questions.filter(question => {
+                return question.category.some(category => selectedTopics.includes(category));
+            });
         }
-        questions = questions.filter(question => question.type !== 5 && question.type !== 6 && question.type !== 3);
+        questions = questions.filter(question => ![3, 5, 6].includes(question.type));
+        
         const totalQuestions = questions.length;
-        if (totalQuestions === selectedCount) {
+        
+        if (totalQuestions >= selectedCount) {
+            const examQuestions = {
+                1: [],
+                2: [],
+                3: [],
+                4: []
+            };
+            
+            questions.forEach(question => {
+                if (question.level && examQuestions[question.level].length < selectedCount * 0.4) {
+                    examQuestions[question.level].push(question);
+                }
+            });
+            
+            return examQuestions;
+        } else {
             return {
-                1: questions.filter(question => question.level === 1),
-                2: questions.filter(question => question.level === 2),
-                3: questions.filter(question => question.level === 3),
-                4: questions.filter(question => question.level === 4),
+                1: [],
+                2: [],
+                3: [],
+                4: []
             };
         }
-
-        let levelCounts = {
-            1: Math.floor(selectedCount * 0.4),
-            2: Math.floor(selectedCount * 0.3),
-            3: Math.floor(selectedCount * 0.2),
-            4: Math.floor(selectedCount * 0.1),
-        };
-
-        const totalSelected = Object.values(levelCounts).reduce((a, b) => a + b);
-        if (totalSelected < selectedCount) {
-            levelCounts[4] += selectedCount - totalSelected;
-        }
-
-        const examQuestions = {
-            1: [],
-            2: [],
-            3: [],
-            4: [],
-        };
-
-        const levelQuestions = {
-            1: [],
-            2: [],
-            3: [],
-            4: [],
-        };
-
-        questions.forEach(question => {
-            if (question.level && levelQuestions[question.level]) {
-                levelQuestions[question.level].push(question);
-            }
-        });
-
-        Object.keys(levelCounts).forEach(level => {
-            for (let i = 0; i < levelCounts[level]; i++) {
-                if (levelQuestions[level].length > 0) {
-                    const randomIndex = Math.floor(Math.random() * levelQuestions[level].length);
-                    const selectedQuestion = levelQuestions[level].splice(randomIndex, 1)[0];
-                    examQuestions[level].push(selectedQuestion);
-                }
-            }
-        });
-
-        return examQuestions;
-    };
+    };    
     const handleStartExam = () => {
         if (categories.length === 0) {
             const selectedQuestionCount = parseInt(questionsValue === 'custom' ? questionsCustomValue : questionsValue, 10);

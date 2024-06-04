@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import stylecss from '../../styles-page/exam.module.css';
 import IconButton from '@mui/material/IconButton';
 import Close from '@mui/icons-material/Close';
+import Type0 from './type0';
 import Type1 from './type1';
 import Type2 from './type2';
 import Type3 from './type3';
@@ -11,10 +12,13 @@ import Type4 from './type4';
 import Type5 from './type5';
 import Type6 from './type6';
 
-const ModalAddQuestion = ({ id, title, open, onClose, categories }) => {
+const ModalAddQuestion = ({ id, title, open, onClose, categories, mainSubjects, account}) => {
     const [confirmCloseModal, setConfirmCloseModal] = useState(false);
 
     const contentById = {
+        'type0': (
+            <Type0></Type0>
+        ),
         'type1': (
             <Type1 categories={categories}></Type1>
         ),

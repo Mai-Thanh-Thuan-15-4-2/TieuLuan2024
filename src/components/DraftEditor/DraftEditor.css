@@ -88,3 +88,15 @@
   .justifyAlign {
     text-align: justify;
   }
+  .see-now {
+    background-color: rgb(2, 2, 222);
+    color: rgb(255, 255, 255); 
+    padding: 5px 10px; 
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer; 
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    font-size: 12px;
+  }

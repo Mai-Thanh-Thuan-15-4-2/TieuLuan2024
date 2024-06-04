@@ -7,7 +7,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import InputAdornment from '@mui/material/InputAdornment';
 
-const ModalAddSubject = ({ open, onClose, listSubjects, listallsub }) => {
+
+const ModalAddSubject = ({ open, onClose, listSubjects, showLoading, openModal, sucess}) => {
     const [confirmModal, setConfirmModal] = useState(false);
     const [subjectInfo, setSubjectInfo] = useState({
         id: '',
@@ -209,16 +210,16 @@ const ModalAddSubject = ({ open, onClose, listSubjects, listallsub }) => {
                                     <InputAdornment position="end">
                                         <IconButton
                                             aria-label="search"
-                                            style={{cursor: 'default'}}
+                                            style={{ cursor: 'default' }}
                                         >
-                                            <SearchIcon style={{cursor: 'default'}} />
+                                            <SearchIcon style={{ cursor: 'default' }} />
                                         </IconButton>
                                     </InputAdornment>
                                 }
                             />
                             <button onClick={handleClose} className={`${stylecss.btn_add} ${stylecss.right}`}>Thêm môn học mới</button>
                         </div>
-                        <ListSubject listSubjects={filteredSubjects} />
+                        <ListSubject listSubjects={filteredSubjects} showLoading={showLoading} openModal={openModal} sucess={sucess} />
                     </div>
                 </>
             </Modal>

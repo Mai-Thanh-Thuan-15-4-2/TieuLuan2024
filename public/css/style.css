@@ -917,3 +917,37 @@ label {
   border: gray solid 1px;
   border-radius: 3px;
 }
+.radio-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.radio-group input[type="radio"] {
+  margin-right: 10px;
+  display: none;
+}
+.radio-group label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+}
+
+.radio-group label::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  margin-right: 8px;
+}
+
+.radio-group input[type="radio"]:checked + label::before {
+  background-color: #1750c3;
+}
+
+.radio-group label span {
+  order: -1;
+  margin-right: 8px;
+}

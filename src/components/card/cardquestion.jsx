@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
-import { styled } from '@mui/system';
+import { styled as muiStyled } from '@mui/system';
 import Lock from '@mui/icons-material/Lock';
 import Restore from '@mui/icons-material/Restore';
+import stylecss from '../../styles-page/exam.module.css';
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import Visibility from '@mui/icons-material/Visibility';
 import LockOpen from '@mui/icons-material/LockOpen';
 import { useTheme, useMediaQuery } from '@material-ui/core';
+import callAPI from '../../services/callAPI';
+import Modal from '@mui/material/Modal';
 
 
-const CustomCard = styled(Card)(({ theme }) => ({
+
+const CustomCard = muiStyled(Card)(({ theme }) => ({
     backgroundColor: 'GhostWhite',
     width: '95%',
     height: '100%',
@@ -30,21 +34,21 @@ const CustomCard = styled(Card)(({ theme }) => ({
         }
     }
 }));
-const IconInfo = styled('div')({
+const IconInfo = muiStyled('div')({
     position: 'absolute',
     top: '5px',
     right: '5px',
     fontSize: '25px',
     zIndex: '2'
 });
-const IconDelete = styled('div')({
+const IconDelete = muiStyled('div')({
     position: 'absolute',
     alignItems: 'center',
     right: '20px',
     zIndex: '2'
 });
 
-const TextWrapper = styled('div')(({ theme }) => ({
+const TextWrapper = muiStyled('div')(({ theme }) => ({
     position: 'absolute',
     top: 5,
     left: 10,
@@ -60,7 +64,7 @@ const TextWrapper = styled('div')(({ theme }) => ({
         },
     },
 }));
-const AnswerWrapper = styled('div')(({ theme }) => ({
+const AnswerWrapper = muiStyled('div')(({ theme }) => ({
     position: 'absolute',
     bottom: 5,
     left: 10,
@@ -76,7 +80,7 @@ const AnswerWrapper = styled('div')(({ theme }) => ({
         },
     },
 }));
-const DetailCard = styled(Card)(({ theme }) => ({
+const DetailCard = muiStyled(Card)(({ theme }) => ({
     position: 'absolute',
     top: 'calc(15% + 10px)',
     left: '50%',
@@ -95,17 +99,19 @@ const DetailCard = styled(Card)(({ theme }) => ({
         margin: 0,
     },
 }));
-const BoldLabel = styled('span')({
+const BoldLabel = muiStyled('span')({
     fontWeight: 'bold',
 });
-const BlueText = styled('span')({
+const BlueText = muiStyled('span')({
     color: "#1f30b2",
     fontWeight: 'bold'
 });
-export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, category, author, name, type, isdelete, answer, childquestions }) => {
+export const QuestionCard = ({ id_sub, id_acc, id, question, answers, date, correct_answer, category, author, name, type, isdelete, answer, childquestions, openModal, sucess, status }) => {
     const [detailsOpened, setDetailsOpened] = useState(false);
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const [confirmCloseModal, setConfirmCloseModal] = useState(false);
+    const [modalDelete, setModalDelete] = useState(false);
     useEffect(() => {
         let timeoutId;
         if (detailsOpened) {
@@ -115,7 +121,6 @@ export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, ca
         }
         return () => clearTimeout(timeoutId);
     }, [detailsOpened]);
-
     const handleInfoClick = () => {
         setDetailsOpened(!detailsOpened);
     };
@@ -124,6 +129,61 @@ export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, ca
             return str.length > length ? str.substring(0, length) + "..." : str;
         }
         return "";
+    };
+    const handleRemoveQuestion = async () => {
+        setConfirmCloseModal(false);
+        openModal();
+        const api = new callAPI();
+        try {
+            await api.updateQuestion(id_sub, id, -1);
+            sucess();
+        } catch (error) {
+            console.error('Error removing question:', error);
+        }
+    };
+    const handleRemoveQuestionPermanently = async () => {
+        setConfirmCloseModal(false);
+        openModal();
+        const api = new callAPI();
+        try {
+            await api.removeQuestionPermanently(id_sub, id);
+            sucess();
+        } catch (error) {
+            console.error('Error removing question:', error);
+        }
+    };
+    const handleRestoreQuestion = async () => {
+        setConfirmCloseModal(false);
+        openModal();
+        const api = new callAPI();
+        try {
+            await api.updateQuestion(id_sub, id, 1);
+            sucess();
+        } catch (error) {
+            console.error('Error restore question:', error);
+        }
+    };
+    const handleLockQuestion = async () => {
+        setConfirmCloseModal(false);
+        openModal();
+        const api = new callAPI();
+        try {
+            await api.updateQuestion(id_sub, id, 0);
+            sucess();
+        } catch (error) {
+            console.error('Error lock question:', error);
+        }
+    };
+    const handleRemoveQuestionFromAccount = async () => {
+        setConfirmCloseModal(false);
+        openModal();
+        const api = new callAPI();
+        try {
+            await api.removeQuestionFromAccount(id_acc, id, id_sub) ;
+            sucess();
+        } catch (error) {
+            console.error('Error remove question:', error);
+        }
     };
     const groupWordsByIndex = (answers) => {
         let groupedWords = [];
@@ -146,32 +206,78 @@ export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, ca
 
         return groupedWords;
     };
+    const handleClose = () => {
+        if (confirmCloseModal) {
+            setConfirmCloseModal(false);
+        } else {
+            setConfirmCloseModal(true);
+        }
+    };
+
     return (
         <div style={{ position: 'relative' }}>
+            <Modal
+                open={confirmCloseModal}
+                onClose={() => setConfirmCloseModal(false)}
+                aria-labelledby="confirm-close-title"
+                aria-describedby="confirm-close-description"
+            >
+                <div className={stylecss.modalClose}>
+                    <Typography className={stylecss.modalClose_title} variant="p" id="confirm-close-title" gutterBottom>
+                        Bạn có chắc muốn xóa câu hỏi này khỏi môn học không?
+                    </Typography>
+                    <div className={stylecss.modalClose_actions}>
+                        <button className={stylecss.button_close} onClick={handleRemoveQuestionFromAccount}>Xóa khỏi danh sách</button>
+                        {(id_acc === author) && (
+                            <button className={stylecss.button_confirm} onClick={handleRemoveQuestion}>Xóa khỏi tất cả</button>
+                        )}
+                    </div>
+                </div>
+            </Modal>
+            <Modal
+                open={modalDelete}
+                onClose={() => setModalDelete(false)}
+                aria-labelledby="confirm-close-title"
+                aria-describedby="confirm-close-description"
+            >
+                <div className={stylecss.modalClose}>
+                    <Typography className={stylecss.modalClose_title} variant="p" id="confirm-close-title" gutterBottom>
+                        Bạn có chắc muốn xóa vĩnh viễn câu hỏi này không?
+                    </Typography>
+                    <div className={stylecss.modalClose_actions}>
+                        <button className={stylecss.button_close} onClick={() => setModalDelete(false)}>Quay lại</button>
+                        <button className={stylecss.button_confirm} onClick={handleRemoveQuestionPermanently}>Xóa vĩnh viễn</button>
+                    </div>
+                </div>
+            </Modal>
             <CustomCard>
                 {!isdelete ? (
                     <IconInfo>
                         <Visibility onClick={handleInfoClick} style={{ marginRight: '5px', color: 'darkslategrey' }} />
                         {(id_acc === author) ? (
                             <>
-                                <LockOpen style={{ marginRight: '5px', color: 'green' }} />
+                                {status === 1 ? (
+                                    <LockOpen style={{ marginRight: '5px', color: 'green' }}  onClick={handleLockQuestion} />
+                                ) : (
+                                    <Lock style={{ marginRight: '5px', color: 'lightsalmon' }}  onClick={handleRestoreQuestion} />
+                                )}
                                 <Edit style={{ marginRight: '5px', color: '#3366FF' }} />
-                                <Delete style={{ marginRight: '5px', color: 'red' }} />
+                                <Delete style={{ marginRight: '5px', color: 'red' }} onClick={handleClose} />
 
                             </>
                         ) : (
                             <>
                                 <LockOpen style={{ marginRight: '5px', color: 'lightgray' }} />
                                 <Edit style={{ marginRight: '5px', color: 'lightgray' }} />
-                                <Delete style={{ marginRight: '5px', color: 'lightgray' }} />
+                                <Delete style={{ marginRight: '5px', color: 'red' }} onClick={handleClose} />
                             </>
                         )}
                     </IconInfo>
                 ) : (
                     <>
                         <IconDelete>
-                            <Restore style={{ marginRight: '5px', color: 'green', fontSize: '30px' }} />
-                            <Delete style={{ marginRight: '5px', color: 'red', fontSize: '30px' }} />
+                            <Restore style={{ marginRight: '5px', color: 'green', fontSize: '30px' }} onClick={handleRestoreQuestion} />
+                            <Delete style={{ marginRight: '5px', color: 'red', fontSize: '30px' }} onClick={() => setModalDelete(true)} />
                         </IconDelete>
                     </>
                 )}
@@ -236,6 +342,7 @@ export const QuestionCard = ({ id_acc, id, question, answers, correct_answer, ca
             {detailsOpened && (
                 <DetailCard>
                     <Typography><BoldLabel>ID: </BoldLabel> {id}</Typography>
+                    <Typography><BoldLabel>Ngày thêm: </BoldLabel> {date}</Typography>
                     <Typography><BoldLabel>Chủ đề: </BoldLabel>{category}</Typography>
                     {type === 4 || type === 5 ? (
                         <Typography>

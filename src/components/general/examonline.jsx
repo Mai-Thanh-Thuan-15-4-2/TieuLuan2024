@@ -258,7 +258,7 @@ export const Exam = (props) => {
                   <Grid container spacing={2}>
                     {sortedData ? sortedData.map((item, index) => (
                       <Grid item xs={12} sm={6} md={3} key={index}>
-                        <CardItem name={item.name} id={item.id} year={item.year} link={`/examoption/${item.id}`} credits={item.credits} isAdd={false}></CardItem>
+                        <CardItem name={item.name} id={item.id} year={item.year} link={`/examoption/${item.id}`} credits={item.credits} isAdd={false} status = {1}></CardItem>
                       </Grid>
                     )) : "loading"}
                   </Grid>

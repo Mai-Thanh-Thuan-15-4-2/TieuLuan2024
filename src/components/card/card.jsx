@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography } from '@mui/material';
+import { Card, CardContent, Typography, Modal } from '@mui/material';
 import { styled } from '@mui/system';
 import ArticleIcon from '@mui/icons-material/Article';
 import InfoIcon from '@mui/icons-material/Info';
 import Delete from '@mui/icons-material/Delete';
 import { AddCircle } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import stylecss from '../../styles-page/exam.module.css';
+import { Link } from 'react-router-dom'
+import callAPI from '../../services/callAPI';
+import Restore from '@mui/icons-material/Restore';
 
 const colors = ['#880000', '#666666', '#FF3300', '#3399FF', '#33FF00', '#FF3366', '#993300', '#3300FF', '#007700', '#FF9900'];
 
@@ -105,9 +108,23 @@ const DetailCard = styled(Card)(({ theme }) => ({
 const BoldLabel = styled('span')({
     fontWeight: 'bold',
 });
-export const CardItem = ({ id, name, year, credits, link, isEdit, isAdd }) => {
+export const CardItem = ({ id_acc, id, name, year, credits, link, changeList, isEdit, isAdd, handleAddSubject, openModal, sucess, status }) => {
     const [detailsOpened, setDetailsOpened] = useState(false);
-
+    const [confirmCloseModal, setConfirmCloseModal] = useState(false);
+    const [confirmRemoveModal, setConfirmRemoveModal] = useState(false);
+    const [confirmRestoreModal, setConfirmRestoreModal] = useState(false);
+    const handleDeleteSubjectFromAccount = async () => {
+        changeList();
+        const api = new callAPI();
+        openModal();
+        try {
+            await api.removeSubjectFromAccount(id_acc, id);
+            sucess();
+        } catch (error) {
+            console.error('Error removing question:', error);
+            sucess();
+        }
+    };
     useEffect(() => {
         let timeoutId;
         if (detailsOpened) {
@@ -117,7 +134,31 @@ export const CardItem = ({ id, name, year, credits, link, isEdit, isAdd }) => {
         }
         return () => clearTimeout(timeoutId);
     }, [detailsOpened]);
-
+    const handleRemoveSubjectFromAccount = async () => {
+        setConfirmRemoveModal(false);
+        const api = new callAPI();
+        openModal();
+        try {
+            await api.updateStatusSubjectFromAccount(id_acc, id, 0)
+            sucess();
+        } catch (error) {
+            console.error('Error removing question:', error);
+            sucess();
+        }
+    };
+    const handleRestoreSubjectFromAccount = async () => {
+        changeList();
+        setConfirmRestoreModal(false);
+        const api = new callAPI();
+        openModal();
+        try {
+            await api.updateStatusSubjectFromAccount(id_acc, id, 1)
+            sucess();
+        } catch (error) {
+            console.error('Error removing question:', error);
+            sucess();
+        }
+    };
     const handleInfoClick = () => {
         setDetailsOpened(!detailsOpened);
     };
@@ -126,6 +167,63 @@ export const CardItem = ({ id, name, year, credits, link, isEdit, isAdd }) => {
     };
     return (
         <div style={{ position: 'relative' }}>
+            <Modal
+                open={confirmCloseModal}
+                onClose={() => setConfirmCloseModal(false)}
+                aria-labelledby="confirm-close-title"
+                aria-describedby="confirm-close-description"
+            >
+                <div className={stylecss.modalClose}>
+                    <div style={{ textAlign: 'center' }}>
+                        <Typography className={stylecss.modalClose_title} variant="p" id="confirm-close-title" gutterBottom>
+                            Xóa môn học <span style={{ color: 'green' }}>{name}</span>
+                        </Typography>
+                        <p style={{ color: 'red', fontSize: '12px', marginTop: '10px' }}>Xóa môn học sẽ dẫn đến việc các câu hỏi trong đó cũng sẽ bị xóa theo, hãy cân nhắn hành động của mình</p>
+                    </div>
+                    <div className={stylecss.modalClose_actions}>
+                        <button className={stylecss.button_close} onClick={() => setConfirmCloseModal(false)}>Quay lại</button>
+                        <button className={stylecss.button_confirm} onClick={handleDeleteSubjectFromAccount}>Xóa môn học</button>
+                    </div>
+                </div>
+            </Modal>
+            <Modal
+                open={confirmRemoveModal}
+                onClose={() => setConfirmRemoveModal(false)}
+                aria-labelledby="confirm-close-title"
+                aria-describedby="confirm-close-description"
+            >
+                <div className={stylecss.modalClose}>
+                    <div style={{ textAlign: 'center' }}>
+                        <Typography className={stylecss.modalClose_title} variant="p" id="confirm-close-title" gutterBottom>
+                            Xóa môn học <span style={{ color: 'green' }}>{name}</span>
+                        </Typography>
+                        <p style={{ color: 'red', fontSize: '12px', marginTop: '10px' }}>Bạn có chắc chắn xóa môn học này?</p>
+                    </div>
+                    <div className={stylecss.modalClose_actions}>
+                        <button className={stylecss.button_close} onClick={() => setConfirmRemoveModal(false)}>Quay lại</button>
+                        <button className={stylecss.button_confirm} onClick={handleRemoveSubjectFromAccount}>Xóa</button>
+                    </div>
+                </div>
+            </Modal>
+            <Modal
+                open={confirmRestoreModal}
+                onClose={() => setConfirmRestoreModal(false)}
+                aria-labelledby="confirm-close-title"
+                aria-describedby="confirm-close-description"
+            >
+                <div className={stylecss.modalClose}>
+                    <div style={{ textAlign: 'center' }}>
+                        <Typography className={stylecss.modalClose_title} variant="p" id="confirm-close-title" gutterBottom>
+                            Khôi phục môn học <span style={{ color: 'green' }}>{name}</span>
+                        </Typography>
+                        <p style={{ color: 'red', fontSize: '12px', marginTop: '10px' }}>Bạn có chắc muốn khôi phục môn học này?</p>
+                    </div>
+                    <div className={stylecss.modalClose_actions}>
+                        <button className={stylecss.button_close} onClick={() => setConfirmRestoreModal(false)}>Quay lại</button>
+                        <button className={stylecss.button_confirm} style={{backgroundColor: 'green'}} onClick={handleRestoreSubjectFromAccount}>Khôi phục</button>
+                    </div>
+                </div>
+            </Modal>
             <CustomCard>
                 <IconArticle>
                     <ArticleIcon style={{ fontSize: '25px', opacity: '0.4' }} />
@@ -134,20 +232,41 @@ export const CardItem = ({ id, name, year, credits, link, isEdit, isAdd }) => {
                     <InfoIcon onClick={handleInfoClick} />
                     {isEdit && (
                         <>
-                            <span style={{ marginRight: '5px' }}></span>
-                            <Delete style={{ color: 'red' }} />
+                            {status === 0 && (
+                                <>
+                                    <span style={{ marginRight: '5px' }}></span>
+                                    <Restore style={{ color: 'aqua' }} onClick={() => setConfirmRestoreModal(true)} />
+                                </>
+                            )}
+                            {status !== 0 ? (
+                                <>
+                                    <span style={{ marginRight: '5px' }}></span>
+                                    <Delete style={{ color: 'red' }} onClick={() => setConfirmRemoveModal(true)} />
+                                </>
+                            ) : (
+                                <>
+                                    <span style={{ marginRight: '5px' }}></span>
+                                    <Delete style={{ color: 'red' }} onClick={() => setConfirmCloseModal(true)} />
+                                </>
+                            )}
                         </>
                     )}
                 </IconInfo>
                 {!isAdd ? (
+                    <>
+                    {status === 1 ? (
                     <ButtonWrapper>
                         <Link to={link}>
                             <CustomButton>Tùy chọn</CustomButton>
                         </Link>
                     </ButtonWrapper>
+                    ) : (
+                        <></>
+                    )}
+                    </>
                 ) : (
                     <ButtonWrapper>
-                            <CustomButton>Thêm</CustomButton>
+                        <CustomButton onClick={handleAddSubject}>Thêm</CustomButton>
                     </ButtonWrapper>
                 )}
 

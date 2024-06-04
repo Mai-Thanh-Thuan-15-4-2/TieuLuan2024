@@ -14,10 +14,26 @@ import CardExam from '../card/cardexam';
 import callAPI from '../../services/callAPI';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import styled from 'styled-components';
 
 const ExamManagement = () => {
     const [detailsOpened, setDetailsOpened] = useState(false);
     const [showLoading, setShowLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const handleClickOutside = async (event) => {
+        setListQuestionsDeleted(false);
+        try {
+            const api = new callAPI();
+            const accountData = await api.getAccountById(id);
+            setAccount(accountData);
+            const mainExamsData = await api.fetchMainExams();
+            setMainSubjects(mainExamsData);
+        } catch (error) {
+            console.error('Error updating questions and main subjects:', error);
+        }
+        setShowModal(false);
+    };
     useEffect(() => {
         let timeoutId;
         if (detailsOpened) {
@@ -230,7 +246,48 @@ const ExamManagement = () => {
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
+    function extractMultipleChoiceQuestions(blocks) {
+        const multipleChoiceQuestions = [];
+        const essayQuestions = [];
+      
+        for (const block of blocks) {
+          if (block.key.startsWith('question_')) {
+            const question = {
+              question: block.text,
+              answers: [],
+            };
+            multipleChoiceQuestions.push(question);
+          } else if (block.key.startsWith('answer_exam') && multipleChoiceQuestions.length > 0) {
+            const lastQuestion = multipleChoiceQuestions[multipleChoiceQuestions.length - 1];
+            lastQuestion.answers.push(block.text);
+          } else if (block.key.startsWith('part2')) {
+            break; 
+          } else if (block.key.startsWith('part3')) {
+            essayQuestions.push(block); 
+          }
+        }
+      
+        const shuffledQuestions = multipleChoiceQuestions.sort(() => Math.random() - 0.5);
+      
+        const mergedBlocks = [...shuffledQuestions, ...essayQuestions];
+      
+        const renumberedBlocks = mergedBlocks.map((block, index) => ({
+          ...block,
+          key: `question_${index + 1}`,
+        }));
+      
+        return renumberedBlocks;
+      }
+      
+    //   if (account && account.listexams) {
+    //     const questions = extractMultipleChoiceQuestions(account.listexams[7].contentState.blocks);
+    //     console.log(questions);
+    //   } else {
+    //     console.log("Lỗi: 'account.listexams[7]' không tồn tại hoặc không hợp lệ.");
+    //   }
+    
     return (
+        <>
         <div id="subjects" className={stylecss.container_manage}>
             <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()} link={`/teacher/${id}`} link1={`/teacher/${id}`} link3={`/teacher/${id}/examlist`} active={3} />
                 <div className={`${sidebarVisible ? stylecss.content_manage : stylecss.content_manage_full}`}>
@@ -338,13 +395,18 @@ const ExamManagement = () => {
                                     <CardExam
                                         id={exam.contentState.info.id}
                                         key={exam.contentState.info.id}
-                                        name={exam.contentState.blocks[0].text}
+                                        status={exam.contentState.info.status}
+                                        name={exam.contentState.blocks[0]?.text}
                                         subject={getSubjectInfo(exam.contentState.info.subject).name}
                                         totalquestion={countQuestionBlocks(exam)}
                                         createdate={formatDate(exam.contentState.info.create_date)}
                                         editdate={formatDate(exam.contentState.info.edit_date)}
                                         link={`/teacher/${id}/examdetail/${exam.contentState.info.id}`}
                                         isDelete={true}
+                                        id_account={id}
+                                        showModal={showModal}
+                                        openModal={() => setShowModal(true)}
+                                        sucess={() => setLoading(false)}
                                     />
                                 </Grid>
                             ))
@@ -369,8 +431,90 @@ const ExamManagement = () => {
                     </Grid>
                 </div>
         </div>
+        {showModal && (
+            <Overlay className="modal" onClick={handleClickOutside}>
+                <SuccessContainer>
+                    {loading ? (
+                        <>
+                            <Spinner />
+                            <Text>Vui lòng chờ...</Text>
+                        </>
+                    ) : (
+                        loading === false && (
+                            <>
+                                <SuccessIcon>✓</SuccessIcon>
+                                <SuccessText>Thành công!</SuccessText>
+                            </>
+                        )
+                    )}
+                </SuccessContainer>
+            </Overlay>
+        )}
+      </>
     );
 };
 
 
 export default ExamManagement;
+const Overlay = styled.div`
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+`;
+
+const LoadingContainer = styled.div`
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Spinner = styled.div`
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`;
+
+const Text = styled.p`
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+`;
+
+const SuccessModal = styled(Overlay)`
+  background-color: rgba(0, 0, 0, 0.7);
+`;
+
+const SuccessContainer = styled(LoadingContainer)`
+  background-color: white;
+  padding: 3rem;
+`;
+
+const SuccessIcon = styled.div`
+  font-size: 3rem;
+  color: green;
+  margin-bottom: 1rem;
+`;
+
+const SuccessText = styled.p`
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
+

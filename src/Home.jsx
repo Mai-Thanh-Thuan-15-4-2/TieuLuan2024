@@ -26,7 +26,7 @@ const Home = () => {
       <Navigation data={pageData.Accounts}/>
       <Header data={pageData.Header}/>
       <About data={pageData.About}/>
-      <Exam data={pageData.Exams} />
+      <Exam data={pageData.Subjects} />
       <Documents data={pageData.Documents} />
       <Extensions data={pageData.Testimonials} />
       <Contact data={pageData.Contact} />

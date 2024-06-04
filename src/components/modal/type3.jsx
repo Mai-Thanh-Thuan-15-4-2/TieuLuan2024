@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
-import { Grid, IconButton, Modal } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Grid, IconButton, Typography, Modal, Snackbar, Alert } from '@mui/material';
+import ErrorIcon from '@mui/icons-material/Error';
 import { Visibility, HelpOutline } from '@mui/icons-material';
 import stylecss from '../../styles-page/exam.module.css';
 import Close from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
+import callAPI from '../../services/callAPI';
+import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+
 
 const Type3 = (categories) => {
+    const { id, id_sub } = useParams();
     const [selectedTopics, setSelectedTopics] = useState([]);
     const [imageSrc, setImageSrc] = useState(null);
     const [previewModalOpen, setPreviewModalOpen] = useState(false);
@@ -15,7 +21,61 @@ const Type3 = (categories) => {
     const [selectedWordsObject, setSelectedWordsObject] = useState({});
     const [showCustomTopicInput, setShowCustomTopicInput] = useState(false);
     const [customTopicValue, setCustomTopicValue] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [showErrorModal, setShowErrorModal] = useState(false);
+    const [mainSubjects, setMainSubjects] = useState([]);
+    const [showLoading, setShowLoading] = useState(true);
+    const [scrollY, setScrollY] = useState(0);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrollY(window.scrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const topPosition = scrollY + window.innerHeight / 2;
+    const [showModal, setShowModal] = useState(false);
+    const handleCloseErrorModal = () => {
+        setShowErrorModal(false);
+    };
+    const radioOptions = [
+        { value: '1', label: 'Biết' },
+        { value: '2', label: 'Hiểu' },
+        { value: '3', label: 'Vận dụng' },
+        { value: '4', label: 'Vận dụng cao' },
+    ];
+    const [selectedValue, setSelectedValue] = useState(radioOptions[0].value);
+    const handleRadioChange = (event) => {
+        setSelectedValue(event.target.value);
+    };
+    const handleClickOutside = (event) => {
+        if (event.target.classList.contains('modal')) {
+            setShowModal(false);
+            setShowLoading(true);
+            setTextareaValue('');
+            setSelectedTopics([]);
+            setImageSrc(null);
+            setSelectedValue(radioOptions[0].value);
+        }
+    };
+    useEffect(() => {
+        async function fetchAccountAndMainSubjects() {
+            try {
+                const api = new callAPI();
+                const mainExamsData = await api.fetchMainExams();
+                setMainSubjects(mainExamsData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchAccountAndMainSubjects();
+    }, []);
     const handleCheckboxChange = (event) => {
         const { name, checked } = event.target;
         if (name === 'newTopic') {
@@ -127,8 +187,89 @@ const Type3 = (categories) => {
         previewQuestion = previewQuestion.replace(/(\.\.\.\.\s)+/g, '....');
         return { previewQuestion, answerList };
     };
+    function getMaxQuestionId(mainSubjects) {
+        const selectedSubject = mainSubjects.find(subject => subject.id === id_sub);
+
+        if (selectedSubject && selectedSubject.questions) {
+            const questions = selectedSubject.questions;
+
+            let maxQuestionId = null;
+
+            questions.forEach(question => {
+                const questionId = question.id;
+                const questionNumber = parseInt(questionId.replace("CTMT", ""));
+
+                if (!isNaN(questionNumber) && (maxQuestionId === null || questionNumber > parseInt(maxQuestionId.replace("CTMT", "")))) {
+                    maxQuestionId = questionId;
+                }
+            });
+
+            if (maxQuestionId) {
+                const maxQuestionNumber = parseInt(maxQuestionId.replace("CTMT", ""));
+                const newMaxQuestionNumber = maxQuestionNumber + 1;
+                const newMaxQuestionId = "CTMT" + newMaxQuestionNumber.toString().padStart(3, "0");
+                return newMaxQuestionId;
+            }
+        }
+
+        return "CTMT001";
+    }
+    async function handleSaveQuestion() {
+        if (selectedTopics.length === 0) {
+            setErrorMessage('Bạn chưa chọn chủ đề');
+            setShowErrorModal(true);
+            return;
+        }
+        if (!textareaValue.trim()) {
+            setErrorMessage('Hãy nhập nội dung câu hỏi');
+            setShowErrorModal(true);
+            return;
+        }
+        if (textareaValue.trim().split(' ').length < 2) {
+            setErrorMessage('Câu hỏi phải chứa ít nhất 2 từ');
+            setShowErrorModal(true);
+            return;
+        }
+        if (preview.answerList.length === 0) {
+            setErrorMessage('Hãy chọn từ làm đáp án');
+            setShowErrorModal(true);
+            return;
+        }
+        const questionWordCount = textareaValue.trim().split(' ').length;
+        const answerWordCount = preview.answerList.join(' ').trim().split(' ').length;
+
+        if (questionWordCount <= answerWordCount) {
+            setErrorMessage('Số từ của câu hỏi phải nhiều hơn số từ của đáp án');
+            setShowErrorModal(true);
+            return;
+        }
+        const maxQuestionId = getMaxQuestionId(mainSubjects);
+        const newQuestion = {
+            id: maxQuestionId,
+            level: selectedValue,
+            viewers: 0,
+            author: id,
+            created_at: new Date().toLocaleDateString(),
+            type: 3,
+            status: 0,
+            category: selectedTopics,
+            text: preview.previewQuestion,
+            img: imageSrc,
+            answers: preview.answerList,
+        };
+        setShowModal(true);
+        try {
+            const api = new callAPI();
+            const response = await api.addQuestion(id_sub, newQuestion);
+            console.log('Question added successfully:', response);
+            const updatedMainExamsData = await api.fetchMainExams();
+            setMainSubjects(updatedMainExamsData);
+            setShowLoading(false);
+        } catch (error) {
+            console.error('Error adding question:', error);
+        }
+    }
     const preview = getPreviewQuestion();
-    console.log(preview.answerList);
     return (
         <div className={stylecss.form_type1}>
             <Grid container spacing={2} justifyContent='center'>
@@ -136,22 +277,27 @@ const Type3 = (categories) => {
                     <div className={stylecss.form_container}>
                         <label className={stylecss.label_form}>Chủ đề:</label>
                         <ul style={styles.topicList}>
-                            {categories.categories && categories.categories.map((category, index) => (
-                                <li key={index} style={styles.topicListItem}>
-                                    <input
-                                        type="checkbox"
-                                        id={`topic${index}`}
-                                        name={category.id}
-                                        checked={selectedTopics.includes(category.id)}
-                                        onChange={handleCheckboxChange}
-                                        style={styles.checkbox}
-                                    />
-                                    <label htmlFor={`topic${index}`} style={{ fontSize: '15px' }}>
-                                        {category.content}
-                                    </label>
-                                </li>
-                            ))}
-                             <li key="newTopic" style={styles.topicListItem}>
+                            {categories && categories.length > 0 ? (
+                                categories.map((category, index) => (
+                                    <li key={index} style={styles.topicListItem}>
+                                        <input
+                                            type="checkbox"
+                                            id={`topic${index}`}
+                                            name={category.id}
+                                            checked={selectedTopics.includes(category.id)}
+                                            onChange={handleCheckboxChange}
+                                            style={styles.checkbox}
+                                        />
+                                        <label htmlFor={`topic${index}`} style={{ fontSize: '15px' }}>
+                                            {category.content}
+                                        </label>
+                                    </li>
+                                ))
+                            ) : (
+                                <p style={{ color: 'lightcoral' }}>Chưa có chủ đề, hãy thêm chủ đề trước!!!</p>
+                            )}
+
+                            {/* <li key="newTopic" style={styles.topicListItem}>
                                 <input
                                     type="checkbox"
                                     id="newTopic"
@@ -176,7 +322,7 @@ const Type3 = (categories) => {
                                         placeholder='Nhập tên chủ đề'
                                     />
                                 </li>
-                            )}
+                            )} */}
                         </ul>
                     </div>
                 </Grid>
@@ -212,8 +358,48 @@ const Type3 = (categories) => {
                                 </IconButton>
                             </>
                         }
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={12} md={12}>
+                                <label className={stylecss.label_form}>Mức độ: </label><br /><br />
+                                <div className="radio-group">
+                                    {radioOptions.map((option) => (
+                                        <React.Fragment key={option.value}>
+                                            <input
+                                                type="radio"
+                                                id={`radio${option.value}`}
+                                                name="radios"
+                                                value={option.value}
+                                                checked={selectedValue === option.value}
+                                                onChange={handleRadioChange}
+                                            />
+                                            <label htmlFor={`radio${option.value}`}>{option.label}</label>
+                                        </React.Fragment>
+                                    ))}
+                                </div>
+                            </Grid>
+                        </Grid>
                     </div>
                 </Grid>
+                <Snackbar
+                    open={showErrorModal}
+                    autoHideDuration={6000}
+                    onClose={handleCloseErrorModal}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    style={{ position: 'absolute', top: `${topPosition}px`, left: '50%', transform: 'translateX(-50%)', zIndex: 9999 }}
+                >
+                    <Alert
+                        style={{ alignItems: 'center' }}
+                        severity="error"
+                        action={
+                            <IconButton size="large" aria-label="close" color="inherit" onClick={handleCloseErrorModal}>
+                                <ErrorIcon fontSize="30px" />
+                            </IconButton>
+                        }
+                        sx={{ width: '100%', fontSize: '20px', }}
+                    >
+                        {errorMessage}
+                    </Alert>
+                </Snackbar>
                 <Grid item xs={10}>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -239,7 +425,13 @@ const Type3 = (categories) => {
                     </div>
                 </Grid>
                 <div className={stylecss.add_subject}>
-                    <button style={{ float: 'right' }} className={stylecss.btn_add}>Lưu lại</button>
+                    <button style={{
+                        float: 'right',
+                        backgroundColor: !showLoading ? 'lightblue' : '',
+                        color: !showLoading ? 'white' : '',
+                    }} className={stylecss.btn_add} onClick={handleSaveQuestion} disabled={!showLoading}>
+                        Lưu lại
+                    </button>
                     <button className={`${stylecss.btn_add} ${stylecss.right}`} onClick={handlePreviewModalOpen} style={{ display: 'flex', alignItems: 'center', backgroundColor: '#879999' }}>
                         <Visibility style={{ marginRight: '5px' }} />
                         Xem trước
@@ -289,6 +481,25 @@ const Type3 = (categories) => {
                     <button style={{ float: 'right', paddingLeft: '20px', paddingRight: '20px' }} className={stylecss.btn_add} onClick={handlePreviewModalClose}>Đóng</button>
                 </div>
             </Modal>
+            {showModal && (
+                <Overlay className="modal" onClick={handleClickOutside}>
+                    <SuccessContainer>
+                        {showLoading ? (
+                            <>
+                                <Spinner />
+                                <Text>Vui lòng chờ...</Text>
+                            </>
+                        ) : (
+                            showLoading === false && (
+                                <>
+                                    <SuccessIcon>✓</SuccessIcon>
+                                    <SuccessText>Thành công!</SuccessText>
+                                </>
+                            )
+                        )}
+                    </SuccessContainer>
+                </Overlay>
+            )}
         </div>
     );
 };
@@ -308,3 +519,64 @@ const styles = {
     },
 }
 export default Type3;
+const Overlay = styled.div`
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+`;
+
+const LoadingContainer = styled.div`
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Spinner = styled.div`
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`;
+
+const Text = styled.p`
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+`;
+
+const SuccessModal = styled(Overlay)`
+  background-color: rgba(0, 0, 0, 0.7);
+`;
+
+const SuccessContainer = styled(LoadingContainer)`
+  background-color: white;
+  padding: 3rem;
+`;
+
+const SuccessIcon = styled.div`
+  font-size: 3rem;
+  color: green;
+  margin-bottom: 1rem;
+`;
+
+const SuccessText = styled.p`
+  font-size: 1.5rem;
+  font-weight: bold;
+`;

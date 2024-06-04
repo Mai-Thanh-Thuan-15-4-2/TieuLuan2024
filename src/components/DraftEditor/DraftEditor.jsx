@@ -3,51 +3,288 @@ import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw, ContentSt
 import Toolbar from "../Toolbar/Toolbar";
 import "./DraftEditor.css";
 import htmlToDraft from 'html-to-draftjs';
+import callAPI from "../../services/callAPI";
+import styled from 'styled-components';
+import { useParams, Link } from 'react-router-dom';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 
-const DraftEditor = ({ title, questions, create, subject }) => {
-  let hasInsertedEssayHeader = false;
-  const lastBlock = {
-    key: 'endBlock',
-    text: 'HẾT',
-    type: 'centerAlign',
-    depth: 0,
-    inlineStyleRanges: [{
-      "offset": 0,
-      "length": 6,
-      "style": "BOLD"
-    }],
-    entityRanges: [],
-    data: {},
+const DropdownContainer = styled.div`
+  margin-top: 10px;
+  position: relative;
+  display: inline-block;
+  margin-right: auto;
+  margin-left: 10px;
+  width: 200px;
+`;
+
+const DropdownButton = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
+const DropdownContent = styled.div`
+  display: ${({ open }) => (open ? 'block' : 'none')};
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
+  top: ${({ open }) => (open ? 'auto' : '100%')};
+`;
+
+const DropdownItem = styled.div`
+  padding: 12px 16px;
+  cursor: pointer;
+  &:hover {
+    background-color: #ddd;
+  }
+`;
+
+const Dropdown = ({ options, value, onChange }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOutside = (event) => {
+    if (event && !event.target.closest('.dropdown')) {
+      setOpen(false);
+    }
   };
-  let multipleChoiceQuestionCount = 0;
-  let essayQuestionCount = 0;
 
-  const initialContent = {
-    info: {
-      "id": "CTMT_EX01",
-      "status": 1,
-      "create_date": create,
-      "edit_date": new Date(),
-      "subject": subject
-    },
-    entityMap: {},
-    blocks: [
+  React.useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  const handleItemClick = (newValue) => {
+    onChange(newValue);
+    setOpen(false);
+  };
+
+  return (
+    <DropdownContainer className="dropdown">
+      <DropdownButton onClick={() => setOpen(!open)}>
+        {options.find(option => option.value === value)?.label || 'Select an option'}
+      </DropdownButton>
+      <DropdownContent open={open}>
+        {options.map((option, index) => (
+          <DropdownItem key={index} onClick={() => handleItemClick(option.value)}>
+            {option.label}
+          </DropdownItem>
+        ))}
+      </DropdownContent>
+    </DropdownContainer>
+  );
+};
+
+
+const DraftEditor = ({ title, questions, create, subject, nextExamId, closeEditExam}) => {
+  const options = [
+    { label: 'Trộn câu hỏi', value: '1' },
+    { label: 'Trộn đáp án', value: '2' },
+    { label: 'Trộn cả hai', value: '3' }
+  ];
+  const { id } = useParams();
+  const [showLoading, setShowLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [listQuestion, setListQuestion] = useState([...questions]);
+  const [initialContent, setInitialContent] = useState(null);
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [shuffleType, setShuffleType] = useState('1');
+  const [newExam, setNewExam] = useState(initialContent);
+  const handleShuffleChange = (value) => {
+    setShuffleType(value);
+  };
+  const handleClickOutside = (event) => {
+    closeEditExam();
+    setShowModal(false);
+  };
+  useEffect(() => {
+    if (initialContent !== null) {
+      setNewExam({ contentState: initialContent });
+    }
+  }, [initialContent]); 
+  function shuffleQuestions(array) {
+    if (!Array.isArray(array)) {
+      console.error("shuffleMultipleChoiceQuestions: Input is not an array.");
+      return [];
+    }
+
+    const newArray = [...array];
+    const multipleChoiceQuestions = newArray.filter(question => question.type !== 6);
+    for (let i = multipleChoiceQuestions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [multipleChoiceQuestions[i], multipleChoiceQuestions[j]] = [multipleChoiceQuestions[j], multipleChoiceQuestions[i]];
+    }
+    return newArray.map(question => question.type !== 6 ? multipleChoiceQuestions.pop() : question);
+  }
+  function shuffleAnswers(array) {
+    if (!Array.isArray(array)) {
+      console.error("shuffleArray: Input is not an array.");
+      return [];
+    }
+
+    const newArray = [...array];
+    for (let i = 0; i < newArray.length; i++) {
+      const question = newArray[i];
+      if (question.type === 1 || question.type === 2 || question.type === 4) {
+        if (question.answers && question.answers.length > 1) {
+          const shuffledAnswers = shuffleAnswers(question.answers);
+          newArray[i] = {
+            ...question,
+            answers: shuffledAnswers
+          };
+        }
+      } else if (question.type === 5) {
+        const shuffledChildQuestions = question.child_questions.map(childQuestion => {
+          if (childQuestion.answers && childQuestion.answers.length > 1) {
+            const shuffledChildAnswers = shuffleAnswers(childQuestion.answers);
+            return {
+              ...childQuestion,
+              answers: shuffledChildAnswers
+            };
+          }
+          return childQuestion;
+        });
+        newArray[i] = {
+          ...question,
+          child_questions: shuffledChildQuestions
+        };
+      }
+    }
+    return newArray;
+
+    function shuffleAnswers(answers) {
+      const shuffledAnswers = [...answers];
+      for (let i = shuffledAnswers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledAnswers[i], shuffledAnswers[j]] = [shuffledAnswers[j], shuffledAnswers[i]];
+      }
+      return shuffledAnswers;
+    }
+  }
+  function shuffleQuestionsAndAnswers(array) {
+    if (!Array.isArray(array)) {
+      console.error("shuffleQuestionsAndAnswers: Input is not an array.");
+      return [];
+    }
+
+    const newArray = [...array];
+    const multipleChoiceQuestions = newArray.filter(question => question.type !== 6);
+
+    // Trộn câu hỏi trắc nghiệm
+    for (let i = multipleChoiceQuestions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [multipleChoiceQuestions[i], multipleChoiceQuestions[j]] = [multipleChoiceQuestions[j], multipleChoiceQuestions[i]];
+    }
+
+    // Trộn câu hỏi type 1, 2, 4 và đáp án của chúng
+    for (let i = 0; i < multipleChoiceQuestions.length; i++) {
+      const question = multipleChoiceQuestions[i];
+      if (question.answers && question.answers.length > 1) {
+        const shuffledAnswers = shuffleArray(question.answers); // Trộn đáp án
+        multipleChoiceQuestions[i] = {
+          ...question,
+          answers: shuffledAnswers
+        };
+      }
+    }
+
+    // Trộn lại mảng gốc
+    let currentIndex = 0;
+    for (let i = 0; i < newArray.length; i++) {
+      if (newArray[i].type !== 6) {
+        newArray[i] = multipleChoiceQuestions[currentIndex];
+        currentIndex++;
+      }
+    }
+
+    return newArray;
+  }
+
+  function shuffleArray(array) {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+  }
+
+  function mergeQuestions() {
+    if (!Array.isArray(questions)) {
+      console.error("mergeQuestions: Input 'questions' is not an array.");
+      return [];
+    }
+  
+    let shuffledQuestions = [];
+    if (shuffleType === '1') {
+      shuffledQuestions = shuffleQuestions(questions);
+    } else if (shuffleType === '2') {
+      shuffledQuestions = shuffleAnswers(questions);
+    } else if (shuffleType === '3') {
+      shuffledQuestions = shuffleQuestionsAndAnswers(questions);
+    }
+  
+    const mergedQuestions = shuffledQuestions.map((question, index) => ({
+      ...question,
+      id: `CTMT${index + 1}`,
+      viewers: index + 1
+    }));
+    setListQuestion(mergedQuestions);
+    return mergedQuestions;
+  }  
+
+  const saveExam = async () => {
+    const api = new callAPI();
+    setShowModal(true);
+    try {
+      await api.addExam(id, newExam);
+      console.log("Exam saved successfully");
+      setShowLoading(false);
+    } catch (error) {
+      console.error("Error saving exam:", error);
+    }
+  };
+  useEffect(() => {
+    let hasInsertedEssayHeader = false;
+    let multipleChoiceQuestionCount = 0;
+    let essayQuestionCount = 0;
+    const lastBlock = {
+      key: 'endBlock',
+      text: 'HẾT',
+      type: 'centerAlign',
+      depth: 0,
+      inlineStyleRanges: [{
+        offset: 0,
+        length: 6,
+        style: "BOLD"
+      }],
+      entityRanges: [],
+      data: {},
+    };
+
+    const contentBlocks = [
       {
-        "key": "title_exam",
-        "text": title,
-        "type": "unstyle",
-        "depth": 0,
-        "inlineStyleRanges": [
+        key: "title_exam",
+        text: title,
+        type: "unstyled",
+        depth: 0,
+        inlineStyleRanges: [
           {
-            "offset": 0,
-            "length": title.length,
-            "style": "BOLD"
+            offset: 0,
+            length: title.length,
+            style: "BOLD"
           }
         ],
-        "entityRanges": [],
-        "data": {}
+        entityRanges: [],
+        data: {}
       },
-      ...(questions.some(question => question.type === 1 || question.type === 2 || question.type === 4) && questions.some(question => question.type === 6)
+      ...(listQuestion.some(question => question.type === 1 || question.type === 2 || question.type === 4) && listQuestion.some(question => question.type === 6)
         ? [
           {
             key: 'part1',
@@ -58,11 +295,12 @@ const DraftEditor = ({ title, questions, create, subject }) => {
             entityRanges: [],
             data: {},
           },
-          ...questions.flatMap((question, index) => {
+          ...listQuestion.flatMap((question, index) => {
             const { contentBlocks, entityMap } = htmlToDraft(question.text);
             const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
             const raw = convertToRaw(contentState);
-            if (question.type === 6 && !hasInsertedEssayHeader && questions.some(question => question.type === 6)) {
+
+            if (question.type === 6 && !hasInsertedEssayHeader && listQuestion.some(q => q.type === 6)) {
               hasInsertedEssayHeader = true;
               return [
                 {
@@ -88,7 +326,21 @@ const DraftEditor = ({ title, questions, create, subject }) => {
                   ],
                   entityRanges: [],
                   data: {},
-                }
+                },
+                ...(question.description ? (() => {
+                  const { contentBlocks: descContentBlocks, entityMap: descEntityMap } = htmlToDraft(question.description);
+                  const descContentState = ContentState.createFromBlockArray(descContentBlocks, descEntityMap);
+                  const descRaw = convertToRaw(descContentState);
+                  return descRaw.blocks.map((block, i) => ({
+                    key: `description_${question.id}_${i}`,
+                    text: block.text,
+                    type: block.type,
+                    depth: block.depth,
+                    inlineStyleRanges: block.inlineStyleRanges,
+                    entityRanges: block.entityRanges,
+                    data: block.data,
+                  }));
+                })() : [])
               ];
             } else if (question.type === 5) {
               const questionLabelBlock = {
@@ -184,12 +436,27 @@ const DraftEditor = ({ title, questions, create, subject }) => {
 
                 return [questionBlock, ...answerBlocks];
               } else {
-                return [questionBlock];
+                const descriptionBlocks = question.type === 6 && question.description ? (() => {
+                  const { contentBlocks: descContentBlocks, entityMap: descEntityMap } = htmlToDraft(question.description);
+                  const descContentState = ContentState.createFromBlockArray(descContentBlocks, descEntityMap);
+                  const descRaw = convertToRaw(descContentState);
+                  return descRaw.blocks.map((block, i) => ({
+                    key: `description_${question.id}_${i}`,
+                    text: '     ' + block.text,
+                    type: block.type,
+                    depth: block.depth,
+                    inlineStyleRanges: block.inlineStyleRanges,
+                    entityRanges: block.entityRanges,
+                    data: block.data,
+                  }));
+                })() : [];
+
+                return [questionBlock, ...descriptionBlocks];
               }
             }
           }),
         ]
-        : questions.flatMap((question, index) => {
+        : listQuestion.flatMap((question, index) => {
           const { contentBlocks, entityMap } = htmlToDraft(question.text);
           const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
           const raw = convertToRaw(contentState);
@@ -287,25 +554,54 @@ const DraftEditor = ({ title, questions, create, subject }) => {
 
             return [questionLabelBlock, questionBlock, ...childQuestions];
           } else {
-            return [questionBlock];
+            const descriptionBlocks = question.type === 6 && question.description ? (() => {
+              const { contentBlocks: descContentBlocks, entityMap: descEntityMap } = htmlToDraft(question.description);
+              const descContentState = ContentState.createFromBlockArray(descContentBlocks, descEntityMap);
+              const descRaw = convertToRaw(descContentState);
+              return descRaw.blocks.map((block, i) => ({
+                key: `description_${question.id}_${i}`,
+                text: block.text,
+                type: block.type,
+                depth: block.depth,
+                inlineStyleRanges: block.inlineStyleRanges,
+                entityRanges: block.entityRanges,
+                data: block.data,
+              }));
+            })() : [];
+
+            return [questionBlock, ...descriptionBlocks];
           }
         })
       ),
       lastBlock,
-    ],
-  };
-
-  console.log(initialContent)
-  const [editorState, setEditorState] = useState(() => {
-    const contentState = convertFromRaw(initialContent);
-    return EditorState.createWithContent(contentState);
-  });
+    ];
+    setInitialContent({
+      info: {
+        id: nextExamId,
+        status: 1,
+        create_date: create,
+        edit_date: new Date(),
+        subject: subject,
+      },
+      entityMap: {},
+      blocks: contentBlocks,
+    });
+  }, [listQuestion, title, create, nextExamId, subject]);
+  useEffect(() => {
+    if (initialContent) {
+      const contentState = convertFromRaw(initialContent);
+      setEditorState(EditorState.createWithContent(contentState));
+    }
+  }, [initialContent]);
 
   const editor = useRef(null);
 
   useEffect(() => {
-    editor.current.focus();
+    if (editor.current) {
+      editor.current.focus();
+    }
   }, []);
+
   const handleKeyCommand = (command) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
@@ -410,6 +706,7 @@ const DraftEditor = ({ title, questions, create, subject }) => {
     }
     document.body.removeChild(downloadLink);
   }
+
   return (
     <div className="editor-wrapper">
       <Toolbar editorState={editorState} setEditorState={setEditorState} />
@@ -447,24 +744,117 @@ const DraftEditor = ({ title, questions, create, subject }) => {
           }
         `}
         </style>
-        <Editor
-          ref={editor}
-          handleKeyCommand={handleKeyCommand}
-          editorState={editorState}
-          customStyleMap={styleMap}
-          blockStyleFn={myBlockStyleFn}
-          onChange={(editorState) => {
-            const contentState = editorState.getCurrentContent();
-            const newState = convertToRaw(contentState);
-            console.log(newState);
-            setEditorState(editorState);
-          }}
-        />
+        {initialContent && (
+          <Editor
+            ref={editor}
+            handleKeyCommand={handleKeyCommand}
+            editorState={editorState}
+            customStyleMap={styleMap}
+            blockStyleFn={myBlockStyleFn}
+            onChange={(editorState) => {
+              const contentState = editorState.getCurrentContent();
+              const newState = convertToRaw(contentState);
+              const { info, ...rest } = initialContent;
+              const newContentState = {
+                info: info,
+                entityMap: newState.entityMap,
+                blocks: newState.blocks
+              };
+              setNewExam({ contentState: newContentState });
+              setEditorState(editorState);
+            }}
+          />
+        )}
       </div>
-      <button className='button_export'>Lưu đề thi</button>
+      <Dropdown options={options} value={shuffleType} onChange={handleShuffleChange} />
+      <button className='button_export' onClick={saveExam}>Lưu đề thi</button>
       <button className='button_export' onClick={() => Export2Word('exportContent', `${title}`)}>Xuất file .doc</button>
+      <button className='button_export' onClick={mergeQuestions}><AutorenewIcon></AutorenewIcon> Trộn đề</button>
+      {showModal && (
+        <Overlay className="modal" onClick={handleClickOutside}>
+          <SuccessContainer style={{ width: '250px' }}>
+            {showLoading ? (
+              <>
+                <Spinner />
+                <Text>Vui lòng chờ...</Text>
+              </>
+            ) : (
+              showLoading === false && (
+                <>
+                  <SuccessIcon>✓</SuccessIcon>
+                  <SuccessText>Thành công!</SuccessText>
+                  <Link to={`/teacher/${id}/examlist`}>
+                    <button className="see-now">Xem ngay</button>
+                  </Link>
+                </>
+              )
+            )}
+          </SuccessContainer>
+        </Overlay>
+      )}
     </div>
   );
 };
 
 export default DraftEditor;
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+`;
+
+const LoadingContainer = styled.div`
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Spinner = styled.div`
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`;
+
+const Text = styled.p`
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+`;
+
+const SuccessModal = styled(Overlay)`
+  background-color: rgba(0, 0, 0, 0.7);
+`;
+
+const SuccessContainer = styled(LoadingContainer)`
+  background-color: white;
+  padding: 3rem;
+`;
+
+const SuccessIcon = styled.div`
+  font-size: 3rem;
+  color: green;
+  margin-bottom: 1rem;
+`;
+
+const SuccessText = styled.p`
+  font-size: 1.5rem;
+  font-weight: bold;
+`;

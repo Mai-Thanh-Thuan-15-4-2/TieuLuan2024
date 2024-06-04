@@ -58,8 +58,8 @@ function EnhancedTableToolbar({ numSelected, onSearch, searchText, searchHandler
         }
       />
       {numSelected > 0 ? (
-        <Tooltip title="Bắt đầu">
-          <button className={stylecss.buttonStart} onClick={handleCreateExam}>Bắt đầu</button>
+        <Tooltip title="Xác nhận">
+          <button className={stylecss.buttonStart} onClick={handleCreateExam}>Xác nhận</button>
         </Tooltip>
       ) : (
         <Tooltip title="Danh sách câu hỏi">

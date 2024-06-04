@@ -16,6 +16,7 @@ import callAPI from '../../services/callAPI';
 import LinearProgress from '@mui/material/LinearProgress';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import styled from 'styled-components';
 
 const SubjectManagement = () => {
     const [detailsOpened, setDetailsOpened] = useState(false);
@@ -31,6 +32,36 @@ const SubjectManagement = () => {
     const [listDeleted, setListDeleted] = useState(false);
     const [searchValue, setSearchValue] = React.useState('');
     const [openModal, setOpenModal] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const handleClickOutside = async (event) => {
+        try {
+            const api = new callAPI();
+            const accountData = await api.getAccountById(id);
+            setAccount(accountData);
+            if (accountData && accountData.listsub) {
+                const questionIds = accountData.listsub
+                    .map(sub => sub.listquestions)
+                    .filter(list => list)
+                    .flat();
+                const updatedListQuestionsAcc = getQuestionsByIds(questionIds);
+                setListQuestionsAcc(updatedListQuestionsAcc);
+            }
+            
+            const mainExamsData = await api.fetchMainExams();
+            setMainSubjects(mainExamsData);
+            
+            const selectedSubject = mainExamsData.find(exam => exam.id === id_sub) || {};
+            setSubject(selectedSubject);
+            
+        } catch (error) {
+            console.error('Error updating questions and main subjects:', error);
+        }
+        setListDeleted(false);
+        setListQuestionsDeleted(false);
+        setLoading(false);
+        setShowModal(false);
+    };
     const [filteredData, setFilteredData] = React.useState([]);
     const [categories, setCategories] = useState([]);
     useEffect(() => {
@@ -82,6 +113,7 @@ const SubjectManagement = () => {
         setListDeleted(!listDeleted);
         setListQuestionsAcc(getQuestionsWithStatusMinusOne());
     }
+   
     const handleChangelistQuestion = () => {
         setListQuestionsDeleted(!listQuestionsDeleted);
         setListDeleted(!listDeleted);
@@ -103,14 +135,10 @@ const SubjectManagement = () => {
     const getQuestionsWithStatusMinusOne = () => {
         let result = [];
         if (subject && subject.questions && subject.questions.length > 0) {
-            subject.questions.forEach(question => {
-                if (question.status === -1 && question.author === id) {
-                    result.push(question);
-                }
-            });
+            result = subject.questions.filter(question => question.status === -1 && question.author === id);
         }
         return result;
-    };
+    };    
     const getSubjectInfo = (subjectId) => {
         return mainSubjects.find(subject => subject.id === subjectId);
     };
@@ -129,22 +157,17 @@ const SubjectManagement = () => {
             return '';
         }
     };
-
-    const getCategoryContent = (categoryId) => {
+    const getCategoryContent = (categoryIds) => {
         const subjectInfo = getSubjectInfo(id_sub);
         if (subjectInfo && subjectInfo.listcategory) {
-            const category = subjectInfo.listcategory.find((cat) => cat.id === categoryId);
-            if (category) {
-                return category.content;
-            } else {
-                return '';
-            }
-        } else {
-            return '';
+            const contents = categoryIds.map(categoryId => {
+                const category = subjectInfo.listcategory.find(cat => cat.id === categoryId);
+                return category ? category.content : '';
+            });
+            return contents.join(', ');
         }
+        return '';
     };
-
-
     const handleFilterChange = (event) => {
         setFilterValue(event.target.value);
         setSearchValue('');
@@ -175,7 +198,6 @@ const SubjectManagement = () => {
 
     // Lọc dữ liệu
     useEffect(() => {
-        if (listQuestionsAcc.length > 0) {
             let updatedFilteredData = listQuestionsAcc;
             if (searchValue) {
                 updatedFilteredData = searchFunction(listQuestionsAcc, searchValue);
@@ -233,7 +255,6 @@ const SubjectManagement = () => {
                 }
             }
             setFilteredData(updatedFilteredData);
-        }
     }, [listQuestionsAcc, searchValue, filterValue, categories]);
     function parseDate(dateString) {
         if (!dateString || typeof dateString !== 'string') {
@@ -289,12 +310,17 @@ const SubjectManagement = () => {
         setOpenModal(false);
     };
     return (
+        <>
         <div className={stylecss.container_manage}>
             <HeaderandSidebar visible={sidebarVisible} toggle={() => toggleSidebar()} link={`/teacher/${id}`} link1={`/teacher/${id}`} link3={`/teacher/${id}/examlist`} active={1} />
             <div className={`${sidebarVisible ? stylecss.content_manage : stylecss.content_manage_full}`}>
                 <div className={stylecss.title_wrapper}>
                     {!showLoading ? (
-                        <h2>{getSubjectInfo(id_sub)?.name}</h2>
+                        getSubjectInfo(id_sub)?.name ? (
+                            <h2>{getSubjectInfo(id_sub).name}</h2>
+                        ) : (
+                            <h2>Không có môn học</h2>
+                        )
                     ) : (
                         <Box sx={{
                             width: '100%',
@@ -490,30 +516,35 @@ const SubjectManagement = () => {
                     </Grid>
                 </Grid>
                 {!showLoading ? (
-                <>
-                {sortedData && sortedData.length > 0 ? (
-                    sortedData.map(question => (
-                        <QuestionCard
-                            id_acc={id}
-                            key={question.id}
-                            id={question.id}
-                            question={question.text}
-                            category={getCategoryContent(question.category)}
-                            correct_answer={getCorrectAnswer(question)}
-                            answers={question.answers}
-                            answer={question.answer}
-                            author={question.author}
-                            name={question.name}
-                            childquestions={question.child_questions}
-                            type={question.type}
-                            isdelete={listDeleted}
-                        />
-                    ))
+                    <>
+                        {sortedData && sortedData.length > 0 ? (
+                            sortedData.map(question => (
+                                <QuestionCard
+                                    id_acc={id}
+                                    id_sub={id_sub}
+                                    key={question.id}
+                                    id={question.id}
+                                    question={question.text}
+                                    category={getCategoryContent(question.category)}
+                                    correct_answer={getCorrectAnswer(question)}
+                                    answers={question.answers}
+                                    date={question.created_at}
+                                    answer={question.answer}
+                                    author={question.author}
+                                    name={question.name}
+                                    childquestions={question.child_questions}
+                                    type={question.type}
+                                    isdelete={listDeleted}
+                                    openModal={() => setShowModal(true)}
+                                    sucess={() => setLoading(false)} 
+                                    status={question.status}
+                                />
+                            ))
+                        ) : (
+                            <p className={stylecss.list_empty}>Danh sách trống</p>
+                        )}
+                    </>
                 ) : (
-                    <p className={stylecss.list_empty}>Danh sách trống</p>
-                )}
-                </>
-                  ) : (
                     <Box sx={{
                         width: '100%',
                         display: 'flex',
@@ -524,10 +555,91 @@ const SubjectManagement = () => {
                         <CircularProgress />
                     </Box>
                 )}
-        </div>
+            </div>
         </div >
+          {showModal && (
+            <Overlay className="modal" onClick={handleClickOutside}>
+                <SuccessContainer>
+                    {loading ? (
+                        <>
+                            <Spinner />
+                            <Text>Vui lòng chờ...</Text>
+                        </>
+                    ) : (
+                        loading === false && (
+                            <>
+                                <SuccessIcon>✓</SuccessIcon>
+                                <SuccessText>Thành công!</SuccessText>
+                            </>
+                        )
+                    )}
+                </SuccessContainer>
+            </Overlay>
+        )}
+       </>
     );
 };
 
 
 export default SubjectManagement;
+const Overlay = styled.div`
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+`;
+
+const LoadingContainer = styled.div`
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Spinner = styled.div`
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`;
+
+const Text = styled.p`
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+`;
+
+const SuccessModal = styled(Overlay)`
+  background-color: rgba(0, 0, 0, 0.7);
+`;
+
+const SuccessContainer = styled(LoadingContainer)`
+  background-color: white;
+  padding: 3rem;
+`;
+
+const SuccessIcon = styled.div`
+  font-size: 3rem;
+  color: green;
+  margin-bottom: 1rem;
+`;
+
+const SuccessText = styled.p`
+  font-size: 1.5rem;
+  font-weight: bold;
+`;

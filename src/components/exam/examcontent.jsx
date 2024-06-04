@@ -168,6 +168,11 @@ const ExamContent = ({ examQuestions, examTime, totalQuestions }) => {
                                     <FlagOutlined className={stylecss.icon_flagoutlined} style={{ fontSize: '30px' }} onClick={handleClick} />
                                 )}
                                 <p><span className={stylecss.question_label}>Câu hỏi: </span><span dangerouslySetInnerHTML={{ __html: question.text }} /></p>
+                                {question.img && (
+                                    <div style={{ textAlign: 'center', maxWidth: '400px', maxHeight: '300px', margin: '0 auto' }}>
+                                        <img src={question.img} alt="Question" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+                                    </div>
+                                )}
                                 <div className={stylecss.answers}>
                                     {question.answers.map(answer => (
                                         <div key={answer.id} className={stylecss.answer_group}>
@@ -188,7 +193,7 @@ const ExamContent = ({ examQuestions, examTime, totalQuestions }) => {
                                                             onClick={() => handleAnswer(question.id, answer.id)}
                                                         />
                                                     )}
-                                                    <span style={{marginLeft: '5px'}}>{answer.text}</span>
+                                                    <span style={{ marginLeft: '5px' }}>{answer.text}</span>
                                                 </p>
                                             </div>
                                         </div>

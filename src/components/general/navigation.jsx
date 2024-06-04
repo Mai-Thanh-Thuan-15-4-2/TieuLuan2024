@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Link } from 'react-router-dom';
-
+import callAPI from "../../services/callAPI";
+import CircularProgress from '@mui/material/CircularProgress';
 
 export const Navigation = (props) => {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [showError, setShowError] = useState(false);
@@ -18,46 +20,87 @@ export const Navigation = (props) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [loggedInUserId, setLoggedInUserId] = useState(null);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    setShowLoading(true);
     if (!username || !password) {
       setMessError("Hãy nhập đầy đủ thông tin đăng nhập!!");
       setShowError(true);
+      setShowLoading(false);
       return;
     }
-    const account = props.data.find(
-      (acc) => acc.username === username && acc.password === password
-    );
-
-    if (account) {
-      setLoggedInUserId(account.id);
-      if (account.status === 0) {
-        setMessError("Tài khoản của bạn đã bị khóa do vi phạm một số nguyên tắc của chúng tôi!!");
+    try {
+      const api = new callAPI();
+      const response = await api.checkLogin(username, password);
+      const token = response.token;
+      if (token) {
+        localStorage.setItem('token', token);
+        if(token === 1){
+          setMessError("Tài khoản không tồn tại!!");
+          setShowError(true);
+          setShowLoading(false);
+          return;
+        }
+        if(token === 2){
+          setMessError("Mật khẩu không đúng!!");
+          setShowError(true);
+          setShowLoading(false);
+          return;
+        }
+        const user = await api.getUserInfo(token);
+        const userRole = user.role;
+        const userID = user.userId;
+        const userStatus = user.status;
+        setLoggedInUserId(userID);
+        if (userStatus=== 0) {
+          setMessError("Tài khoản của bạn đã bị khóa do vi phạm một số nguyên tắc của chúng tôi!!");
+          setShowError(true);
+          return;
+        }
+        switch (userRole) {
+          case 2: 
+            setIsTeacher(true);
+            break;
+          case 3:
+            setIsAdmin(true);
+            break;
+          default:
+            break;
+        }
+        setLoggedIn(true);
+        setCurrentUser(user);
+        setShowLoginForm(false);
+      } else {
+        setMessError("Tên tài khoản hoặc mật khẩu không đúng!!");
         setShowError(true);
-        return;
       }
-      switch (account.role) {
-        case 2: 
-          setIsTeacher(true);
-          break;
-        case 3:
-          setIsAdmin(true);
-          break;
-        default:
-          break;
-      }
-
-      setLoggedIn(true);
-      setCurrentUser(account);
-      setShowLoginForm(false);
-    } else {
-      setMessError("Tên tài khoản hoặc mật khẩu không đúng!!");
+    } catch (error) {
+      setMessError("Đăng nhập thất bại, vui lòng thử lại!!");
       setShowError(true);
+      setShowLoading(false);
     }
   };
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
-
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const api = new callAPI();
+          const user = await api.getUserInfo(token);
+          if (user) {
+            setLoggedIn(true);
+            setCurrentUser(user);
+          }
+        } catch (error) {
+          console.error('Error getting user info:', error);
+        }
+      }
+    };
+  
+    checkToken();
+  }, []);
   const handleLoginBtn = () => {
     setShowLoginForm(!showLoginForm);
     setMessError("");
@@ -71,7 +114,13 @@ export const Navigation = (props) => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-
+  function handleLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    setLoggedIn(false);
+    setShowLoading(false);
+  }
+  
   return (
     <nav id="menu" className="navbar navbar-default navbar-fixed-top">
       <div className="container">
@@ -141,7 +190,7 @@ export const Navigation = (props) => {
                    {isAdmin && (
                    <p  className="option">Vào trang quản lý</p>
                    )}
-                   <p className="logout" onClick={() => setLoggedIn(false)}>Đăng xuất</p>
+                   <p className="logout" onClick={handleLogout}>Đăng xuất</p>
                    </div>
                   )}
                 </div>
@@ -167,9 +216,18 @@ export const Navigation = (props) => {
             )}
           </div>
           {showError && (
-            <span className="error">{messError}</span>
+            <div style={{textAlign: 'center'}}>
+            <span style={{textAlign: 'center'}} className="error">{messError}</span>
+            </div>
           )}
-          <button onClick={handleLogin}>Đăng nhập</button>
+          <button onClick={handleLogin}>
+            {!showLoading ? (
+             <> Đăng nhập </>
+            ) : (
+              <CircularProgress color="inherit" size={20} style={{ color: 'white' }}></CircularProgress>
+            )}
+            
+            </button>
         </div>
       )}
     </nav>

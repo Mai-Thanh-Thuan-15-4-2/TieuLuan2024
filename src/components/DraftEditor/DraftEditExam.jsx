@@ -3,6 +3,8 @@ import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from "dr
 import Toolbar from "../Toolbar/Toolbar";
 import "./DraftEditor.css";
 import callAPI from "../../services/callAPI";
+import styled from 'styled-components';
+
 
 const DraftEditor = ({ content, id }) => {
   const initialContent = content;
@@ -11,12 +13,22 @@ const DraftEditor = ({ content, id }) => {
     const contentState = convertFromRaw(initialContent);
     return EditorState.createWithContent(contentState);
   });
+  const [showLoading, setShowLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [newState, setNewState] = useState({});
   const editor = useRef(null);
+  const handleClickOutside = (event) => {
+    if (event.target.classList.contains('modal')) {
+        setShowModal(false);
+        setShowLoading(true);
+    }
+};
   const save = async () => {
     const id_exam = content.info.id;
+    setShowModal(true);
     try {
       await api.updateContentStateById(id, id_exam, newState.blocks);
+      setShowLoading(false);
       console.log('Content state updated successfully');
     } catch (error) {
       console.error('Error updating content state:', error);
@@ -182,8 +194,88 @@ console.log([newState.blocks])
       </div>
       <button className='button_export' onClick={save}>Lưu đề thi</button>
       <button className='button_export' onClick={() => Export2Word('exportContent', getTitleFromContent(content))}>Xuất file .doc</button>
+      {showModal && (
+                <Overlay className="modal" onClick={handleClickOutside}>
+                    <SuccessContainer>
+                        {showLoading ? (
+                            <>
+                                <Spinner />
+                                <Text>Vui lòng chờ...</Text>
+                            </>
+                        ) : (
+                            showLoading === false && (
+                                <>
+                                    <SuccessIcon>✓</SuccessIcon>
+                                    <SuccessText>Thành công!</SuccessText>
+                                </>
+                            )
+                        )}
+                    </SuccessContainer>
+                </Overlay>
+            )}
     </div>
   );
 };
 
 export default DraftEditor;
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+`;
+
+const LoadingContainer = styled.div`
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Spinner = styled.div`
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`;
+
+const Text = styled.p`
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+`;
+
+const SuccessModal = styled(Overlay)`
+  background-color: rgba(0, 0, 0, 0.7);
+`;
+
+const SuccessContainer = styled(LoadingContainer)`
+  background-color: white;
+  padding: 3rem;
+`;
+
+const SuccessIcon = styled.div`
+  font-size: 3rem;
+  color: green;
+  margin-bottom: 1rem;
+`;
+
+const SuccessText = styled.p`
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
