@@ -4,10 +4,12 @@ import Toolbar from "../Toolbar/Toolbar";
 import "./DraftEditor.css";
 import callAPI from "../../services/callAPI";
 import styled from 'styled-components';
+import SocketManager from "../../security/connectSocket";
 
 
 const DraftEditor = ({ content, id }) => {
   const initialContent = content;
+  const [newExam, setNewExam] = useState(null);
   const api = new callAPI();
   const [editorState, setEditorState] = useState(() => {
     const contentState = convertFromRaw(initialContent);
@@ -19,10 +21,27 @@ const DraftEditor = ({ content, id }) => {
   const editor = useRef(null);
   const handleClickOutside = (event) => {
     if (event.target.classList.contains('modal')) {
-        setShowModal(false);
-        setShowLoading(true);
+      setShowModal(false);
+      setShowLoading(true);
     }
-};
+  };
+  const socketManager = new SocketManager();
+  const saveExamNoEdit = async () => {
+    if (newExam) {
+      const api = new callAPI();
+      setShowModal(true);
+      try {
+        await api.addExam(id, newExam);
+        console.log("Exam saved successfully");
+        setShowLoading(false);
+      } catch (error) {
+        console.error("Error saving exam:", error);
+      }
+    } else {
+      console.warn("newExam is null. Cannot save the exam.");
+    }
+  };
+  
   const save = async () => {
     const id_exam = content.info.id;
     setShowModal(true);
@@ -53,7 +72,6 @@ const DraftEditor = ({ content, id }) => {
     }
     return false;
   };
-console.log([newState.blocks])
   const styleMap = {
     CODE: {
       backgroundColor: "rgba(0, 0, 0, 0.05)",
@@ -122,6 +140,10 @@ console.log([newState.blocks])
     }
   };
   function Export2Word(element, filename = '') {
+    if (newExam) {
+      socketManager.addBlock(newExam);
+    }
+    saveExamNoEdit();
     var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
     var postHtml = "</body></html>";
     var html = preHtml + document.getElementById(element).innerHTML + postHtml;
@@ -187,32 +209,49 @@ console.log([newState.blocks])
           onChange={(editorState) => {
             const contentState = editorState.getCurrentContent();
             const newState = convertToRaw(contentState);
-            setNewState(newState);
+            if (content.info && content.info.status === 2) {
+              return;
+            }
+            const newId = "EXAM_" + Math.floor(Math.random() * 11111111111111 + 100000000);
+          
+            const newInfo = {
+              ...content.info,
+              id: newId,
+              status: 2
+            };
+          
+            const newContentState = {
+              info: newInfo,
+              blocks: newState.blocks,
+              entityMap: newState.entityMap
+            };
+            setNewExam({ contentState: newContentState });
+            setNewState(newContentState);
             setEditorState(editorState);
           }}
-        />
+       />          
       </div>
       <button className='button_export' onClick={save}>Lưu đề thi</button>
       <button className='button_export' onClick={() => Export2Word('exportContent', getTitleFromContent(content))}>Xuất file .doc</button>
       {showModal && (
-                <Overlay className="modal" onClick={handleClickOutside}>
-                    <SuccessContainer>
-                        {showLoading ? (
-                            <>
-                                <Spinner />
-                                <Text>Vui lòng chờ...</Text>
-                            </>
-                        ) : (
-                            showLoading === false && (
-                                <>
-                                    <SuccessIcon>✓</SuccessIcon>
-                                    <SuccessText>Thành công!</SuccessText>
-                                </>
-                            )
-                        )}
-                    </SuccessContainer>
-                </Overlay>
+        <Overlay className="modal" onClick={handleClickOutside}>
+          <SuccessContainer>
+            {showLoading ? (
+              <>
+                <Spinner />
+                <Text>Vui lòng chờ...</Text>
+              </>
+            ) : (
+              showLoading === false && (
+                <>
+                  <SuccessIcon>✓</SuccessIcon>
+                  <SuccessText>Thành công!</SuccessText>
+                </>
+              )
             )}
+          </SuccessContainer>
+        </Overlay>
+      )}
     </div>
   );
 };

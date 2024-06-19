@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import Delete from '@mui/icons-material/Delete';
 import callAPI from '../../services/callAPI';
 import Restore from '@mui/icons-material/Restore';
+import FolderDeleteIcon from '@mui/icons-material/FolderDelete';
+import StarIcon from '@mui/icons-material/Star';
 
 
 const DetailCard = styled(Card)(({ theme }) => ({
@@ -124,7 +126,7 @@ const CardExam = ({ id, name, subject, totalquestion, createdate, editdate, link
         }
         return str;
     };
-   
+
     return (
         <div style={{ position: 'relative' }}>
             <Modal
@@ -135,7 +137,7 @@ const CardExam = ({ id, name, subject, totalquestion, createdate, editdate, link
             >
                 <div className={stylecss.modalClose}>
                     <div style={{ textAlign: 'center' }}>
-                        {status === 1 ? (
+                        {(status === 1 || status === 2) ? (
                             <>
                                 <Typography className={stylecss.modalClose_title} variant="p" id="confirm-close-title" gutterBottom>
                                     Xóa đề thi <span style={{ color: 'green' }}>{name}</span>
@@ -154,7 +156,7 @@ const CardExam = ({ id, name, subject, totalquestion, createdate, editdate, link
                     </div>
                     <div className={stylecss.modalClose_actions}>
                         <button className={stylecss.button_close} onClick={() => setConfirmCloseModal(false)}>Quay lại</button>
-                        {status === 1 ? (
+                        {(status === 1 || status === 2) ? (
                             <button className={stylecss.button_confirm} onClick={handleRemoveExamFromAccount}>Xóa</button>
                         ) : (
                             <button className={stylecss.button_confirm} style={{ backgroundColor: 'green' }} onClick={handleRestoreExamFromAccount}>Khôi phục</button>
@@ -185,12 +187,20 @@ const CardExam = ({ id, name, subject, totalquestion, createdate, editdate, link
                 <div className={stylecss.examTitle}>
                     <p className={stylecss.examName}>{truncate(name, 25)}</p>
                     <IconInfo>
+                        {status === 2 &&
+                            <>
+                                <StarIcon style={{ color: '#DBBA00' }} />
+                                <span style={{ marginRight: '5px' }}></span>
+                            </>
+                        }
                         <InfoIcon onClick={handleInfoClick} />
                         {isDelete && (
                             <>
                                 <span style={{ marginRight: '5px' }}></span>
-                                {status === 1 ? (
-                                    <Delete style={{ color: 'red' }} onClick={() => setConfirmCloseModal(true)} />
+                                {(status === 1) ? (
+                                    <FolderDeleteIcon style={{ color: '#F03405' }} onClick={() => setConfirmCloseModal(true)} />
+                                ) : (status === 2) ? (
+                                    <Delete style={{ color: 'red' }} onClick={() => setOpenDeleteModal(true)} />
                                 ) : (
                                     <>
                                         <Restore style={{ color: 'green' }} onClick={() => setConfirmCloseModal(true)} />
@@ -199,14 +209,15 @@ const CardExam = ({ id, name, subject, totalquestion, createdate, editdate, link
                                     </>
                                 )}
                             </>
+
                         )}
                     </IconInfo>
                 </div>
                 <ButtonWrapper>
-                    {status === 1 && (
-                    <Link to={link}>
-                        <CustomButton>Tùy chọn</CustomButton>
-                    </Link>
+                    {(status === 1 || status === 2) && (
+                        <Link to={link}>
+                            <CustomButton>Tùy chọn</CustomButton>
+                        </Link>
                     )}
                 </ButtonWrapper>
                 <div className={stylecss.examDetails}>

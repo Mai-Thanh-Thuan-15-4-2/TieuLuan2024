@@ -4,8 +4,11 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Link } from 'react-router-dom';
 import callAPI from "../../services/callAPI";
 import CircularProgress from '@mui/material/CircularProgress';
+import SocketManager from "../../security/connectSocket";
+
 
 export const Navigation = (props) => {
+  const [receivedMessage, setReceivedMessage] = useState('');
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +22,16 @@ export const Navigation = (props) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [loggedInUserId, setLoggedInUserId] = useState(null);
+  const socketManager = new SocketManager();
+  useEffect(() => {
+    socketManager.addEventListener('hello', (message) => {
+      setReceivedMessage(message);
+    });
 
+    return () => {
+      socketManager.disconnect();
+    };
+  }, []);
   const handleLogin = async () => {
     setShowLoading(true);
     if (!username || !password) {
@@ -34,13 +46,13 @@ export const Navigation = (props) => {
       const token = response.token;
       if (token) {
         localStorage.setItem('token', token);
-        if(token === 1){
+        if (token === 1) {
           setMessError("Tài khoản không tồn tại!!");
           setShowError(true);
           setShowLoading(false);
           return;
         }
-        if(token === 2){
+        if (token === 2) {
           setMessError("Mật khẩu không đúng!!");
           setShowError(true);
           setShowLoading(false);
@@ -51,13 +63,13 @@ export const Navigation = (props) => {
         const userID = user.userId;
         const userStatus = user.status;
         setLoggedInUserId(userID);
-        if (userStatus=== 0) {
+        if (userStatus === 0) {
           setMessError("Tài khoản của bạn đã bị khóa do vi phạm một số nguyên tắc của chúng tôi!!");
           setShowError(true);
           return;
         }
         switch (userRole) {
-          case 2: 
+          case 2:
             setIsTeacher(true);
             break;
           case 3:
@@ -98,7 +110,7 @@ export const Navigation = (props) => {
         }
       }
     };
-  
+
     checkToken();
   }, []);
   const handleLoginBtn = () => {
@@ -120,7 +132,7 @@ export const Navigation = (props) => {
     setLoggedIn(false);
     setShowLoading(false);
   }
-  
+
   return (
     <nav id="menu" className="navbar navbar-default navbar-fixed-top">
       <div className="container">
@@ -171,7 +183,7 @@ export const Navigation = (props) => {
             </li>
             <li>
               {loggedIn ? (
-                  <div className="dropdown">
+                <div className="dropdown">
                   <span
                     onClick={() => setShowDropdown(!showDropdown)}
                     className="username"
@@ -179,29 +191,29 @@ export const Navigation = (props) => {
                     Xin chào!!, {currentUser.username} 🌻🌻
                   </span>
                   {showDropdown && (
-                   <div className="dropdown-content">
-                   <p className="option">Cá nhân</p>
-                   <p className="option">Điều khoản</p>
-                   {isTeacher && (
-                  <Link to={`/teacher/${loggedInUserId}`}>
-                   <p className="option">Quản lý câu hỏi</p>
-                   </Link>
-                   )}
-                   {isAdmin && (
-                   <p  className="option">Vào trang quản lý</p>
-                   )}
-                   <p className="logout" onClick={handleLogout}>Đăng xuất</p>
-                   </div>
+                    <div className="dropdown-content">
+                      <p className="option">Cá nhân</p>
+                      <p className="option">Điều khoản</p>
+                      {isTeacher && (
+                        <Link to={`/teacher/${loggedInUserId}`}>
+                          <p className="option">Quản lý câu hỏi</p>
+                        </Link>
+                      )}
+                      {isAdmin && (
+                        <p className="option">Vào trang quản lý</p>
+                      )}
+                      <p className="logout" onClick={handleLogout}>Đăng xuất</p>
+                    </div>
                   )}
                 </div>
               ) : (
                 <button className="btn-signin" onClick={handleLoginBtn}>Đăng nhập</button>
               )}
             </li>
-     
+
           </ul>
-          </div>
         </div>
+      </div>
       {showLoginForm && (
         <div className="login-form">
           <h5 className="title-signin"> Đăng nhập </h5>
@@ -216,18 +228,18 @@ export const Navigation = (props) => {
             )}
           </div>
           {showError && (
-            <div style={{textAlign: 'center'}}>
-            <span style={{textAlign: 'center'}} className="error">{messError}</span>
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ textAlign: 'center' }} className="error">{messError}</span>
             </div>
           )}
           <button onClick={handleLogin}>
             {!showLoading ? (
-             <> Đăng nhập </>
+              <> Đăng nhập </>
             ) : (
               <CircularProgress color="inherit" size={20} style={{ color: 'white' }}></CircularProgress>
             )}
-            
-            </button>
+
+          </button>
         </div>
       )}
     </nav>

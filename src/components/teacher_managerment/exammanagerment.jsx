@@ -88,13 +88,13 @@ const ExamManagement = () => {
         let result = [];
         if (account && account.listexams) {
             account.listexams.forEach(exam => {
-                if (exam.contentState.info && exam.contentState.info.status === 0) {
+                if (exam.contentState.info && exam.contentState.info.status !== 1 && exam.contentState.info.status !== 2) {
                     result.push(exam);
                 }
             });
         }
         return result;
-    };
+    };    
     const getSubjectInfo = (subjectId) => {
         return mainSubjects.find(subject => subject.id === subjectId);
     };

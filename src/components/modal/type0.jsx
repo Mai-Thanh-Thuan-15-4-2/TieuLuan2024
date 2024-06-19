@@ -36,6 +36,9 @@ const Type0 = () => {
         fetchAccountAndMainSubjects();
     }, [id]);
     const getCategoriesByIds = (ids) => {
+        if (!Array.isArray(ids)) {
+            ids = [ids];
+          }
         const selectedCategories = [];
         ids.forEach(id => {
             const selectedMainSubject = mainSubjects.find(subject => subject.id === id_sub);

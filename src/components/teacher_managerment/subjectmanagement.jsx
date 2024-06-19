@@ -376,7 +376,7 @@ const SubjectManagement = () => {
                             >
                                 Quản lý chủ đề
                             </Typography>
-                            <ModalTopicManage categories={categories}></ModalTopicManage>
+                            <ModalTopicManage categories={categories} id={id}></ModalTopicManage>
                         </div>
                     </>
                 </Modal>

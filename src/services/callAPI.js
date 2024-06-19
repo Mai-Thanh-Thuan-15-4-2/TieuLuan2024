@@ -1,10 +1,8 @@
 
-
 class callAPI {
     constructor() {
         this.baseUrl = 'http://localhost:4000/api';
     }
-
     async fetchHeader() {
         try {
             const response = await fetch(`${this.baseUrl}/header`);

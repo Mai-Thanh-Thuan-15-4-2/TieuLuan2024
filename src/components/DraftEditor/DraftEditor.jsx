@@ -7,6 +7,7 @@ import callAPI from "../../services/callAPI";
 import styled from 'styled-components';
 import { useParams, Link } from 'react-router-dom';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
+import SocketManager from "../../security/connectSocket";
 
 const DropdownContainer = styled.div`
   margin-top: 10px;
@@ -82,12 +83,13 @@ const Dropdown = ({ options, value, onChange }) => {
 };
 
 
-const DraftEditor = ({ title, questions, create, subject, nextExamId, closeEditExam}) => {
+const DraftEditor = ({ title, questions, create, subject, nextExamId, closeEditExam }) => {
   const options = [
     { label: 'Trộn câu hỏi', value: '1' },
     { label: 'Trộn đáp án', value: '2' },
     { label: 'Trộn cả hai', value: '3' }
   ];
+  const socketManager = new SocketManager();
   const { id } = useParams();
   const [showLoading, setShowLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -107,7 +109,7 @@ const DraftEditor = ({ title, questions, create, subject, nextExamId, closeEditE
     if (initialContent !== null) {
       setNewExam({ contentState: initialContent });
     }
-  }, [initialContent]); 
+  }, [initialContent]);
   function shuffleQuestions(array) {
     if (!Array.isArray(array)) {
       console.error("shuffleMultipleChoiceQuestions: Input is not an array.");
@@ -220,7 +222,7 @@ const DraftEditor = ({ title, questions, create, subject, nextExamId, closeEditE
       console.error("mergeQuestions: Input 'questions' is not an array.");
       return [];
     }
-  
+
     let shuffledQuestions = [];
     if (shuffleType === '1') {
       shuffledQuestions = shuffleQuestions(questions);
@@ -229,7 +231,7 @@ const DraftEditor = ({ title, questions, create, subject, nextExamId, closeEditE
     } else if (shuffleType === '3') {
       shuffledQuestions = shuffleQuestionsAndAnswers(questions);
     }
-  
+
     const mergedQuestions = shuffledQuestions.map((question, index) => ({
       ...question,
       id: `CTMT${index + 1}`,
@@ -237,13 +239,25 @@ const DraftEditor = ({ title, questions, create, subject, nextExamId, closeEditE
     }));
     setListQuestion(mergedQuestions);
     return mergedQuestions;
-  }  
+  }
 
   const saveExam = async () => {
     const api = new callAPI();
     setShowModal(true);
     try {
       await api.addExam(id, newExam);
+      console.log("Exam saved successfully");
+      setShowLoading(false);
+    } catch (error) {
+      console.error("Error saving exam:", error);
+    }
+  };
+   const saveExamNoEdit = async () => {
+    const api = new callAPI();
+    setShowModal(true);
+    try {
+      await api.addExam(id, newExam);
+      await api.updateStatusExam(id, nextExamId, 2);
       console.log("Exam saved successfully");
       setShowLoading(false);
     } catch (error) {
@@ -579,8 +593,8 @@ const DraftEditor = ({ title, questions, create, subject, nextExamId, closeEditE
       info: {
         id: nextExamId,
         status: 1,
-        create_date: create,
-        edit_date: new Date(),
+        create_date: formatTimeToISO(create),
+        edit_date: formatTimeToISO(new Date()),
         subject: subject,
       },
       entityMap: {},
@@ -610,7 +624,17 @@ const DraftEditor = ({ title, questions, create, subject, nextExamId, closeEditE
     }
     return false;
   };
+  function formatTimeToISO(timeString) {
+    const date = new Date(timeString);
 
+    if (isNaN(date.getTime())) {
+      console.error('Invalid time string:', timeString);
+      return null;
+    }
+
+    const isoString = date.toISOString();
+    return isoString;
+  }
   const styleMap = {
     CODE: {
       backgroundColor: "rgba(0, 0, 0, 0.05)",
@@ -684,6 +708,10 @@ const DraftEditor = ({ title, questions, create, subject, nextExamId, closeEditE
     }
   };
   function Export2Word(element, filename = '') {
+     saveExamNoEdit();
+    if (newExam) {
+      socketManager.addBlock(newExam);
+    }
     var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
     var postHtml = "</body></html>";
     var html = preHtml + document.getElementById(element).innerHTML + postHtml;
@@ -744,27 +772,31 @@ const DraftEditor = ({ title, questions, create, subject, nextExamId, closeEditE
           }
         `}
         </style>
-        {initialContent && (
-          <Editor
-            ref={editor}
-            handleKeyCommand={handleKeyCommand}
-            editorState={editorState}
-            customStyleMap={styleMap}
-            blockStyleFn={myBlockStyleFn}
-            onChange={(editorState) => {
-              const contentState = editorState.getCurrentContent();
-              const newState = convertToRaw(contentState);
+        <Editor
+          ref={editor}
+          handleKeyCommand={handleKeyCommand}
+          editorState={editorState}
+          customStyleMap={styleMap}
+          blockStyleFn={myBlockStyleFn}
+          onChange={(editorState) => {
+            const contentState = editorState.getCurrentContent();
+            const newState = convertToRaw(contentState);
+            if (initialContent) {
               const { info, ...rest } = initialContent;
               const newContentState = {
                 info: info,
                 entityMap: newState.entityMap,
                 blocks: newState.blocks
               };
+              if (newContentState.info.status === 2) {
+                return;
+              }
+
               setNewExam({ contentState: newContentState });
-              setEditorState(editorState);
-            }}
-          />
-        )}
+            }
+            setEditorState(editorState);
+          }}
+        />
       </div>
       <Dropdown options={options} value={shuffleType} onChange={handleShuffleChange} />
       <button className='button_export' onClick={saveExam}>Lưu đề thi</button>

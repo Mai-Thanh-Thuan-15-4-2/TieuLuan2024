@@ -232,9 +232,22 @@
           "listquestions": []
         },
         {
-          "id": "214242",
+          "id": "214441",
           "status": 1,
-          "listquestions": []
+          "listquestions": [
+            "CTDL1",
+            "CTDL2",
+            "CTDL3",
+            "CTDL4",
+            "CTDL5",
+            "CTDL6",
+            "CTDL7",
+            "CTDL8",
+            "CTDL9",
+            "CTDL10",
+            "CTDL11",
+            "CTDL12"
+          ]
         },
         {
           "id": "214251",
@@ -3073,7 +3086,33 @@
         "name": "Toán rời rạc",
         "year": "2",
         "credits": "3",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "TRR_cate1",
+            "content": "Cơ sở logic",
+            "status": 1
+          },
+          {
+            "id": "TRR_cate2",
+            "content": "Phương pháp đếm",
+            "status": 1
+          },
+          {
+            "id": "TRR_cate3",
+            "content": "Quan hệ",
+            "status": 1
+          },
+          {
+            "id": "TRR_cate4",
+            "content": "Đại số Bool và hàm Bool",
+            "status": 1
+          },
+          {
+            "id": "TRR_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -3081,16 +3120,61 @@
         "name": "Lập trình cơ bản",
         "year": "1",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "LTCB_cate1",
+            "content": "Lập trình hướng đối tượng",
+            "status": 1
+          },
+          {
+            "id": "LTCB_cate2",
+            "content": "Nhập môn Java",
+            "status": 1
+          },
+          {
+            "id": "LTCB_cate3",
+            "content": "Nền tảng của ngôn ngữ Java",
+            "status": 1
+          },
+          {
+            "id": "LTCB_cate4",
+            "content": "Các gói và giao diện",
+            "status": 1
+          },
+          {
+            "id": "LTCB_cate5",
+            "content": "AWT",
+            "status": 1
+          },
+          {
+            "id": "LTCB_cate6",
+            "content": "Applets",
+            "status": 1
+          },
+          {
+            "id": "LTCB_cate7",
+            "content": "Xử lý ngoại lệ",
+            "status": 1
+          },
+          {
+            "id": "LTCB_cate8",
+            "content": "Đa luồng",
+            "status": 1
+          },
+          {
+            "id": "LTCB_cate9",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
-      },
+      },      
       {
         "id": "214331",
         "name": "Lập trình nâng cao",
         "year": "2",
         "credits": "4",
-        "listcategory": [],
-        "questions": []
+        "listcategory": []
       },
       {
         "id": "214231",
@@ -6993,7 +7077,38 @@
         "name": "Nhập môn hệ điều hành",
         "year": "1",
         "credits": "3",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "NMHD_cate1",
+            "content": "Cấu trúc của hệ thống máy tính",
+            "status": 1
+          },
+          {
+            "id": "NMHD_cate2",
+            "content": "Tổng quan về hệ điều hành",
+            "status": 1
+          },
+          {
+            "id": "NMHD_cate3",
+            "content": "Giới thiệu một số hệ điều hành cụ thể",
+            "status": 1
+          },
+          {
+            "id": "NMHD_cate4",
+            "content": "Hệ thống quản lý tập tin",
+            "status": 1
+          },
+          {
+            "id": "NMHD_cate5",
+            "content": "Hệ thống quản lý nhập/xuất",
+            "status": 1
+          },
+          {
+            "id": "NMHD_cate6",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7004,15 +7119,38 @@
         "listcategory": [
           {
             "id": "MMTCB_cate1",
-            "content": "Chủ đề 1"
+            "content": "Tổng quan về mạng máy tính",
+            "status": 1
           },
           {
             "id": "MMTCB_cate2",
-            "content": "Chủ đề 3"
+            "content": "Cấu trúc của mạng",
+            "status": 1
           },
           {
             "id": "MMTCB_cate3",
-            "content": "Chủ đề 3"
+            "content": " Phương tiện truyền dẫn và thiết bị mạng",
+            "status": 1
+          },
+          {
+            "id": "MMTCB_cate4",
+            "content": "Data link",
+            "status": 1
+          },
+          {
+            "id": "MMTCB_cate5",
+            "content": "TCP/IP",
+            "status": 1
+          },
+          {
+            "id": "MMTCB_cate6",
+            "content": "Khái niệm cơ bản về bảo mật mạng",
+            "status": 1
+          },
+          {
+            "id": "MMTCB_cate7",
+            "content": "Chủ đề khác....",
+            "status": 1
           }
         ],
         "questions": [
@@ -7022,7 +7160,6 @@
             "viewers": 1,
             "author": "1003",
             "create_at": "1/1/2024",
-            
             "type": 1,
             "status": 1,
             "category": "MMTCB_cate1",
@@ -7054,7 +7191,38 @@
         "name": "Giao tiếp người máy",
         "year": "2",
         "credits": "3",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "GTNM_cate1",
+            "content": "Giới thiệu về nguyên tắc thiết kế giao diện",
+            "status": 1
+          },
+          {
+            "id": "GTNM_cate2",
+            "content": "Cách tiếp cận trong thiết kế giao diện và xây dựng sản phẩm",
+            "status": 1
+          },
+          {
+            "id": "GTNM_cate3",
+            "content": "Giới thiệu về các Control trong GUI và viết ứng dụng AJAX đơn giản",
+            "status": 1
+          },
+          {
+            "id": "GTNM_cate4",
+            "content": "Một số pattern và lỗi thường gặp trong thiết kế giao diện",
+            "status": 1
+          },
+          {
+            "id": "GTNM_cate5",
+            "content": "Giới thiệu về Portal và xây dựng portlet",
+            "status": 1
+          },
+          {
+            "id": "GTNM_cate6",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7062,15 +7230,401 @@
         "name": "Cấu trúc dữ liệu",
         "year": "2",
         "credits": "4",
-        "listcategory": [],
-        "questions": []
+        "listcategory": [
+          {
+            "id": "CTDL_cate1",
+            "content": "Giới thiệu môn học",
+            "status": 1
+          },
+          {
+            "id": "CTDL_cate2",
+            "content": "Mảng, danh sách liên kết, hàng đợi, ngăn xếp",
+            "status": 1
+          },
+          {
+            "id": "CTDL_cate3",
+            "content": "Đệ quy",
+            "status": 1
+          },
+          {
+            "id": "CTDL_cate4",
+            "content": "Đánh giá độ phức tạp thuật toán",
+            "status": 1
+          },
+          {
+            "id": "CTDL_cate5",
+            "content": "Sắp xếp",
+            "status": 1
+          },
+          {
+            "id": "CTDL_cate6",
+            "content": "Giới thiệu về đồ thị",
+            "status": 1
+          },
+          {
+            "id": "CTDL_cate7",
+            "content": "Cây và duyệt cây",
+            "status": 1
+          },
+          {
+            "id": "CTDL_cate8",
+            "content": "Tìm ki m nhị phân",
+            "status": 1
+          },
+          {
+            "id": "CTDL_cate9",
+            "content": "Cây bao trùm nhỏ nhất và đƣờng đi ng n nhất",
+            "status": 1
+          },
+          {
+            "id": "CTDL_cate10",
+            "content": "Các kiểu dữ liệu khác",
+            "status": 1
+          },
+          {
+            "id": "CTDL_cate11",
+            "content": "Thiết kế thuật toán",
+            "status": 1
+          },
+          {
+            "id": "CTDL_cate12",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
+        "questions": [
+          {
+            "id": "CTDL1",
+            "level": 1,
+            "viewers": 1,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "type": 1,
+            "status": 1,
+            "category": ["CTDL_cate1"],
+            "text": "Môn học Cấu trúc dữ liệu nhằm mục đích gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Giúp sinh viên hiểu rõ cách tổ chức và quản lý dữ liệu",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Dạy sinh viên cách sử dụng phần mềm văn phòng"
+              },
+              {
+                "id": "a3",
+                "text": "Cung cấp kiến thức về thiết kế đồ họa"
+              },
+              {
+                "id": "a4",
+                "text": "Hướng dẫn cách kết nối mạng máy tính"
+              }
+            ]
+          },
+          {
+            "id": "CTDL2",
+            "level": 1,
+            "viewers": 1,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "type": 1,
+            "status": 1,
+            "category": ["CTDL_cate1", "CTDL_cate2"],
+            "text": "Trong môn Cấu trúc dữ liệu, sinh viên sẽ học về các loại cấu trúc dữ liệu nào?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Mảng, danh sách liên kết, hàng đợi, ngăn xếp",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Cây quyết định, mạng nơ-ron, học máy"
+              },
+              {
+                "id": "a3",
+                "text": "Thiết kế web, phát triển ứng dụng di động"
+              },
+              {
+                "id": "a4",
+                "text": "Bảo mật mạng, an ninh mạng"
+              }
+            ]
+          },
+          {
+            "id": "CTDL3",
+            "level": 1,
+            "viewers": 1,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "type": 4,
+            "status": 1,
+            "category": ["CTDL_cate1"],
+            "text": "Đánh giá độ phức tạp thuật toán là gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Đo lường hiệu quả của thuật toán dựa trên thời gian và không gian sử dụng",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Xác định xem thuật toán có thể chạy trên hệ điều hành nào"
+              },
+              {
+                "id": "a3",
+                "text": "Kiểm tra xem thuật toán có lỗi hay không"
+              },
+              {
+                "id": "a4",
+                "text": "Đo lường độ dài của mã nguồn thuật toán"
+              }
+            ]
+          },
+          {
+            "id": "CTDL4",
+            "level": 1,
+            "viewers": 1,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "type": 3,
+            "status": 1,
+            "category": ["CTDL_cate1"],
+            "text": "Cấu trúc dữ liệu là .......... dữ liệu để có thể truy cập và sử dụng hiệu quả.",
+            "answers": [
+              {"word": "dữ", "index": 6},
+              {"word": "liệu", "index": 7},
+              {"word": "tổ", "index": 8},
+              {"word": "chức", "index": 9},
+              {"word": "lưu", "index": 10},
+              {"word": "trữ", "index": 11}
+            ]
+          },
+          {
+            "id": "CTDL5",
+            "level": 1,
+            "viewers": 1,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "type": 3,
+            "status": 1,
+            "category": ["CTDL_cate1"],
+            "text": "Thuật toán là một .............. cụ thể hoặc thực hiện một nhiệm vụ nào đó.",
+            "answers": [
+              {"word": "dãy", "index": 4},
+              {"word": "các", "index": 5},
+              {"word": "bước", "index": 6},
+              {"word": "giải", "index": 7},
+              {"word": "quyết", "index": 8},
+              {"word": "vấn", "index": 9},
+              {"word": "đề", "index": 10}
+            ]
+          },
+          {
+            "id": "CTDL6",
+            "level": 1,
+            "viewers": 1,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "type": 3,
+            "status": 1,
+            "category": ["CTDL_cate1", "CTDL_cate4"],
+            "text": "Việc đánh giá .............. nhằm xác định hiệu quả và khả năng thực thi của thuật toán đó trong thực tế.",
+            "answers": [
+              {"word": "độ", "index": 3},
+              {"word": "phức", "index": 4},
+              {"word": "tạp", "index": 5},
+              {"word": "thuật", "index": 6},
+              {"word": "toán", "index": 7}
+            ]
+          },
+          {
+            "id": "CTDL7",
+            "level": 2,
+            "viewers": 6,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "type": 2,
+            "status": 1,
+            "category": ["CTDL_cate1"],
+            "text": "Cấu trúc dữ liệu 'ngăn xếp' (stack) và 'hàng đợi' (queue) có những đặc điểm nào sau đây?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Ngăn xếp hoạt động theo nguyên tắc LIFO (Last In, First Out)",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Hàng đợi hoạt động theo nguyên tắc FIFO (First In, First Out)",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Ngăn xếp và hàng đợi đều hoạt động theo nguyên tắc LIFO (Last In, First Out)",
+                "correct": false
+              },
+              {
+                "id": "a4",
+                "text": "Ngăn xếp và hàng đợi đều hoạt động theo nguyên tắc FIFO (First In, First Out)",
+                "correct": false
+              }
+            ]
+          },
+          {
+            "id": "CTDL8",
+            "level": 1,
+            "viewers": 6,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "type": 2,
+            "status": 1,
+            "category": ["CTDL_cate1"],
+            "text": "Chọn các đặc điểm đúng về mảng (array):",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Lưu trữ các phần tử cùng kiểu dữ liệu",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Có thể thay đổi kích thước sau khi khởi tạo",
+                "correct": false
+              },
+              {
+                "id": "a3",
+                "text": "Truy cập các phần tử bằng chỉ số",
+                "correct": true
+              },
+              {
+                "id": "a4",
+                "text": "Lưu trữ các phần tử theo thứ tự không liên tục",
+                "correct": false
+              }
+            ]
+          },
+          {
+            "id": "CTDL9",
+            "level": 1,
+            "viewers": 6,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "type": 2,
+            "status": 1,
+            "category": ["CTDL_cate1"],
+            "text": "Đặc điểm của thuật toán tốt là gì?",
+            "answers": [
+              {
+                "id": "a1",
+                "text": "Độ phức tạp thời gian thấp",
+                "correct": true
+              },
+              {
+                "id": "a2",
+                "text": "Độ phức tạp không gian thấp",
+                "correct": true
+              },
+              {
+                "id": "a3",
+                "text": "Phải được viết bằng ngôn ngữ lập trình cụ thể",
+                "correct": false
+              },
+              {
+                "id": "a4",
+                "text": "Phải có số lượng bước thực hiện lớn",
+                "correct": false
+              }
+            ]
+          },
+          {
+            "id": "CTDL10",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "type": 6,
+            "status": 1,
+            "category": ["CTDL_cate1"],
+            "text": "Thuật toán là gì? Hãy nêu ví dụ về một thuật toán đơn giản và giải thích cách nó hoạt động.",
+            "answer": "Trong câu trả lời của bạn, hãy định nghĩa thuật toán, các đặc điểm của một thuật toán tốt (độ chính xác, hiệu quả thời gian và không gian). Nêu ví dụ về một thuật toán đơn giản như thuật toán tìm kiếm tuyến tính hoặc thuật toán sắp xếp nổi bọt, và giải thích từng bước trong quá trình hoạt động của thuật toán đó."
+          },
+          {
+            "id": "CTDL11",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "type": 6,
+            "status": 1,
+            "category": ["CTDL_cate1"],
+            "text": "Tại sao việc đánh giá độ phức tạp của thuật toán lại quan trọng? Hãy mô tả cách đánh giá độ phức tạp thời gian và không gian của một thuật toán.",
+            "answer": "Trong câu trả lời của bạn, hãy nêu lý do tại sao việc đánh giá độ phức tạp của thuật toán lại cần thiết để xác định hiệu suất và khả năng mở rộng của thuật toán. Mô tả các khái niệm cơ bản về độ phức tạp thời gian (Big O notation, thời gian thực hiện trong trường hợp tốt nhất, trung bình và tệ nhất) và độ phức tạp không gian (bộ nhớ sử dụng trong quá trình thực hiện thuật toán)."
+          },
+          {
+            "id": "CTDL12",
+            "level": 5,
+            "viewers": 0,
+            "author": "1002",
+            "created_at": "1/1/2024",
+            "type": 6,
+            "status": 1,
+            "category": ["CTDL_cate1"],
+            "text": "Thuật toán là gì? Hãy nêu ví dụ về một thuật toán đơn giản và giải thích cách nó hoạt động.",
+            "answer": "Trong câu trả lời của bạn, hãy định nghĩa thuật toán, các đặc điểm của một thuật toán tốt (độ chính xác, hiệu quả thời gian và không gian). Nêu ví dụ về một thuật toán đơn giản như thuật toán tìm kiếm tuyến tính hoặc thuật toán sắp xếp nổi bọt, và giải thích từng bước trong quá trình hoạt động của thuật toán đó."
+          }          
+                                               
+        ]
       },
       {
         "id": "214251",
         "name": "Hệ điều hành nâng cao",
         "year": "2",
         "credits": "3",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "HDHNC_cate1",
+            "content": "Giới thiệu về hệ điều hành nâng cao",
+            "status": 1
+          },
+          {
+            "id": "HDHNC_cate2",
+            "content": "Các khái niệm cơ bản về hệ điều hành",
+            "status": 1
+          },
+          {
+            "id": "HDHNC_cate3",
+            "content": "Các thành phần của hệ điều hành",
+            "status": 1
+          },
+          {
+            "id": "HDHNC_cate4",
+            "content": "Quản lý bộ nhớ",
+            "status": 1
+          },
+          {
+            "id": "HDHNC_cate5",
+            "content": "Quản lý tài nguyên",
+            "status": 1
+          },
+          {
+            "id": "HDHNC_cate6",
+            "content": "Quản lý tiến trình",
+            "status": 1
+          },
+          {
+            "id": "HDHNC_cate7",
+            "content": "Quản lý file",
+            "status": 1
+          },
+          {
+            "id": "HDHNC_cate8",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7078,7 +7632,58 @@
         "name": "Lý thuyết đồ thị",
         "year": "2",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "LTDTH_cate1",
+            "content": "Giới thiệu về lý thuyết đồ thị",
+            "status": 1
+          },
+          {
+            "id": "LTDTH_cate2",
+            "content": "Đồ thị vô hướng",
+            "status": 1
+          },
+          {
+            "id": "LTDTH_cate3",
+            "content": "Đồ thị có hướng",
+            "status": 1
+          },
+          {
+            "id": "LTDTH_cate4",
+            "content": "Cây",
+            "status": 1
+          },
+          {
+            "id": "LTDTH_cate5",
+            "content": "Đồ thị liên thông",
+            "status": 1
+          },
+          {
+            "id": "LTDTH_cate6",
+            "content": "Đồ thị phân chia",
+            "status": 1
+          },
+          {
+            "id": "LTDTH_cate7",
+            "content": "Đồ thị Euler",
+            "status": 1
+          },
+          {
+            "id": "LTDTH_cate8",
+            "content": "Đồ thị Hamilton",
+            "status": 1
+          },
+          {
+            "id": "LTDTH_cate9",
+            "content": "Đồ thị màu",
+            "status": 1
+          },
+          {
+            "id": "LTDTH_cate10",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7086,7 +7691,33 @@
         "name": "Thiết kế hướng đối tượng",
         "year": "2",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "TKHDO_cate1",
+            "content": "Giới thiệu về thiết kế hướng đối tượng",
+            "status": 1
+          },
+          {
+            "id": "TKHDO_cate2",
+            "content": "Các nguyên tắc thiết kế hướng đối tượng",
+            "status": 1
+          },
+          {
+            "id": "TKHDO_cate3",
+            "content": "Các mẫu thiết kế hướng đối tượng",
+            "status": 1
+          },
+          {
+            "id": "TKHDO_cate4",
+            "content": "Thiết kế hướng đối tượng trong thực tế",
+            "status": 1
+          },
+          {
+            "id": "TKHDO_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7094,7 +7725,33 @@
         "name": "Nhập môn cơ sở dữ liệu",
         "year": "2",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "NMCSDL_cate1",
+            "content": "Giới thiệu về cơ sở dữ liệu",
+            "status": 1
+          },
+          {
+            "id": "NMCSDL_cate2",
+            "content": "Mô hình dữ liệu quan hệ",
+            "status": 1
+          },
+          {
+            "id": "NMCSDL_cate3",
+            "content": "Ngôn ngữ truy vấn SQL",
+            "status": 1
+          },
+          {
+            "id": "NMCSDL_cate4",
+            "content": "Thiết kế cơ sở dữ liệu",
+            "status": 1
+          },
+          {
+            "id": "NMCSDL_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7102,7 +7759,33 @@
         "name": "Lập trình mạng",
         "year": "3",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "LTM_cate1",
+            "content": "Giới thiệu về lập trình mạng",
+            "status": 1
+          },
+          {
+            "id": "LTM_cate2",
+            "content": "Giao thức TCP/IP",
+            "status": 1
+          },
+          {
+            "id": "LTM_cate3",
+            "content": "Lập trình socket",
+            "status": 1
+          },
+          {
+            "id": "LTM_cate4",
+            "content": "Lập trình ứng dụng mạng",
+            "status": 1
+          },
+          {
+            "id": "LTM_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7110,7 +7793,33 @@
         "name": "Lập trình web",
         "year": "3",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "LTW_cate1",
+            "content": "Giới thiệu về lập trình web",
+            "status": 1
+          },
+          {
+            "id": "LTW_cate2",
+            "content": "HTML, CSS, JavaScript",
+            "status": 1
+          },
+          {
+            "id": "LTW_cate3",
+            "content": "PHP, MySQL",
+            "status": 1
+          },
+          {
+            "id": "LTW_cate4",
+            "content": "Framework và CMS",
+            "status": 1
+          },
+          {
+            "id": "LTW_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7118,7 +7827,28 @@
         "name": "Nhập môn trí tuệ nhân tạo",
         "year": "3",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "NMTTN_cate1",
+            "content": "Giới thiệu về trí tuệ nhân tạo",
+            "status": 1
+          },
+          {
+            "id": "NMTTN_cate2",
+            "content": "Các phương pháp trí tuệ nhân tạo",
+            "status": 1
+          },
+          {
+            "id": "NMTTN_cate3",
+            "content": "Ứng dụng của trí tuệ nhân tạo",
+            "status": 1
+          },
+          {
+            "id": "NMTTN_cate4",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7126,7 +7856,33 @@
         "name": "Lập trình trên thiết bị di động",
         "year": "3",
         "credits": "3",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "LTDD_cate1",
+            "content": "Giới thiệu về lập trình trên thiết bị di động",
+            "status": 1
+          },
+          {
+            "id": "LTDD_cate2",
+            "content": "Ứng dụng di động",
+            "status": 1
+          },
+          {
+            "id": "LTDD_cate3",
+            "content": "Lập trình Android",
+            "status": 1
+          },
+          {
+            "id": "LTDD_cate4",
+            "content": "Lập trình iOS",
+            "status": 1
+          },
+          {
+            "id": "LTDD_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7134,7 +7890,33 @@
         "name": "Nhập môn công nghệ phần mềm",
         "year": "3",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "NMCNPM_cate1",
+            "content": "Giới thiệu về công nghệ phần mềm",
+            "status": 1
+          },
+          {
+            "id": "NMCNPM_cate2",
+            "content": "Quy trình phát triển phần mềm",
+            "status": 1
+          },
+          {
+            "id": "NMCNPM_cate3",
+            "content": "Phân tích và thiết kế hệ thống thông tin",
+            "status": 1
+          },
+          {
+            "id": "NMCNPM_cate4",
+            "content": "Kiểm thử phần mềm",
+            "status": 1
+          },
+          {
+            "id": "NMCNPM_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7142,7 +7924,33 @@
         "name": "Phân tích và thiết kế hệ thống thông tin",
         "year": "3",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "PTKHTT_cate1",
+            "content": "Giới thiệu về phân tích và thiết kế hệ thống thông tin",
+            "status": 1
+          },
+          {
+            "id": "PTKHTT_cate2",
+            "content": "Phân tích hệ thống",
+            "status": 1
+          },
+          {
+            "id": "PTKHTT_cate3",
+            "content": "Thiết kế hệ thống",
+            "status": 1
+          },
+          {
+            "id": "PTKHTT_cate4",
+            "content": "Kiến trúc hệ thống",
+            "status": 1
+          },
+          {
+            "id": "PTKHTT_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7150,7 +7958,33 @@
         "name": "Mạng máy tính nâng cao",
         "year": "3",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "MMTNC_cate1",
+            "content": "Giới thiệu về mạng máy tính nâng cao",
+            "status": 1
+          },
+          {
+            "id": "MMTNC_cate2",
+            "content": "Mạng không dây",
+            "status": 1
+          },
+          {
+            "id": "MMTNC_cate3",
+            "content": "Mạng di động",
+            "status": 1
+          },
+          {
+            "id": "MMTNC_cate4",
+            "content": "Mạng cảm biến",
+            "status": 1
+          },
+          {
+            "id": "MMTNC_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7158,7 +7992,33 @@
         "name": "Lập trình .NET",
         "year": "3",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "LTNET_cate1",
+            "content": "Giới thiệu về lập trình .NET",
+            "status": 1
+          },
+          {
+            "id": "LTNET_cate2",
+            "content": "Ngôn ngữ lập trình C#",
+            "status": 1
+          },
+          {
+            "id": "LTNET_cate3",
+            "content": "Framework .NET",
+            "status": 1
+          },
+          {
+            "id": "LTNET_cate4",
+            "content": "ASP.NET",
+            "status": 1
+          },
+          {
+            "id": "LTNET_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7166,7 +8026,33 @@
         "name": "Lập trình PHP",
         "year": "3",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "LTPHP_cate1",
+            "content": "Giới thiệu về lập trình PHP",
+            "status": 1
+          },
+          {
+            "id": "LTPHP_cate2",
+            "content": "Ngôn ngữ lập trình PHP",
+            "status": 1
+          },
+          {
+            "id": "LTPHP_cate3",
+            "content": "Framework PHP",
+            "status": 1
+          },
+          {
+            "id": "LTPHP_cate4",
+            "content": "Lập trình ứng dụng web với PHP",
+            "status": 1
+          },
+          {
+            "id": "LTPHP_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7174,7 +8060,33 @@
         "name": "Hệ quản trị cơ sở dữ liệu",
         "year": "3",
         "credits": "3",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "HQTCSDL_cate1",
+            "content": "Giới thiệu về hệ quản trị cơ sở dữ liệu",
+            "status": 1
+          },
+          {
+            "id": "HQTCSDL_cate2",
+            "content": "Các hệ quản trị cơ sở dữ liệu phổ biến",
+            "status": 1
+          },
+          {
+            "id": "HQTCSDL_cate3",
+            "content": "Ngôn ngữ truy vấn SQL",
+            "status": 1
+          },
+          {
+            "id": "HQTCSDL_cate4",
+            "content": "Thiết kế cơ sở dữ liệu",
+            "status": 1
+          },
+          {
+            "id": "HQTCSDL_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7182,7 +8094,33 @@
         "name": "Lập trình Front-End",
         "year": "3",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "LTFE_cate1",
+            "content": "Giới thiệu về lập trình Front-End",
+            "status": 1
+          },
+          {
+            "id": "LTFE_cate2",
+            "content": "HTML, CSS, JavaScript",
+            "status": 1
+          },
+          {
+            "id": "LTFE_cate3",
+            "content": "Framework Front-End",
+            "status": 1
+          },
+          {
+            "id": "LTFE_cate4",
+            "content": "Responsive Web Design",
+            "status": 1
+          },
+          {
+            "id": "LTFE_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7190,7 +8128,28 @@
         "name": "Máy học",
         "year": "3",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "MH_cate1",
+            "content": "Giới thiệu về máy học",
+            "status": 1
+          },
+          {
+            "id": "MH_cate2",
+            "content": "Các phương pháp máy học",
+            "status": 1
+          },
+          {
+            "id": "MH_cate3",
+            "content": "Ứng dụng của máy học",
+            "status": 1
+          },
+          {
+            "id": "MH_cate4",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7198,7 +8157,28 @@
         "name": "Thực tập lập trình web",
         "year": "3",
         "credits": "3",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "TTLTW_cate1",
+            "content": "Giới thiệu về thực tập lập trình web",
+            "status": 1
+          },
+          {
+            "id": "TTLTW_cate2",
+            "content": "Thực hành lập trình web",
+            "status": 1
+          },
+          {
+            "id": "TTLTW_cate3",
+            "content": "Xây dựng ứng dụng web",
+            "status": 1
+          },
+          {
+            "id": "TTLTW_cate4",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7206,7 +8186,28 @@
         "name": "Thực tập lập trình trên thiết bị di động",
         "year": "4",
         "credits": "3",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "TTLTDD_cate1",
+            "content": "Giới thiệu về thực tập lập trình trên thiết bị di động",
+            "status": 1
+          },
+          {
+            "id": "TTLTDD_cate2",
+            "content": "Thực hành lập trình trên thiết bị di động",
+            "status": 1
+          },
+          {
+            "id": "TTLTDD_cate3",
+            "content": "Xây dựng ứng dụng di động",
+            "status": 1
+          },
+          {
+            "id": "TTLTDD_cate4",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7214,7 +8215,33 @@
         "name": "Đảm bảo chất lượng và kiểm thử phần mềm",
         "year": "4",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "DBCLKT_cate1",
+            "content": "Giới thiệu về đảm bảo chất lượng và kiểm thử phần mềm",
+            "status": 1
+          },
+          {
+            "id": "DBCLKT_cate2",
+            "content": "Quy trình kiểm thử phần mềm",
+            "status": 1
+          },
+          {
+            "id": "DBCLKT_cate3",
+            "content": "Kiểm thử hệ thống",
+            "status": 1
+          },
+          {
+            "id": "DBCLKT_cate4",
+            "content": "Kiểm thử phần mềm tự động",
+            "status": 1
+          },
+          {
+            "id": "DBCLKT_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7222,7 +8249,33 @@
         "name": "An toàn và bảo mật hệ thống thông tin",
         "year": "4",
         "credits": "3",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "ABMHTT_cate1",
+            "content": "Giới thiệu về an toàn và bảo mật hệ thống thông tin",
+            "status": 1
+          },
+          {
+            "id": "ABMHTT_cate2",
+            "content": "Các mối đe dọa và cách phòng tránh",
+            "status": 1
+          },
+          {
+            "id": "ABMHTT_cate3",
+            "content": "Quản lý danh tính và quyền truy cập",
+            "status": 1
+          },
+          {
+            "id": "ABMHTT_cate4",
+            "content": "Bảo mật mạng",
+            "status": 1
+          },
+          {
+            "id": "ABMHTT_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7230,7 +8283,28 @@
         "name": "Data Mining",
         "year": "4",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "DM_cate1",
+            "content": "Giới thiệu về Data Mining",
+            "status": 1
+          },
+          {
+            "id": "DM_cate2",
+            "content": "Các phương pháp Data Mining",
+            "status": 1
+          },
+          {
+            "id": "DM_cate3",
+            "content": "Ứng dụng của Data Mining",
+            "status": 1
+          },
+          {
+            "id": "DM_cate4",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7238,7 +8312,28 @@
         "name": "Data Warehouse",
         "year": "4",
         "credits": "3",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "DW_cate1",
+            "content": "Giới thiệu về Data Warehouse",
+            "status": 1
+          },
+          {
+            "id": "DW_cate2",
+            "content": "Thiết kế Data Warehouse",
+            "status": 1
+          },
+          {
+            "id": "DW_cate3",
+            "content": "Xây dựng Data Warehouse",
+            "status": 1
+          },
+          {
+            "id": "DW_cate4",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7246,7 +8341,33 @@
         "name": "Quản trị mạng",
         "year": "4",
         "credits": "3",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "QTM_cate1",
+            "content": "Giới thiệu về quản trị mạng",
+            "status": 1
+          },
+          {
+            "id": "QTM_cate2",
+            "content": "Quản lý tài nguyên mạng",
+            "status": 1
+          },
+          {
+            "id": "QTM_cate3",
+            "content": "Quản lý dịch vụ mạng",
+            "status": 1
+          },
+          {
+            "id": "QTM_cate4",
+            "content": "Quản lý bảo mật mạng",
+            "status": 1
+          },
+          {
+            "id": "QTM_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7254,7 +8375,28 @@
         "name": "Thương mại điện tử",
         "year": "4",
         "credits": "3",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "TMDT_cate1",
+            "content": "Giới thiệu về thương mại điện tử",
+            "status": 1
+          },
+          {
+            "id": "TMDT_cate2",
+            "content": "Các mô hình thương mại điện tử",
+            "status": 1
+          },
+          {
+            "id": "TMDT_cate3",
+            "content": "Xây dựng hệ thống thương mại điện tử",
+            "status": 1
+          },
+          {
+            "id": "TMDT_cate4",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7262,7 +8404,33 @@
         "name": "Chuyên đề Java",
         "year": "4",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "CDJ_cate1",
+            "content": "Giới thiệu về Java",
+            "status": 1
+          },
+          {
+            "id": "CDJ_cate2",
+            "content": "Ngôn ngữ lập trình Java",
+            "status": 1
+          },
+          {
+            "id": "CDJ_cate3",
+            "content": "Framework Java",
+            "status": 1
+          },
+          {
+            "id": "CDJ_cate4",
+            "content": "Ứng dụng của Java",
+            "status": 1
+          },
+          {
+            "id": "CDJ_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7270,7 +8438,33 @@
         "name": "Chuyên đề Web",
         "year": "4",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "CDW_cate1",
+            "content": "Giới thiệu về Web",
+            "status": 1
+          },
+          {
+            "id": "CDW_cate2",
+            "content": "HTML, CSS, JavaScript",
+            "status": 1
+          },
+          {
+            "id": "CDW_cate3",
+            "content": "Framework Web",
+            "status": 1
+          },
+          {
+            "id": "CDW_cate4",
+            "content": "Ứng dụng của Web",
+            "status": 1
+          },
+          {
+            "id": "CDW_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7278,7 +8472,33 @@
         "name": "Xử lý ảnh và thị giác máy tính",
         "year": "4",
         "credits": "4",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "XLATG_cate1",
+            "content": "Giới thiệu về xử lý ảnh và thị giác máy tính",
+            "status": 1
+          },
+          {
+            "id": "XLATG_cate2",
+            "content": "Xử lý ảnh",
+            "status": 1
+          },
+          {
+            "id": "XLATG_cate3",
+            "content": "Thị giác máy tính",
+            "status": 1
+          },
+          {
+            "id": "XLATG_cate4",
+            "content": "Ứng dụng của xử lý ảnh và thị giác máy tính",
+            "status": 1
+          },
+          {
+            "id": "XLATG_cate5",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       },
       {
@@ -7286,7 +8506,38 @@
         "name": "Đồ án công nghệ phần mềm",
         "year": "4",
         "credits": "2",
-        "listcategory": [],
+        "listcategory": [
+          {
+            "id": "DACP_cate1",
+            "content": "Giới thiệu về đồ án công nghệ phần mềm",
+            "status": 1
+          },
+          {
+            "id": "DACP_cate2",
+            "content": "Phân tích yêu cầu",
+            "status": 1
+          },
+          {
+            "id": "DACP_cate3",
+            "content": "Thiết kế hệ thống",
+            "status": 1
+          },
+          {
+            "id": "DACP_cate4",
+            "content": "Xây dựng hệ thống",
+            "status": 1
+          },
+          {
+            "id": "DACP_cate5",
+            "content": "Kiểm thử hệ thống",
+            "status": 1
+          },
+          {
+            "id": "DACP_cate6",
+            "content": "Chủ đề khác....",
+            "status": 1
+          }
+        ],
         "questions": []
       }
     ]

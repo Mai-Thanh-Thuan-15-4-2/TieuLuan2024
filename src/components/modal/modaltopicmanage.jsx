@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, IconButton, Typography, Modal, Card, CardHeader, CardActions, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import { AddCircleOutline, Edit, Delete } from '@mui/icons-material';
+import { AddCircleOutline, Edit, Delete, Visibility } from '@mui/icons-material';
 import Tooltip from '@mui/material/Tooltip';
 
 const ModalTopicManage = ({ categories, id }) => {
@@ -42,12 +42,21 @@ const ModalTopicManage = ({ categories, id }) => {
                                     title={truncate(category.content)}
                                     action={
                                         <div>
-                                            <IconButton onClick={() => handleCategoryClick(category)}>
-                                                <Edit />
-                                            </IconButton>
-                                            <IconButton>
-                                                <Delete style={{ color: 'red' }} />
-                                            </IconButton>
+                                            <Tooltip title={<p className='title-tooltip'>{category.content}</p>}>
+                                                <IconButton>
+                                                    <Visibility />
+                                                </IconButton>
+                                            </Tooltip>
+                                            {category.author == id && (
+                                                <>
+                                                    <IconButton onClick={() => handleCategoryClick(category)}>
+                                                        <Edit />
+                                                    </IconButton>
+                                                    <IconButton>
+                                                        <Delete style={{ color: 'red' }} />
+                                                    </IconButton>
+                                                </>
+                                            )}
                                         </div>
                                     }
                                 />

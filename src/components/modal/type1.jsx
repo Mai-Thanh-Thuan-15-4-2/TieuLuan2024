@@ -75,31 +75,28 @@ const Type1 = ({ categories }) => {
     };
     function getMaxQuestionId(mainSubjects) {
         const selectedSubject = mainSubjects.find(subject => subject.id === id_sub);
-
+    
         if (selectedSubject && selectedSubject.questions) {
             const questions = selectedSubject.questions;
-
-            let maxQuestionId = null;
-
+    
+            let maxQuestionNumber = 0;
+    
             questions.forEach(question => {
                 const questionId = question.id;
-                const questionNumber = parseInt(questionId.replace("CTMT", ""));
-
-                if (!isNaN(questionNumber) && (maxQuestionId === null || questionNumber > parseInt(maxQuestionId.replace("CTMT", "")))) {
-                    maxQuestionId = questionId;
+                const questionNumber = parseInt(questionId.match(/\d+$/)[0]);
+    
+                if (!isNaN(questionNumber) && questionNumber > maxQuestionNumber) {
+                    maxQuestionNumber = questionNumber;
                 }
             });
-
-            if (maxQuestionId) {
-                const maxQuestionNumber = parseInt(maxQuestionId.replace("CTMT", ""));
-                const newMaxQuestionNumber = maxQuestionNumber + 1;
-                const newMaxQuestionId = "CTMT" + newMaxQuestionNumber.toString().padStart(3, "0");
-                return newMaxQuestionId;
-            }
+    
+            const newMaxQuestionNumber = maxQuestionNumber + 1;
+            const newMaxQuestionId = "QUESTION" + newMaxQuestionNumber.toString().padStart(3, "0");
+            return newMaxQuestionId;
         }
-
-        return "CTMT001";
-    }
+    
+        return "QUESTION001";
+    }    
     async function handleSaveQuestion() {
         if (selectedTopics.length === 0) {
             setErrorMessage('Bạn chưa chọn chủ đề');
